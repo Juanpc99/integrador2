@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Scope("singleton")
 @Service
@@ -17,23 +18,31 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Autowired
     private AvatarDAO avatarDAO;
+
+    @Override
+    public String registrar(AvatarDTO avatarDTO) {
+        try {
+            Avatar avatar = new Avatar();
+            avatar.setImgAvatar(avatarDTO.getImgAvatar());
+            avatar.setNombreAvatar(avatarDTO.getNombreAvatar());
+            avatarDAO.save(avatar);
+            return "Se creo el avatar exitosamente";
+        }catch (Exception e){
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public Avatar actualizar(Avatar avatar) {
+            return avatarDAO.save(avatar);
+    }
+
+    @Override
+    public void eliminar(Long idAvatar){
+        avatarDAO.deleteById(idAvatar);
+    }
+
     /**
-    @Override
-    public Avatar registrar(Avatar avatar) {
-        return avatarDAO.save(avatar);
-    }
-
-    @Override
-    public Avatar modificar(Avatar avatar) {
-        return avatarDAO.save(avatar);
-    }
-
-    //TODO: VERIFICAR METODO DE ELIMINAR
-    @Override
-    public void eliminar(int id) {
-       // avatarDAO.delete(id);
-    }
-
     //TODO: VERIFICAR METODO
     @Override
     public Avatar listarId(int id) {

@@ -5,6 +5,7 @@ import com.lenguageconquers.model.Curso;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CursoService{
 
@@ -21,5 +22,7 @@ public interface CursoService{
      * @return
      */
     List<Curso> findByProfesor(@Param("idProfesor") Integer idProfesor);
+
+    Optional<Curso> findById(Long idCurso);
 
 }

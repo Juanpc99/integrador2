@@ -10,11 +10,9 @@ import com.lenguageconquers.model.dto.AvatarDTO;
 import com.lenguageconquers.service.AvatarService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -31,9 +29,41 @@ public class AvatarController {
     @GetMapping
     public ResponseEntity<List<AvatarDTO>> listar(){
         List<Avatar> avatarList = avatarService.listar();
-        List<AvatarDTO> avatarDTOS =avatarMapper.listAvatarToListAvatarDTO(avatarList);
+        List<AvatarDTO> avatarDTOS = avatarMapper.listAvatarToListAvatarDTO(avatarList);
         System.out.println(avatarList);
         return ResponseEntity.ok().body(avatarDTOS);
+    }
+
+
+    @PostMapping("/guardarAvatar")
+    public ResponseEntity<String> save(@RequestBody AvatarDTO avatarDTO){
+        try {
+            return new ResponseEntity<>(avatarService.registrar(avatarDTO), HttpStatus.CREATED);
+        }catch (Exception e){
+            String mensaje = e.getMessage();
+            return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/actualizarAvatar")
+    public ResponseEntity<Avatar> modificar(@RequestBody Avatar avatar){
+        try{
+            return new ResponseEntity<>(avatarService.actualizar(avatar), HttpStatus.OK);
+        }catch (Exception e){
+            String mensaje = e.getMessage();
+            return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/eliminarAvatar/{id}")
+    public ResponseEntity<?> eliminarAvatar(@PathVariable("id") Long id){
+        try {
+            avatarService.eliminar(id);
+            return ResponseEntity.ok("Se eliminó satisfactoriamente");
+        } catch (Exception e) {
+            String mensaje = e.getMessage();
+            return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
+        }
     }
 
     /**

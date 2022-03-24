@@ -18,4 +18,28 @@ public class CursoEstudiante {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estudiante", nullable = false)
     private Estudiante estudiante;
+
+    public Long getIdCursoEstudiante() {
+        return idCursoEstudiante;
+    }
+
+    public void setIdCursoEstudiante(Long idCursoEstudiante) {
+        this.idCursoEstudiante = idCursoEstudiante;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
 }

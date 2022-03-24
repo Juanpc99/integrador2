@@ -13,7 +13,14 @@ public interface AvatarMapper {
 
     AvatarMapper INSTACE = Mappers.getMapper(AvatarMapper.class);
 
-    //AvatarDTO avatarToAvatarDTO(Avatar avatar);
+    /*
+    @Mapping(source = "idAvatar",target = "idAvatar")
+    @Mapping(source = "imgAvatar",target = "imgAvatar")
+    @Mapping(source = "nombreAvatar",target = "nombreAvatar")
+    AvatarDTO avatarToAvatarDTO(Avatar avatar);
+
+     */
+
     @Mapping(source = "idAvatar",target = "idAvatar")
     List<AvatarDTO> listAvatarToListAvatarDTO(List<Avatar> listAvatar);
 

@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Scope("singleton")
 @Service
 public class CursoServiceImpl implements CursoService {
@@ -51,5 +53,11 @@ public class CursoServiceImpl implements CursoService {
         //return cursoDAO.findByProfesor(idProfesor);
         return null;
     }
+
+    @Override
+    public Optional<Curso> findById(Long idCurso) {
+        return cursoDAO.findById(idCurso);
+    }
+
 
 }

@@ -1,6 +1,5 @@
 package com.lenguageconquers.model;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,8 +7,6 @@ import java.util.List;
 
 @Entity
 @Table(name="Avatar")
-@Getter
-@Setter
 public class Avatar {
 
     @Id
@@ -25,4 +22,30 @@ public class Avatar {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "avatar")
     private List<Estudiante> estudianteAvatar = new ArrayList<>();
+
+
+    public Long getIdAvatar() {
+        return idAvatar;
+    }
+
+    public void setIdAvatar(Long idAvatar) {
+        this.idAvatar = idAvatar;
+    }
+
+    public String getImgAvatar() {
+        return imgAvatar;
+    }
+
+    public void setImgAvatar(String imgAvatar) {
+        this.imgAvatar = imgAvatar;
+    }
+
+    public String getNombreAvatar() {
+        return nombreAvatar;
+    }
+
+    public void setNombreAvatar(String nombreAvatar) {
+        this.nombreAvatar = nombreAvatar;
+    }
+
 }

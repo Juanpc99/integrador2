@@ -10,8 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "estudiante")
-@Getter
-@Setter
 public class Estudiante {
 
     @Id
@@ -94,5 +92,123 @@ public class Estudiante {
     private List<NivelAcademicoEstudiante> nivelAcademicoEstudiantes = new ArrayList<>();
 
 
+    public Long getIdEstudiante() {
+        return idEstudiante;
+    }
 
+    public void setIdEstudiante(Long idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public String getNombreEstudiante() {
+        return nombreEstudiante;
+    }
+
+    public void setNombreEstudiante(String nombreEstudiante) {
+        this.nombreEstudiante = nombreEstudiante;
+    }
+
+    public String getApellidoEstudiante() {
+        return apellidoEstudiante;
+    }
+
+    public void setApellidoEstudiante(String apellidoEstudiante) {
+        this.apellidoEstudiante = apellidoEstudiante;
+    }
+
+    public String getNicknameEstudiante() {
+        return nicknameEstudiante;
+    }
+
+    public void setNicknameEstudiante(String nicknameEstudiante) {
+        this.nicknameEstudiante = nicknameEstudiante;
+    }
+
+    public int getPuntajeEstudiante() {
+        return puntajeEstudiante;
+    }
+
+    public void setPuntajeEstudiante(int puntajeEstudiante) {
+        this.puntajeEstudiante = puntajeEstudiante;
+    }
+
+    public String getCorreoEstudiante() {
+        return correoEstudiante;
+    }
+
+    public void setCorreoEstudiante(String correoEstudiante) {
+        this.correoEstudiante = correoEstudiante;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
+    }
+
+    public String getCodigoConfirmado() {
+        return codigoConfirmado;
+    }
+
+    public void setCodigoConfirmado(String codigoConfirmado) {
+        this.codigoConfirmado = codigoConfirmado;
+    }
+
+    public String getPasswordEstudiante() {
+        return passwordEstudiante;
+    }
+
+    public void setPasswordEstudiante(String passwordEstudiante) {
+        this.passwordEstudiante = passwordEstudiante;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public Semestre getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(Semestre semestre) {
+        this.semestre = semestre;
+    }
+
+    public Programa getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
+    }
 }
