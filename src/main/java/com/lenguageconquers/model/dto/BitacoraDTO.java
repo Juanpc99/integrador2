@@ -1,8 +1,6 @@
 package com.lenguageconquers.model.dto;
 
-import com.lenguageconquers.model.Estudiante;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 

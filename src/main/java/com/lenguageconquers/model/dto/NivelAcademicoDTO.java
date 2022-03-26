@@ -1,10 +1,6 @@
 package com.lenguageconquers.model.dto;
 
-import com.lenguageconquers.model.Curso;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 public class NivelAcademicoDTO implements Serializable {

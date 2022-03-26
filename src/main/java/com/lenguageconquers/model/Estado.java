@@ -1,7 +1,6 @@
 package com.lenguageconquers.model;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,8 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "estado")
-@Getter
-@Setter
+
 public class Estado {
 
     @Id
@@ -31,7 +29,44 @@ public class Estado {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
     private List<Reto> retos = new ArrayList<>();
 
-    //TODO: Relacion con tabla misione_estudiante
 
+    public Long getIdEstado() {
+        return idEstado;
+    }
 
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public String getNombreEstado() {
+        return nombreEstado;
+    }
+
+    public void setNombreEstado(String nombreEstado) {
+        this.nombreEstado = nombreEstado;
+    }
+
+    public EstadoTipo getEstadoTipo() {
+        return estadoTipo;
+    }
+
+    public void setEstadoTipo(EstadoTipo estadoTipo) {
+        this.estadoTipo = estadoTipo;
+    }
+
+    public List<NivelAcademicoEstudiante> getNivelAcademicoEstudiantes() {
+        return nivelAcademicoEstudiantes;
+    }
+
+    public void setNivelAcademicoEstudiantes(List<NivelAcademicoEstudiante> nivelAcademicoEstudiantes) {
+        this.nivelAcademicoEstudiantes = nivelAcademicoEstudiantes;
+    }
+
+    public List<Reto> getRetos() {
+        return retos;
+    }
+
+    public void setRetos(List<Reto> retos) {
+        this.retos = retos;
+    }
 }

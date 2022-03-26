@@ -1,15 +1,11 @@
 package com.lenguageconquers.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "reto_estudiante")
-@Getter
-@Setter
+
 public class RetoEstudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

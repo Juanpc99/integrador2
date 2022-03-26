@@ -34,7 +34,7 @@ public class CursoEstudianteController {
     public ResponseEntity<String> matricular(@RequestBody CursoEstudianteDTO cursoEstudianteDTO){
 
         try {
-            return new ResponseEntity<>(cursoEstudianteService.matricularCurso(cursoEstudianteDTO), HttpStatus.CREATED);
+            return new ResponseEntity<>( cursoEstudianteService.matricularCurso(cursoEstudianteDTO), HttpStatus.CREATED);
         }catch (Exception e){
             String mensaje = e.getMessage();
             return new ResponseEntity("error, hola", HttpStatus.NOT_FOUND);

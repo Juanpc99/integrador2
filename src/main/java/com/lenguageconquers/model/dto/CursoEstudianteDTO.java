@@ -1,7 +1,6 @@
 package com.lenguageconquers.model.dto;
 
 
-import com.lenguageconquers.model.Estudiante;
 
 import java.io.Serializable;
 
@@ -14,10 +13,7 @@ public class CursoEstudianteDTO implements Serializable {
     private Long idCurso;
     private Long idEstudiante;
 
-    private String nombreCurso;
-    private String nombreEstudiante;
-    private String apellidoEstudiante;
-    private String correoEstudiante;
+
 
 
     public Long getIdCursoEstudiante() {
@@ -44,35 +40,5 @@ public class CursoEstudianteDTO implements Serializable {
         this.idEstudiante = idEstudiante;
     }
 
-    public String getNombreCurso() {
-        return nombreCurso;
-    }
 
-    public void setNombreCurso(String nombreCurso) {
-        this.nombreCurso = nombreCurso;
-    }
-
-    public String getNombreEstudiante() {
-        return nombreEstudiante;
-    }
-
-    public void setNombreEstudiante(String nombreEstudiante) {
-        this.nombreEstudiante = nombreEstudiante;
-    }
-
-    public String getApellidoEstudiante() {
-        return apellidoEstudiante;
-    }
-
-    public void setApellidoEstudiante(String apellidoEstudiante) {
-        this.apellidoEstudiante = apellidoEstudiante;
-    }
-
-    public String getCorreoEstudiante() {
-        return correoEstudiante;
-    }
-
-    public void setCorreoEstudiante(String correoEstudiante) {
-        this.correoEstudiante = correoEstudiante;
-    }
 }

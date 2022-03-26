@@ -2,6 +2,7 @@ package com.lenguageconquers.service;
 
 
 import com.lenguageconquers.model.Estudiante;
+import com.lenguageconquers.model.dto.EstudianteDTO;
 
 
 public interface EstudianteService{
@@ -12,5 +13,7 @@ public interface EstudianteService{
     /*
     List<StudentRankingDto> listarRankingByCurso(int idCourse);
     */
+
+    //EstudianteDTO findByIdEstudiante(Long idEstudiante);
 
 }

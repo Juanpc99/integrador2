@@ -2,6 +2,7 @@ package com.lenguageconquers.service.serviceImplement;
 
 import com.lenguageconquers.dao.CursoDAO;
 import com.lenguageconquers.model.Curso;
+import com.lenguageconquers.model.dto.CursoDTO;
 import com.lenguageconquers.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -53,11 +54,24 @@ public class CursoServiceImpl implements CursoService {
         //return cursoDAO.findByProfesor(idProfesor);
         return null;
     }
-
+/*
     @Override
-    public Optional<Curso> findById(Long idCurso) {
-        return cursoDAO.findById(idCurso);
+    public CursoDTO findByIdCurso(Long idCurso) {
+        CursoDTO cursoDTO = new CursoDTO();
+        Curso curso = cursoDAO.findById(idCurso).get();
+        cursoDTO.setIdCurso(curso.getIdCurso());
+        cursoDTO.setInicioCurso(curso.getInicioCurso());
+        cursoDTO.setFinCurso(curso.getFinCurso());
+        cursoDTO.setNombreCurso(curso.getNombreCurso());
+        cursoDTO.setCantidadEstudiantes(curso.getCantidadEstudiantes());
+        cursoDTO.setIdEstado(curso.getEstado().getIdEstado());
+        cursoDTO.setIdPrograma(curso.getPrograma().getIdPrograma());
+        cursoDTO.setPassword(curso.getPassword());
+
+        return cursoDTO;
     }
+
+ */
 
 
 }

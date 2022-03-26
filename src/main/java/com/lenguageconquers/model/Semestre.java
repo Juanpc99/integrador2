@@ -19,4 +19,19 @@ public class Semestre {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "semestre")
     private List<Estudiante> estudianteSemestre = new ArrayList<>();
 
+    public Long getIdSemestre() {
+        return idSemestre;
+    }
+
+    public void setIdSemestre(Long idSemestre) {
+        this.idSemestre = idSemestre;
+    }
+
+    public String getNombreSemestre() {
+        return nombreSemestre;
+    }
+
+    public void setNombreSemestre(String nombreSemestre) {
+        this.nombreSemestre = nombreSemestre;
+    }
 }

@@ -1,6 +1,6 @@
 package com.lenguageconquers.model.dto;
 
-import javax.persistence.Column;
+
 import java.io.Serializable;
 
 public class FacultadDTO implements Serializable {

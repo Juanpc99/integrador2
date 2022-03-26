@@ -16,18 +16,17 @@ public interface CursoEstudianteMapper {
 
     CursoEstudianteMapper INSTANCE = Mappers.getMapper(CursoEstudianteMapper.class);
 
+    /*
     @Mappings({
             @Mapping(source = "idCursoEstudiante", target = "idCursoEstudiante"),
             @Mapping(source = "idCurso", target = "idCurso"),
             @Mapping(source = "idEstudainte", target = "idEstudiente"),
-            @Mapping(source = "curso.nombreCurso", target = "nombreCurso"),
-            @Mapping(source = "estudiante.nombreEstudiante", target = "nombreEstudiante"),
-            @Mapping(source = "estudiante.apellidoEstudiante", target = "apellidoEstudiante"),
-            @Mapping(source = "estudiante.correoEstudiante", target = "correoEstudiante")
     })
 
+     */
+
     List<CursoEstudianteDTO> listCursoEstudianteToListCursoEstudianteDTO(List<CursoEstudiante> listCursoEstudiante);
-    @InheritInverseConfiguration
+    //@InheritInverseConfiguration
     public CursoEstudianteDTO cursoEstudianteToCursoEstudianteDTO(CursoEstudiante cursoEstudiante);
 
 

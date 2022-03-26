@@ -1,14 +1,12 @@
 package com.lenguageconquers.model;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "recompensa_estudiante")
-@Getter
-@Setter
+
 public class RecompensaEstudiante {
 
     @Id

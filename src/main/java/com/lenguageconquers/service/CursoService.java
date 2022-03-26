@@ -2,6 +2,7 @@ package com.lenguageconquers.service;
 
 
 import com.lenguageconquers.model.Curso;
+import com.lenguageconquers.model.dto.CursoDTO;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -23,6 +24,6 @@ public interface CursoService{
      */
     List<Curso> findByProfesor(@Param("idProfesor") Integer idProfesor);
 
-    Optional<Curso> findById(Long idCurso);
+    //CursoDTO findByIdCurso(Long idCurso);
 
 }

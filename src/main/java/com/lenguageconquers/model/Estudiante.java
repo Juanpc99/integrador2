@@ -1,7 +1,5 @@
 package com.lenguageconquers.model;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -60,11 +58,11 @@ public class Estudiante {
     @JoinColumn(name = "id_semestre", nullable = false)
     private Semestre semestre;
 
-    /*
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estado", nullable = false)
     private Estado estado;
-   */
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_programa", nullable = false)
@@ -210,5 +208,13 @@ public class Estudiante {
 
     public void setPrograma(Programa programa) {
         this.programa = programa;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }
