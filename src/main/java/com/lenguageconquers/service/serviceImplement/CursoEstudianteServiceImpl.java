@@ -9,6 +9,7 @@ import com.lenguageconquers.model.Estudiante;
 import com.lenguageconquers.model.dto.CursoEstudianteDTO;
 import com.lenguageconquers.service.CursoEstudianteService;
 import com.lenguageconquers.service.CursoService;
+import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,6 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
 
     @Autowired
     private CursoEstudianteDAO cursoEstudianteDAO;
-
-    @Autowired
-    private CursoService cursoService;
 
     @Autowired
     private CursoDAO cursoDAO;
@@ -47,13 +45,28 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
     }
 
     @Override
-    public void eliminarMatricula(Long idCursoEstudiante) {
+    public void eliminarMatricula(Long idEstudiante,Long idCursoEstudiante) {
         cursoEstudianteDAO.deleteById(idCursoEstudiante);
     }
 
     @Override
-    public List<CursoEstudiante> listaCursosMatriculados() {
+    public List<CursoEstudiante> listaCursosMatriculados(Long idEstudiante, Long idCurso) {
+
+        //cursoEstudianteDAO.findAll();
         return cursoEstudianteDAO.findAll();
+    }
+
+    @Override
+    public List<CursoEstudiante> listaCursosMatriculadosPorEstudiate(Long idEstudiante) throws Exception {
+        CursoEstudianteDTO cursoEstudianteDTO = new CursoEstudianteDTO();
+        if(Validaciones.isIdNull(idEstudiante)){
+            throw new Exception("Debe ingresar el id del estudiante");
+        }
+        List<CursoEstudiante> lista = (List<CursoEstudiante>) cursoEstudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).get();
+        if(lista.isEmpty()){
+            throw new Exception("El estudiante no tiene aun matriculado ningun curso");
+        }
+        return lista;
     }
 
 

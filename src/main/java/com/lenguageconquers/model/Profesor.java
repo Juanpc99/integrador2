@@ -41,4 +41,67 @@ public class Profesor {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     List<Archivo> archivos = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombreProfesor() {
+        return nombreProfesor;
+    }
+
+    public void setNombreProfesor(String nombreProfesor) {
+        this.nombreProfesor = nombreProfesor;
+    }
+
+    public String getApellidoProfesor() {
+        return apellidoProfesor;
+    }
+
+    public void setApellidoProfesor(String apellidoProfesor) {
+        this.apellidoProfesor = apellidoProfesor;
+    }
+
+    public String getCorreoProfesor() {
+        return correoProfesor;
+    }
+
+    public void setCorreoProfesor(String correoProfesor) {
+        this.correoProfesor = correoProfesor;
+    }
+
+    public Date getCumpleAñosProfesor() {
+        return cumpleAñosProfesor;
+    }
+
+    public void setCumpleAñosProfesor(Date cumpleAñosProfesor) {
+        this.cumpleAñosProfesor = cumpleAñosProfesor;
+    }
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
 }

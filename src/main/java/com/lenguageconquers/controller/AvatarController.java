@@ -30,7 +30,6 @@ public class AvatarController {
     public ResponseEntity<List<AvatarDTO>> listar(){
         List<Avatar> avatarList = avatarService.listar();
         List<AvatarDTO> avatarDTOS = avatarMapper.listAvatarToListAvatarDTO(avatarList);
-        System.out.println(avatarList);
         return ResponseEntity.ok().body(avatarDTOS);
     }
 

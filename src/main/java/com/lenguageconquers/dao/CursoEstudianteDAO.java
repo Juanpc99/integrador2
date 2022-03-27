@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 public interface CursoEstudianteDAO extends JpaRepository<CursoEstudiante, Long> {
+
+    //CursoEstudiante findByIdEstudianteANDIdCurso(Long idEstudiante, Long idCurso);
 }

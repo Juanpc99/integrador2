@@ -19,6 +19,7 @@ public class CursoDTO implements Serializable {
 
     private Long idPrograma;
     private Long idEstado;
+    private Long idProfesor;
 
     public Long getIdCurso() {
         return idCurso;
@@ -82,5 +83,13 @@ public class CursoDTO implements Serializable {
 
     public void setIdEstado(Long idEstado) {
         this.idEstado = idEstado;
+    }
+
+    public Long getIdProfesor() {
+        return idProfesor;
+    }
+
+    public void setIdProfesor(Long idProfesor) {
+        this.idProfesor = idProfesor;
     }
 }

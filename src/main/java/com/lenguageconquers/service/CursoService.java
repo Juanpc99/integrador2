@@ -3,6 +3,7 @@ package com.lenguageconquers.service;
 
 import com.lenguageconquers.model.Curso;
 import com.lenguageconquers.model.dto.CursoDTO;
+import com.lenguageconquers.model.dto.CursoEstudianteDTO;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface CursoService{
     List<Curso> findByProfesor(@Param("idProfesor") Integer idProfesor);
 
     //CursoDTO findByIdCurso(Long idCurso);
+    public String registrarCurso(CursoDTO cursoDTO);
+    List<Curso> listaCursos();
 
 }

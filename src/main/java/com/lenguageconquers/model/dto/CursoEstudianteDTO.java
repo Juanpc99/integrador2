@@ -16,6 +16,7 @@ public class CursoEstudianteDTO implements Serializable {
 
 
 
+
     public Long getIdCursoEstudiante() {
         return idCursoEstudiante;
     }

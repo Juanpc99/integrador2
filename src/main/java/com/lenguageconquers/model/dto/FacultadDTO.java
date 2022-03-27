@@ -11,4 +11,19 @@ public class FacultadDTO implements Serializable {
     private Long idFacultad;
     private String nombreFacultad;
 
+    public Long getIdFacultad() {
+        return idFacultad;
+    }
+
+    public void setIdFacultad(Long idFacultad) {
+        this.idFacultad = idFacultad;
+    }
+
+    public String getNombreFacultad() {
+        return nombreFacultad;
+    }
+
+    public void setNombreFacultad(String nombreFacultad) {
+        this.nombreFacultad = nombreFacultad;
+    }
 }

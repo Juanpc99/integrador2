@@ -9,4 +9,29 @@ public class EstadoDTO implements Serializable {
 
     private Long idEstado;
     private String nombreEstado;
+    private Long idEstadoTipo;
+
+    public Long getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public String getNombreEstado() {
+        return nombreEstado;
+    }
+
+    public void setNombreEstado(String nombreEstado) {
+        this.nombreEstado = nombreEstado;
+    }
+
+    public Long getIdEstadoTipo() {
+        return idEstadoTipo;
+    }
+
+    public void setIdEstadoTipo(Long idEstadoTipo) {
+        this.idEstadoTipo = idEstadoTipo;
+    }
 }

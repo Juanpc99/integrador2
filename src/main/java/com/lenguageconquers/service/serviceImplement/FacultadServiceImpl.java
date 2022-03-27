@@ -2,6 +2,7 @@ package com.lenguageconquers.service.serviceImplement;
 
 import com.lenguageconquers.dao.FacultadDAO;
 import com.lenguageconquers.model.Facultad;
+import com.lenguageconquers.model.dto.FacultadDTO;
 import com.lenguageconquers.service.FacultadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +15,24 @@ public class FacultadServiceImpl implements FacultadService {
 
     @Autowired
     private FacultadDAO facultadDAO;
+
+    @Override
+    public List<Facultad> listarFacultades() {
+        return facultadDAO.findAll();
+    }
+
+    @Override
+    public String registrarFacultad(FacultadDTO facultadDTO) {
+        try{
+            Facultad facultad = new Facultad();
+            facultad.setNombreFacultad(facultadDTO.getNombreFacultad());
+            facultadDAO.save(facultad);
+            return "Se creo exitosamente la facultad";
+
+        }catch (Exception e){
+            return e.getMessage();
+        }
+    }
 
 /**
     @Override

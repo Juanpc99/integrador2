@@ -21,4 +21,20 @@ public class EstadoTipo {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estadoTipo")
     private List<Estado> estados = new ArrayList<>();
+
+    public Long getIdEstadoTipo() {
+        return idEstadoTipo;
+    }
+
+    public void setIdEstadoTipo(Long idEstadoTipo) {
+        this.idEstadoTipo = idEstadoTipo;
+    }
+
+    public String getNombreEstadoTipo() {
+        return nombreEstadoTipo;
+    }
+
+    public void setNombreEstadoTipo(String nombreEstadoTipo) {
+        this.nombreEstadoTipo = nombreEstadoTipo;
+    }
 }

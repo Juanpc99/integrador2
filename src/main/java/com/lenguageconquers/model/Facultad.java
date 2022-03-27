@@ -18,4 +18,20 @@ public class Facultad {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "facultad")
     private List<Facultad> facultad = new ArrayList<>();
+
+    public Long getIdFacultad() {
+        return idFacultad;
+    }
+
+    public void setIdFacultad(Long idFacultad) {
+        this.idFacultad = idFacultad;
+    }
+
+    public String getNombreFacultad() {
+        return nombreFacultad;
+    }
+
+    public void setNombreFacultad(String nombreFacultad) {
+        this.nombreFacultad = nombreFacultad;
+    }
 }

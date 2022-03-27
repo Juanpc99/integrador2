@@ -1,10 +1,13 @@
 package com.lenguageconquers.model;
 
+import com.lenguageconquers.util.Validaciones;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "curso_estudiante")
 public class CursoEstudiante {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +21,7 @@ public class CursoEstudiante {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estudiante", nullable = false)
     private Estudiante estudiante;
+
 
     public Long getIdCursoEstudiante() {
         return idCursoEstudiante;

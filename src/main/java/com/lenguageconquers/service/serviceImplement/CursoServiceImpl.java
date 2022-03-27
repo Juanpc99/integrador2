@@ -54,6 +54,30 @@ public class CursoServiceImpl implements CursoService {
         //return cursoDAO.findByProfesor(idProfesor);
         return null;
     }
+
+    @Override
+    public String registrarCurso(CursoDTO cursoDTO) {
+        try{
+            Curso curso = new Curso();
+            curso.setNombreCurso(cursoDTO.getNombreCurso());
+            curso.setInicioCurso(cursoDTO.getInicioCurso());
+            curso.setFinCurso(cursoDTO.getFinCurso());
+            curso.setCantidadEstudiantes(curso.getCantidadEstudiantes());
+            curso.setPassword(cursoDTO.getPassword());
+            curso.setProfesor(cursoDAO.findById(cursoDTO.getIdProfesor()).get());
+            curso.setEstado(cursoDAO.findById(cursoDTO.getIdEstado()).get());
+            curso.setPrograma(cursoDAO.findById(cursoDTO.getIdPrograma()).get());
+            cursoDAO.save(curso);
+            return "Se creo exitosamente el curso";
+        }catch (Exception e){
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public List<Curso> listaCursos() {
+        return cursoDAO.findAll();
+    }
 /*
     @Override
     public CursoDTO findByIdCurso(Long idCurso) {

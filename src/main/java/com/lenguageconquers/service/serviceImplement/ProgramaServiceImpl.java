@@ -1,7 +1,9 @@
 package com.lenguageconquers.service.serviceImplement;
 
+import com.lenguageconquers.dao.DepartamentoDAO;
 import com.lenguageconquers.dao.ProgramaDAO;
 import com.lenguageconquers.model.Programa;
+import com.lenguageconquers.model.dto.ProgramaDTO;
 import com.lenguageconquers.service.ProgramaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,29 +17,26 @@ public class ProgramaServiceImpl implements ProgramaService {
     @Autowired
     private ProgramaDAO programaDAO;
 
+    @Autowired
+    private DepartamentoDAO departamentoDAO;
+
+
     @Override
-    public Programa registrar(Programa programa) {
-        return programaDAO.save(programa);
+    public String crearPrograma(ProgramaDTO programaDTO) {
+        try {
+            Programa programa = new Programa();
+            programa.setNombrePrograma(programaDTO.getNombrePrograma());
+            programa.setDepartamento(departamentoDAO.findById(programaDTO.getIdDepartamento()).get());
+            programaDAO.save(programa);
+            return "Se creo exitosamente el programa";
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override
-    public Programa modificar(Programa programa) {
-        return programaDAO.save(programa);
-    }
-
-    @Override
-    public void eliminar(int id) {
-        //programaDAO.delete(id);
-    }
-
-    @Override
-    public Programa listarId(int id) {
-        return null;
-        //return programaDAO.findOne(id);
-    }
-
-    @Override
-    public List<Programa> listar() {
+    public List<Programa> listaProgramasPorDepartamento(Long idDepartamento) {
         return programaDAO.findAll();
     }
+
 }

@@ -9,6 +9,7 @@ import java.util.List;
 public interface CursoEstudianteService {
 
     public String matricularCurso(CursoEstudianteDTO cursoEstudianteDTO);
-    public void eliminarMatricula(Long idCursoEstudiante);
-    public List<CursoEstudiante> listaCursosMatriculados();
+    public void eliminarMatricula(Long idEstudiante, Long idCursoEstudiante);
+    public List<CursoEstudiante> listaCursosMatriculadosPorEstudiate(Long idEstudiante) throws Exception;
+    public List<CursoEstudiante> listaCursosMatriculados(Long idEstudiante, Long idCurso);
 }

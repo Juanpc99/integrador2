@@ -25,9 +25,12 @@ public interface CursoEstudianteMapper {
 
      */
 
+    @Mapping(source = "idCursoEstudiante", target = "idCursoEstudiante")
+    @Mapping(source = "idCurso", target = "idCurso")
+    @Mapping(source = "idEstudiante", target = "idEstudiante")
     List<CursoEstudianteDTO> listCursoEstudianteToListCursoEstudianteDTO(List<CursoEstudiante> listCursoEstudiante);
     //@InheritInverseConfiguration
-    public CursoEstudianteDTO cursoEstudianteToCursoEstudianteDTO(CursoEstudiante cursoEstudiante);
+    //public CursoEstudianteDTO cursoEstudianteToCursoEstudianteDTO(CursoEstudiante cursoEstudiante);
 
 
 }

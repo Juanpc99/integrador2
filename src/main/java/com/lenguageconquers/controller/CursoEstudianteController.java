@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,12 +24,28 @@ public class CursoEstudianteController {
     @Autowired
     private CursoEstudianteMapper cursoEstudianteMapper;
 
-    @GetMapping
-    public ResponseEntity<List<CursoEstudianteDTO>> listarCursosMatriculados(){
-        List<CursoEstudiante> cursoEstudianteList = cursoEstudianteService.listaCursosMatriculados();
+    @GetMapping("/listar/{idEstudiante}/{idCurso}")
+    public ResponseEntity<List<CursoEstudianteDTO>> listarCursosMatriculados(@PathVariable("idEstudiante") Long idEstudiante,
+                                                                             @PathVariable("idCurso")Long idCurso){
+        List<CursoEstudiante> cursoEstudianteList = cursoEstudianteService.listaCursosMatriculados(idEstudiante,idCurso);
+        List<CursoEstudianteDTO> cursoEstudianteDTOS = new ArrayList<>();
+        for (CursoEstudiante cursoEstudiante : cursoEstudianteList) {
+            CursoEstudianteDTO cursoEstudianteDTO = new CursoEstudianteDTO();
+            cursoEstudianteDTO.setIdCursoEstudiante(cursoEstudiante.getIdCursoEstudiante());
+            cursoEstudianteDTO.setIdEstudiante(cursoEstudiante.getEstudiante().getIdEstudiante());
+            cursoEstudianteDTO.setIdCurso(cursoEstudiante.getCurso().getIdCurso());
+            cursoEstudianteDTOS.add(cursoEstudianteDTO);
+        }
+        return ResponseEntity.ok().body(cursoEstudianteDTOS);
+    }
+
+    @GetMapping("/cursosEstudiante/{id}")
+    public ResponseEntity<List<CursoEstudianteDTO>> listarCursosEstudiante(@PathVariable("id") Long id) throws Exception {
+        List<CursoEstudiante> cursoEstudianteList = cursoEstudianteService.listaCursosMatriculadosPorEstudiate(id);
         List<CursoEstudianteDTO> cursoEstudianteDTOS = cursoEstudianteMapper.listCursoEstudianteToListCursoEstudianteDTO(cursoEstudianteList);
         return ResponseEntity.ok().body(cursoEstudianteDTOS);
     }
+
 
     @PostMapping("/matricularCurso")
     public ResponseEntity<String> matricular(@RequestBody CursoEstudianteDTO cursoEstudianteDTO){
@@ -37,14 +54,15 @@ public class CursoEstudianteController {
             return new ResponseEntity<>( cursoEstudianteService.matricularCurso(cursoEstudianteDTO), HttpStatus.CREATED);
         }catch (Exception e){
             String mensaje = e.getMessage();
-            return new ResponseEntity("error, hola", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("error", HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/EliminarCursoMatriculado/{id}")
-    public ResponseEntity<?> eliminarCurso(@PathVariable("id") Long id){
+    //TODO: VERIFICAR METODO
+    @DeleteMapping("/EliminarCursoMatriculado/{idEstudiante}/{id}")
+    public ResponseEntity<?> eliminarCurso(@PathVariable("idEstudiante") Long idEstudiante,@PathVariable("id") Long id){
         try {
-            cursoEstudianteService.eliminarMatricula(id);
+            cursoEstudianteService.eliminarMatricula(idEstudiante, id);
             return ResponseEntity.ok("Se ha desmatriculado del curso satisfactoriamente");
         }catch (Exception e){
             String mensaje = e.getMessage();

@@ -1,6 +1,12 @@
 package com.lenguageconquers.service;
 
 import com.lenguageconquers.model.Programa;
+import com.lenguageconquers.model.dto.ProgramaDTO;
 
-public interface ProgramaService extends CRUD<Programa> {
+import java.util.List;
+
+public interface ProgramaService {
+
+    String crearPrograma(ProgramaDTO programaDTO);
+    List<Programa> listaProgramasPorDepartamento(Long idDepartamento);
 }
