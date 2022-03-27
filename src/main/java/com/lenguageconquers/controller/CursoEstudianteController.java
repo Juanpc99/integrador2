@@ -3,6 +3,7 @@ package com.lenguageconquers.controller;
 import com.lenguageconquers.mapper.CursoEstudianteMapper;
 import com.lenguageconquers.model.Curso;
 import com.lenguageconquers.model.CursoEstudiante;
+import com.lenguageconquers.model.dto.CursoDTO;
 import com.lenguageconquers.model.dto.CursoEstudianteDTO;
 import com.lenguageconquers.service.CursoEstudianteService;
 import com.lenguageconquers.service.CursoService;
@@ -57,6 +58,20 @@ public class CursoEstudianteController {
             return new ResponseEntity("error", HttpStatus.NOT_FOUND);
         }
     }
+
+    /*
+    @GetMapping("/buscarPorEstudianteMatriculado/{idCurso}/{idEstudiante}")
+    public ResponseEntity<CursoEstudiante> listarCursoMatriculadosEstudiante(@RequestParam("idCurso")Long idCurso, @RequestParam("idEstudiante") Long idEstudiante){
+        try{
+            CursoEstudiante curso = cursoEstudianteService.buscarIdCursoYIdEstudiante(idCurso,idEstudiante);
+            return ResponseEntity.ok().body(curso);
+        }catch (Exception e){
+            String mensaje = e.getMessage();
+            return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+     */
 
     //TODO: VERIFICAR METODO
     @DeleteMapping("/EliminarCursoMatriculado/{idEstudiante}/{id}")

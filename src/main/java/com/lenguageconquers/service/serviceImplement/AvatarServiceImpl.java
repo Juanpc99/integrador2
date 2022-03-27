@@ -4,6 +4,7 @@ import com.lenguageconquers.dao.AvatarDAO;
 import com.lenguageconquers.model.Avatar;
 import com.lenguageconquers.model.dto.AvatarDTO;
 import com.lenguageconquers.service.AvatarService;
+import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,16 @@ public class AvatarServiceImpl implements AvatarService {
     public String registrar(AvatarDTO avatarDTO) {
         try {
             Avatar avatar = new Avatar();
+            if(avatarDTO.getImgAvatar() == null ||
+                    avatarDTO.getImgAvatar().trim().equals("") ||
+                    Validaciones.isStringLenght(avatarDTO.getImgAvatar(), 80)){
+                throw new Exception("Se debe ingresar una direccion de la imagen valida");
+            }
+            if(avatarDTO.getNombreAvatar() == null ||
+                    avatarDTO.getNombreAvatar().trim().equals("") ||
+                    Validaciones.isStringLenght(avatarDTO.getNombreAvatar(), 50)){
+                throw new Exception("Se debe ingresar un nombre del avatar valido");
+            }
             avatar.setImgAvatar(avatarDTO.getImgAvatar());
             avatar.setNombreAvatar(avatarDTO.getNombreAvatar());
             avatarDAO.save(avatar);
@@ -32,11 +43,12 @@ public class AvatarServiceImpl implements AvatarService {
         }
     }
 
+    //TODO:NO ESTA COMPLETO
     @Override
     public Avatar actualizar(Avatar avatar) {
             return avatarDAO.save(avatar);
     }
-
+    //TODO:NO ESTA COMPLETO
     @Override
     public void eliminar(Long idAvatar){
         avatarDAO.deleteById(idAvatar);
@@ -53,7 +65,6 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     public List<Avatar> listar() {
         List<Avatar> avatares = avatarDAO.findAll();
-
         return avatares;
     }
 }

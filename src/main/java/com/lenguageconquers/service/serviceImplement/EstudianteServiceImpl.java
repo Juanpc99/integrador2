@@ -1,6 +1,6 @@
 package com.lenguageconquers.service.serviceImplement;
 
-import com.lenguageconquers.dao.EstudianteDAO;
+import com.lenguageconquers.dao.*;
 import com.lenguageconquers.model.Estudiante;
 import com.lenguageconquers.model.dto.EstudianteDTO;
 import com.lenguageconquers.service.EstudianteService;
@@ -15,6 +15,52 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     @Autowired
     private EstudianteDAO estudianteDAO;
+
+    @Autowired
+    private SemestreDAO semestreDAO;
+
+    @Autowired
+    private GeneroDAO generoDAO;
+
+    @Autowired
+    private AvatarDAO avatarDAO;
+
+    @Autowired
+    private EstadoDAO estadoDAO;
+
+    @Autowired
+    private ProgramaDAO programaDAO;
+
+    @Override
+    public String crearEstudiante(EstudianteDTO estudianteDTO) {
+        try{
+            Estudiante estudiante = new Estudiante();
+            estudiante.setNombreEstudiante(estudianteDTO.getNombreEstudiante());
+            estudiante.setApellidoEstudiante(estudianteDTO.getApellidoEstudiante());
+            estudiante.setNicknameEstudiante(estudianteDTO.getNicknameEstudiante());
+            estudiante.setPuntajeEstudiante(estudianteDTO.getPuntajeEstudiante());
+            estudiante.setPasswordEstudiante(estudianteDTO.getPasswordEstudiante());
+            estudiante.setCorreoEstudiante(estudianteDTO.getCorreoEstudiante());
+            estudiante.setCodigoConfirmado(estudianteDTO.getCodigoConfirmado());
+            estudiante.setSemestre(semestreDAO.findById(estudianteDTO.getIdSemestre()).get());
+            estudiante.setGenero(generoDAO.findById(estudianteDTO.getIdGenero()).get());
+            estudiante.setFechaRegistro(estudianteDTO.getFechaRegistro());
+            estudiante.setConfirmado(estudiante.isConfirmado());
+            estudiante.setAvatar(avatarDAO.findById(estudianteDTO.getIdAvatar()).get());
+            estudiante.setEstado(estadoDAO.findById(estudianteDTO.getIdEstado()).get());
+            estudiante.setFechaNacimiento(estudianteDTO.getFechaNacimiento());
+            estudiante.setPrograma(programaDAO.findById(estudianteDTO.getIdPrograma()).get());
+            estudianteDAO.save(estudiante);
+            return "Se creo exitosamente al estudiante";
+        }catch (Exception e){
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public List<Estudiante> listaEstudiantes() {
+        return estudianteDAO.findAll();
+    }
 
     /*
     @Override

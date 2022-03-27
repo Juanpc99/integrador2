@@ -31,15 +31,15 @@ public class Curso {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_programa", nullable = false)
-    private Curso programa;
+    private Programa programa;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estado", nullable = false)
-    private Curso estado;
+    private Estado estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_profesor", nullable = false)
-    private Curso profesor;
+    private Profesor profesor;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
     private List<Archivo> archivos = new ArrayList<>();
@@ -101,27 +101,35 @@ public class Curso {
         this.password = password;
     }
 
-    public Curso getPrograma() {
+    public Programa getPrograma() {
         return programa;
     }
 
-    public void setPrograma(Curso programa) {
+    public void setPrograma(Programa programa) {
         this.programa = programa;
     }
 
-    public Curso getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(Curso estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
-    public Curso getProfesor() {
+    public Profesor getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(Curso profesor) {
+    public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
+    }
+
+    public List<Reto> getRetos() {
+        return retos;
+    }
+
+    public void setRetos(List<Reto> retos) {
+        this.retos = retos;
     }
 }

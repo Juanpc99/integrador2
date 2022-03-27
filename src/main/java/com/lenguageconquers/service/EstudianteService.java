@@ -4,16 +4,12 @@ package com.lenguageconquers.service;
 import com.lenguageconquers.model.Estudiante;
 import com.lenguageconquers.model.dto.EstudianteDTO;
 
+import java.util.List;
+
 
 public interface EstudianteService{
-/**
-    Estudiante buscar(String nombreEstudiante);
-*/
-    //TODO: VERIFICAR EXISTENCIA TABLA ESTUDIANTERANKING
-    /*
-    List<StudentRankingDto> listarRankingByCurso(int idCourse);
-    */
 
-    //EstudianteDTO findByIdEstudiante(Long idEstudiante);
+    String crearEstudiante(EstudianteDTO estudianteDTO);
+    List<Estudiante> listaEstudiantes();
 
 }

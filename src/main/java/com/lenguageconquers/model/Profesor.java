@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "profesor")
-
 public class Profesor {
 
     @Id
@@ -26,8 +25,11 @@ public class Profesor {
     @Column(name = "correo_profesor")
     private String correoProfesor;
 
-    @Column(name = "cumpleaños_profesor")
-    private Date cumpleAñosProfesor;
+    @Column(name = "fecha_nacimiento")
+    private Date fechaNacimiento;
+
+    @Column(name = "foto")
+    private String foto;
 
     private boolean confirmado;
 
@@ -73,12 +75,12 @@ public class Profesor {
         this.correoProfesor = correoProfesor;
     }
 
-    public Date getCumpleAñosProfesor() {
-        return cumpleAñosProfesor;
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setCumpleAñosProfesor(Date cumpleAñosProfesor) {
-        this.cumpleAñosProfesor = cumpleAñosProfesor;
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public boolean isConfirmado() {
@@ -97,11 +99,11 @@ public class Profesor {
         this.genero = genero;
     }
 
-    public List<Curso> getCursos() {
-        return cursos;
+    public String getFoto() {
+        return foto;
     }
 
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

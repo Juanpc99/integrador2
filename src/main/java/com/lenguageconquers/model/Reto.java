@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "Reto")
-
 public class Reto {
 
     @Id
@@ -45,4 +44,76 @@ public class Reto {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reto")
     private List<RetoEstudiante> retoEstudiantes = new ArrayList<>();
+
+    public Long getIdReto() {
+        return idReto;
+    }
+
+    public void setIdReto(Long idReto) {
+        this.idReto = idReto;
+    }
+
+    public Date getFechaLimite() {
+        return fechaLimite;
+    }
+
+    public void setFechaLimite(Date fechaLimite) {
+        this.fechaLimite = fechaLimite;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public String getDescripcionReto() {
+        return descripcionReto;
+    }
+
+    public void setDescripcionReto(String descripcionReto) {
+        this.descripcionReto = descripcionReto;
+    }
+
+    public String getTituloReto() {
+        return tituloReto;
+    }
+
+    public void setTituloReto(String tituloReto) {
+        this.tituloReto = tituloReto;
+    }
+
+    public Long getMaximoIntentos() {
+        return maximoIntentos;
+    }
+
+    public void setMaximoIntentos(Long maximoIntentos) {
+        this.maximoIntentos = maximoIntentos;
+    }
+
+    public Mision getMision() {
+        return mision;
+    }
+
+    public void setMision(Mision mision) {
+        this.mision = mision;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 }

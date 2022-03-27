@@ -1,8 +1,11 @@
 package com.lenguageconquers.model.dto;
 
 
+import com.lenguageconquers.model.Reto;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class CursoDTO implements Serializable {
 
@@ -20,6 +23,9 @@ public class CursoDTO implements Serializable {
     private Long idPrograma;
     private Long idEstado;
     private Long idProfesor;
+    private String correoProfesor;
+
+    private List<RetoDTO> retoDTOS;
 
     public Long getIdCurso() {
         return idCurso;
@@ -91,5 +97,21 @@ public class CursoDTO implements Serializable {
 
     public void setIdProfesor(Long idProfesor) {
         this.idProfesor = idProfesor;
+    }
+
+    public String getCorreoProfesor() {
+        return correoProfesor;
+    }
+
+    public void setCorreoProfesor(String correoProfesor) {
+        this.correoProfesor = correoProfesor;
+    }
+
+    public List<RetoDTO> getRetoDTOS() {
+        return retoDTOS;
+    }
+
+    public void setRetoDTOS(List<RetoDTO> retoDTOS) {
+        this.retoDTOS = retoDTOS;
     }
 }

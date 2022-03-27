@@ -22,7 +22,7 @@ public class FacultadController {
     private FacultadMapper facultadMapper;
 
     @GetMapping
-    public ResponseEntity<List<FacultadDTO>> listarFacultades(){
+    public ResponseEntity<List<FacultadDTO>> listar(){
         List<Facultad> facultadList = facultadService.listarFacultades();
         List<FacultadDTO> facultadDTOS = facultadMapper.listFacultadToListFacultadDTO(facultadList);
         return ResponseEntity.ok().body(facultadDTOS);

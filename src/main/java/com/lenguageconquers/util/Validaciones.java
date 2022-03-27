@@ -2,11 +2,6 @@ package com.lenguageconquers.util;
 
 public class Validaciones {
 
-    public static void validarObligatorio(Object valor, String mensaje) throws Exception {
-        if (valor == null) {
-            throw new Exception(mensaje);
-        }
-    }
 
     public static boolean isIdNull(Long id){
         if(id == null){
@@ -15,4 +10,27 @@ public class Validaciones {
             return false;
         }
     }
+
+    /**
+     *
+     * @Title: isStringLenght
+     * @Description: TODO si la palabra es mayor que la longitud del atributo devuelve false
+     * @param: @param palabra
+     * @param: @param longitud
+     * @param: @return
+     * @return: boolean
+     * @author Angela Acosta
+     * @throws
+     *
+     */
+    public static boolean isStringLenght(String palabra, int longitud) {
+        boolean tam = false;
+        if(palabra.length()>longitud) {
+            tam = true;
+        }else{
+            tam = false;
+        }
+        return tam;
+    }
+
 }
