@@ -32,6 +32,21 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
 
         try{
             CursoEstudiante cursoEstudiante = new CursoEstudiante();
+            if(estudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).toString().equals("Optional.empty")){
+                throw new Exception("Se debe ingresar el id del estudiante valido");
+            }
+            if(cursoDAO.findById(cursoEstudianteDTO.getIdCurso()).toString().equals("Optional.empty")){
+                throw new Exception("Se debe ingresar el id del curso valido");
+            }
+            if(cursoEstudianteDTO.getIdEstudiante().toString().length() >3){
+                throw new Exception("El id del estudiante es muy largo, no valido");
+            }
+            if(cursoEstudianteDTO.getIdCurso().toString().length() >3){
+                throw new Exception("El id del curso es muy largo, no valido");
+            }
+
+            // que sean un long
+            //que no sea mas de 3 numeros
             cursoEstudiante.setEstudiante(estudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).get());
             cursoEstudiante.setCurso(cursoDAO.findById(cursoEstudianteDTO.getIdCurso()).get());
             cursoEstudianteDAO.save(cursoEstudiante);

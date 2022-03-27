@@ -34,6 +34,9 @@ public class CursoServiceImpl implements CursoService {
     @Autowired
     private CursoEstudianteDAO cursoEstudianteDAO;
 
+    @Autowired
+    private EstudianteDAO estudianteDAO;
+
     @Override
     public String registrarCurso(CursoDTO cursoDTO) {
         try{
@@ -63,13 +66,23 @@ public class CursoServiceImpl implements CursoService {
     @Override
     public CursoDTO findById(Long idCurso, Long idEstudiante) throws Exception {
         CursoDTO cursoDTO = new CursoDTO();
-        Curso curso = new Curso();
+
         List<RetoDTO> retoDTOList = new ArrayList<>();
         CursoEstudiante cursoEstudiante = cursoEstudianteDAO.buscarIdCursoyIdEstudiante(idCurso,idEstudiante);
-        if(cursoEstudiante == null){
-            return cursoDTO;
+
+        if(cursoDAO.findById(idCurso).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id del curso valido");
         }
-        curso = cursoDAO.findById(idCurso).get();
+
+        if(estudianteDAO.findById(idEstudiante).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id del estudiante valido");
+        }
+
+        if(cursoEstudiante == null){
+            throw new Exception("No se encuentra matriculado en este curso");
+        }
+        Curso curso = cursoDAO.findById(idCurso).get();
+
         cursoDTO.setIdCurso(curso.getIdCurso());
         cursoDTO.setNombreCurso(curso.getNombreCurso());
         cursoDTO.setIdProfesor(curso.getProfesor().getId());
