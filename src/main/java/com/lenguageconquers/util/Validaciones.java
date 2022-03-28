@@ -1,5 +1,8 @@
 package com.lenguageconquers.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Validaciones {
 
 
@@ -31,6 +34,16 @@ public class Validaciones {
             tam = false;
         }
         return tam;
+    }
+
+    public static boolean isNumeric(String word) {
+        boolean ret = false;
+        Pattern pat = Pattern.compile("[^0-9',.\\s]");
+        Matcher mat = pat.matcher(word);
+        if (!mat.find()) {
+            ret = true;
+        }
+        return ret;
     }
 
 }

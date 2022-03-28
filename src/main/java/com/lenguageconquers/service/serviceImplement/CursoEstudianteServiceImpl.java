@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Scope("singleton")
@@ -25,7 +26,6 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
 
     @Autowired
     private EstudianteDAO estudianteDAO;
-
 
     @Override
     public String matricularCurso(CursoEstudianteDTO cursoEstudianteDTO){
@@ -44,9 +44,16 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
             if(cursoEstudianteDTO.getIdCurso().toString().length() >3){
                 throw new Exception("El id del curso es muy largo, no valido");
             }
+            if(cursoDAO.findByIdEstudianteCursoConProgramaIgual(cursoEstudianteDTO.getIdEstudiante()).size() == 0){
+                throw new Exception("No puede matricular un curso que no pertenezca a su programa");
+            }
+            if(Validaciones.isNumeric(cursoEstudianteDTO.getIdCurso().toString())){
+                throw new Exception("EL id curso solo permite numeros");
+            }
+            if(Validaciones.isNumeric(cursoEstudianteDTO.getIdEstudiante().toString())){
+                throw new Exception("EL id estudiante solo permite numeros");
+            }
 
-            // que sean un long
-            //que no sea mas de 3 numeros
             cursoEstudiante.setEstudiante(estudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).get());
             cursoEstudiante.setCurso(cursoDAO.findById(cursoEstudianteDTO.getIdCurso()).get());
             cursoEstudianteDAO.save(cursoEstudiante);
@@ -68,8 +75,20 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
         return cursoEstudianteDAO.findAll();
     }
 
+    @Override
+    public List<CursoEstudianteDTO> listarPorIdEstudiante(Long idEstudiante) throws Exception {
+        List<CursoEstudiante> cursoEstudianteList = cursoEstudianteDAO.findByIdEstudiante(idEstudiante);
+        List<CursoEstudianteDTO> cursoEstudianteDTOList= new ArrayList<>();
+        for (CursoEstudiante cursoEstudiante: cursoEstudianteList) {
+            CursoEstudianteDTO cursoEstudianteDTO = new CursoEstudianteDTO();
+            cursoEstudianteDTO.setIdCursoEstudiante(cursoEstudiante.getIdCursoEstudiante());
+            cursoEstudianteDTO.setIdEstudiante(cursoEstudiante.getEstudiante().getIdEstudiante());
+            cursoEstudianteDTO.setIdCurso(cursoEstudiante.getCurso().getIdCurso());
+            cursoEstudianteDTOList.add(cursoEstudianteDTO);
+        }
 
-
+        return cursoEstudianteDTOList;
+    }
 
 
     @Override

@@ -20,8 +20,11 @@ public interface CursoService{
 
     CursoDTO findById(Long idCurso, Long idEstudiante) throws Exception;
 
+    List<CursoDTO> encontrarPorIdEstudianteCursosConProgramaIgual(Long idEstudiante) throws Exception;
 
+    List<CursoDTO> encontrarPorIdFacultad(Long idFacultad) throws Exception;
 
+    List<CursoDTO> encontrarPorIdFacultadeIdEstado(Long idFacultad, Long idEstado) throws Exception;
 
 
 

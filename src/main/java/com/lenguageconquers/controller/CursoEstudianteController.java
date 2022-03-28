@@ -25,6 +25,8 @@ public class CursoEstudianteController {
     @Autowired
     private CursoEstudianteMapper cursoEstudianteMapper;
 
+    //TODO: No se que hace y creo que se debe eliminar ATT: Juan Pablo :D
+
     @GetMapping("/listar/{idEstudiante}/{idCurso}")
     public ResponseEntity<List<CursoEstudianteDTO>> listarCursosMatriculados(@PathVariable("idEstudiante") Long idEstudiante,
                                                                              @PathVariable("idCurso")Long idCurso){
@@ -73,7 +75,7 @@ public class CursoEstudianteController {
 
      */
 
-    //TODO: VERIFICAR METODO
+    //TODO: VERIFICAR METODO Y PONER EL MENSAJE EN EL SERVICE JUNTO CON LA VALIDACIONES
     @DeleteMapping("/EliminarCursoMatriculado/{idEstudiante}/{id}")
     public ResponseEntity<?> eliminarCurso(@PathVariable("idEstudiante") Long idEstudiante,@PathVariable("id") Long id){
         try {
@@ -82,6 +84,18 @@ public class CursoEstudianteController {
         }catch (Exception e){
             String mensaje = e.getMessage();
             return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @GetMapping("/ListarPorId")
+    public ResponseEntity<List<CursoEstudianteDTO>> listarPorIdEstudiante(@RequestParam Long idEstudiante){
+        try {
+            List<CursoEstudianteDTO> cursoEstudianteDTOList = cursoEstudianteService.listarPorIdEstudiante(idEstudiante);
+
+            return new ResponseEntity(cursoEstudianteDTOList, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
