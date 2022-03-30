@@ -21,4 +21,20 @@ public class TipoMision {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoMision")
     private List<Mision> misiones = new ArrayList<>();
+
+    public Long getIdTipoMision() {
+        return idTipoMision;
+    }
+
+    public void setIdTipoMision(Long idTipoMision) {
+        this.idTipoMision = idTipoMision;
+    }
+
+    public String getDescripcionTipo() {
+        return descripcionTipo;
+    }
+
+    public void setDescripcionTipo(String descripcionTipo) {
+        this.descripcionTipo = descripcionTipo;
+    }
 }
