@@ -57,7 +57,7 @@ public class CursoEstudianteController {
             return new ResponseEntity<>( cursoEstudianteService.matricularCurso(cursoEstudianteDTO), HttpStatus.CREATED);
         }catch (Exception e){
             String mensaje = e.getMessage();
-            return new ResponseEntity("error", HttpStatus.NOT_FOUND);
+            return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
         }
     }
 

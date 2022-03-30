@@ -2,6 +2,7 @@ package com.lenguageconquers.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.io.FilenameUtils;
 
 public class Validaciones {
 
@@ -44,6 +45,18 @@ public class Validaciones {
             ret = true;
         }
         return ret;
+    }
+
+    public static boolean isExtensionValid(String archivo){
+        boolean validExtension = false;
+        if(FilenameUtils.getExtension(archivo).equals("pdf") ||
+                FilenameUtils.getExtension(archivo).equals("zip") ||
+                FilenameUtils.getExtension(archivo).equals("docx") ||
+                FilenameUtils.getExtension(archivo).equals("txt")){
+            return validExtension = true;
+        }else {
+            return validExtension = false;
+        }
     }
 
 }

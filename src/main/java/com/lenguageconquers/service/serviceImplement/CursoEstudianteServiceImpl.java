@@ -42,7 +42,7 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
                 throw new Exception("El id del estudiante es muy largo, no valido");
             }
             if(cursoEstudianteDTO.getIdCurso().toString().length() >3){
-                throw new Exception("El id del curso es muy largo, no valido");
+                throw new Exception("El id del curso es muy largo, no es valido");
             }
             if(cursoDAO.findByIdEstudianteCursoConProgramaIgual(cursoEstudianteDTO.getIdEstudiante()).size() == 0){
                 throw new Exception("No puede matricular un curso que no pertenezca a su programa");

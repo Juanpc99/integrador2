@@ -27,4 +27,44 @@ public class ArchivoEstudiante {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estudiante", nullable = false)
     private Estudiante estudiante;
+
+    public Long getIdArchivoestudiante() {
+        return idArchivoestudiante;
+    }
+
+    public void setIdArchivoestudiante(Long idArchivoestudiante) {
+        this.idArchivoestudiante = idArchivoestudiante;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getFecaCreacion() {
+        return fecaCreacion;
+    }
+
+    public void setFecaCreacion(Date fecaCreacion) {
+        this.fecaCreacion = fecaCreacion;
+    }
+
+    public Archivo getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(Archivo archivo) {
+        this.archivo = archivo;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
 }
