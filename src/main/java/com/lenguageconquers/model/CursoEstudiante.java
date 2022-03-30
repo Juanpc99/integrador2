@@ -1,6 +1,6 @@
 package com.lenguageconquers.model;
 
-import com.lenguageconquers.util.Validaciones;
+
 
 import javax.persistence.*;
 

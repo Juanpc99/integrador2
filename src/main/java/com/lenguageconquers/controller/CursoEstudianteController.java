@@ -1,12 +1,12 @@
 package com.lenguageconquers.controller;
 
 import com.lenguageconquers.mapper.CursoEstudianteMapper;
-import com.lenguageconquers.model.Curso;
+
 import com.lenguageconquers.model.CursoEstudiante;
-import com.lenguageconquers.model.dto.CursoDTO;
+
 import com.lenguageconquers.model.dto.CursoEstudianteDTO;
 import com.lenguageconquers.service.CursoEstudianteService;
-import com.lenguageconquers.service.CursoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
