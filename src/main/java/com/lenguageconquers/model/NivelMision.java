@@ -23,12 +23,51 @@ public class NivelMision {
     private String imgNivel;
 
     @Column(name = "puntaje_nivel")
-    private Long puntajeNivel;
+    private int puntajeNivel;
 
     @Column(name = "minimo_puntaje")
-    private Long minimoPuntaje;
+    private int minimoPuntaje;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "nivelMision")
     private List<Mision> misiones = new ArrayList<>();
 
+    public Long getIdNivelMision() {
+        return idNivelMision;
+    }
+
+    public void setIdNivelMision(Long idNivelMision) {
+        this.idNivelMision = idNivelMision;
+    }
+
+    public String getNombreNivel() {
+        return nombreNivel;
+    }
+
+    public void setNombreNivel(String nombreNivel) {
+        this.nombreNivel = nombreNivel;
+    }
+
+    public String getImgNivel() {
+        return imgNivel;
+    }
+
+    public void setImgNivel(String imgNivel) {
+        this.imgNivel = imgNivel;
+    }
+
+    public int getPuntajeNivel() {
+        return puntajeNivel;
+    }
+
+    public void setPuntajeNivel(int puntajeNivel) {
+        this.puntajeNivel = puntajeNivel;
+    }
+
+    public int getMinimoPuntaje() {
+        return minimoPuntaje;
+    }
+
+    public void setMinimoPuntaje(int minimoPuntaje) {
+        this.minimoPuntaje = minimoPuntaje;
+    }
 }

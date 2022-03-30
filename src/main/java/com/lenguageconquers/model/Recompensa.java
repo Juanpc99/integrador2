@@ -26,4 +26,28 @@ public class Recompensa {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "recompensa")
     private List<RecompensaEstudiante> recompensaEstudiantes = new ArrayList<>();
+
+    public Long getIdRecompensa() {
+        return idRecompensa;
+    }
+
+    public void setIdRecompensa(Long idRecompensa) {
+        this.idRecompensa = idRecompensa;
+    }
+
+    public String getTituloRecompensa() {
+        return tituloRecompensa;
+    }
+
+    public void setTituloRecompensa(String tituloRecompensa) {
+        this.tituloRecompensa = tituloRecompensa;
+    }
+
+    public String getImgRecompensa() {
+        return imgRecompensa;
+    }
+
+    public void setImgRecompensa(String imgRecompensa) {
+        this.imgRecompensa = imgRecompensa;
+    }
 }
