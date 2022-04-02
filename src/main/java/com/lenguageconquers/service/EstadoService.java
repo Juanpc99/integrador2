@@ -9,5 +9,5 @@ public interface EstadoService {
 
     String crearEstado(EstadoDTO estadoDTO);
     List<Estado> listaEstados();
-    List<Estado> listaEstadosTipo(Long idEstadoTipo);
+    List<Estado> listaPoridEstadoTipo(Long idEstadoTipo) throws Exception;
 }

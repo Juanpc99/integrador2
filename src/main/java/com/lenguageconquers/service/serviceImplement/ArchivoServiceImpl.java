@@ -37,24 +37,27 @@ public class ArchivoServiceImpl implements ArchivoService {
     public String subirArchivo(ArchivosDTO archivosDTO) {
         try{
             Archivo archivo = new Archivo();
+            if( archivosDTO.getIdCurso().toString().length()>3){
+                throw new Exception("El id del curso es muy largo, no es valido");
+            }
+            if( archivosDTO.getIdProfesor().toString().length()>3){
+                throw new Exception("El id del curso es muy largo, no es valido");
+            }
+
+            if(archivosDTO.getIdCurso() == null || archivosDTO.getIdCurso() <=0){
+                throw new Exception("Se debe ingresar un id de curso");
+            }
+
+            if(archivosDTO.getIdProfesor() == null || archivosDTO.getIdProfesor() <= 0){
+                throw new Exception("Se debe ingresar un id de profesor");
+            }
             if(cursoDAO.findById(archivosDTO.getIdCurso()).toString().equals("Optional.empty")){
                 throw new Exception("Se debe ingresar el id del curso valido");
             }
             if(profesorDAO.findById(archivosDTO.getIdProfesor()).toString().equals("Optional.empty")){
                 throw new Exception("Se debe ingresar el id del profesor valido");
             }
-            if(archivosDTO.getIdCurso() == null || archivosDTO.getIdCurso() <=0){
-                throw new Exception("Se debe ingresar un id de curso");
-            }
-            if( archivosDTO.getIdCurso().toString().length()>3){
-                throw new Exception("El id del curso es muy largo, no es valido");
-            }
-            if(archivosDTO.getIdProfesor() == null || archivosDTO.getIdProfesor() <= 0){
-                throw new Exception("Se debe ingresar un id de profesor");
-            }
-            if( archivosDTO.getIdProfesor().toString().length()>3){
-                throw new Exception("El id del curso es muy largo, no es valido");
-            }
+
             if(archivosDTO.getArchivo() == null){
                 throw new Exception("Se debe ingresar un archivo");
             }

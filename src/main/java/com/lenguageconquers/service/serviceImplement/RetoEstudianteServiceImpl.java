@@ -6,6 +6,7 @@ import com.lenguageconquers.dao.RetosDAO;
 import com.lenguageconquers.model.RetoEstudiante;
 import com.lenguageconquers.model.dto.RetoEstudianteDTO;
 import com.lenguageconquers.service.RetoEstudianteService;
+import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -26,27 +27,16 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
     @Autowired
     private RetosDAO retosDAO;
 
+    //TODO: ESTA MANDANDO ERROR EN NOMBRE_ARCHIVO
     @Override
     public String crearRetoEstudiante(RetoEstudianteDTO retoEstudianteDTO) {
         try {
             RetoEstudiante retoEstudiante = new RetoEstudiante();
-            if(retoEstudianteDTO.getIdEstudiante() == null){
-                throw new Exception("Debe ingresar el id de un estudiante");
-            }
             if(estudianteDAO.findById(retoEstudianteDTO.getIdEstudiante()).toString().equals("Optional.empty")){
                 throw new Exception("No se encontro el id del estudiante, ingrese uno valido");
             }
-            if(retoEstudianteDTO.getIdEstudiante() >0){
-                throw new Exception("El id debe ser mayor a 0");
-            }
-            if(retoEstudianteDTO.getIdReto() == null){
-                throw new Exception("Debe ingresar el id de un reto");
-            }
             if(retosDAO.findById(retoEstudianteDTO.getIdReto()).toString().equals("Optional.empty")){
                 throw new Exception("No se encontro el id del reto, ingrese uno valido");
-            }
-            if(retoEstudianteDTO.getIdReto() >0){
-                throw new Exception("El id debe ser mayor a 0");
             }
             if(retoEstudianteDTO.getNombreArchivo() == null){
                 throw new Exception("Se debe ingresar un nombre para el archivo");
@@ -54,9 +44,11 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
             if(retoEstudianteDTO.getNombreArchivo().length()>200){
                 throw new Exception("El nombre del archivo es muy largo");
             }
-            //TODO:DESCOMENTAR METODO DE VALIDADOR DE URL EN VALIDACIONES E IMPLEMENTARLO
             if(retoEstudianteDTO.getUrlArchivo() == null){
                 throw new Exception("Se debe ingresar una url para el archivo");
+            }
+            if(!Validaciones.urlValidator(retoEstudianteDTO.getUrlArchivo())){
+                throw new Exception("Se debe ingresar una url valida");
             }
             if(retoEstudianteDTO.getNombreArchivo().length()>200){
                 throw new Exception("la url del archivo es muy largo");
@@ -74,11 +66,12 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
                 throw new Exception("La fecha no debe haber pasado");
             }
             retoEstudiante.setEstudiante(estudianteDAO.findById(retoEstudianteDTO.getIdEstudiante()).get());
-            //retoEstudiante.setReto(retosDAO.findById(retoEstudianteDTO.getIdReto()));
-            retoEstudiante.setEstadoTarea(retoEstudianteDTO.getEstadoTarea());
-            retoEstudiante.setFechaSubida(retoEstudianteDTO.getFechaSubida());
+            retoEstudiante.setReto(retosDAO.findById(retoEstudianteDTO.getIdReto()).get());
             retoEstudiante.setNombreArchivo(retoEstudianteDTO.getNombreArchivo());
             retoEstudiante.setUrlArchivo(retoEstudianteDTO.getUrlArchivo());
+            retoEstudiante.setEstadoTarea(retoEstudianteDTO.getEstadoTarea());
+            retoEstudiante.setFechaSubida(retoEstudianteDTO.getFechaSubida());
+            retoEstudianteDAO.save(retoEstudiante);
             return "Se creo exitosamente el reto estudiante";
         }catch (Exception e){
             return e.getMessage();

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Scope("singleton")
 @Service
@@ -51,4 +53,53 @@ public class ComentarioServiceImpl implements ComentarioService {
     public List<Comentario> listar() {
         return comentarioDAO.findAll();
     }
+
+    @Override
+    public List<Comentario> listarPorIdRetoEstudiante(Long idRetoEstudiante) throws Exception {
+        List<Comentario> comentarioList = comentarioDAO.findByIdRetoEstudiante(idRetoEstudiante);
+        List<ComentarioDTO> comentariosDtos = new ArrayList<>();
+        for (Comentario comentario: comentarioList) {
+            ComentarioDTO comentarioDTO = new ComentarioDTO();
+            comentarioDTO.setIdComentario(comentario.getIdComentario());
+            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
+            comentarioDTO.setComentarios(comentario.getComentarios());
+            comentariosDtos.add(comentarioDTO);
+        }
+        return comentarioList;
+    }
+    /*
+    @Override
+    public List<Comentario> listarPorIdRetoEstudiante(Long idRetoEstudiante)  throws Exception{
+        ComentarioDTO comentarioDTO = new ComentarioDTO();
+        if(idRetoEstudiante == null){
+            throw new Exception("debe ingresar el id del reto estudiante");
+        }
+        if(idRetoEstudiante <=0){
+            throw new Exception("El id del reto estudiante no debe ser menor o igual a 0");
+        }
+        List<Comentario> comentarios = (List<Comentario>) comentarioDAO.findById(comentarioDTO.getIdRetoEstudiante()).get();
+        if(comentarios.isEmpty()){
+            throw new Exception("No se encontraron comentarios asociados a ese id de reto estudiante");
+        }
+        return comentarios;
+    }
+
+    @Override
+    public List<Comentario> comentariosEstudianteProfesor(Long idRetoEstudiante) throws Exception {
+        ComentarioDTO comentarioDTO = new ComentarioDTO();
+        if(idRetoEstudiante == null){
+            throw new Exception("debe ingresar el id del reto estudiante");
+        }
+        if(idRetoEstudiante <=0){
+            throw new Exception("El id del reto estudiante no debe ser menor o igual a 0");
+        }
+        List<Comentario> comentarios = comentarioDAO.comentariosEstudianteProfesor(comentarioDTO.getIdRetoEstudiante());
+        if(comentarios.isEmpty()){
+            throw new Exception("No se encontraron comentarios asociados a ese id de reto estudiante");
+        }
+        return comentarios;
+
+    }
+
+     */
 }

@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface RetoEstudianteMapper {
 
-    List<RetoEstudianteDTO> listRetoEstudianteToRetoEstudianteDTO(List<RetoEstudiante>retoEstudiantes);
+    List<RetoEstudianteDTO> listRetoEstudianteToRetoEstudianteDTO(List<RetoEstudiante> retoEstudiantes);
 }

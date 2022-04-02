@@ -3,7 +3,7 @@ package com.lenguageconquers.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
-//import org.apache.commons.validator.routines.UrlValidator;
+import org.apache.commons.validator.routines.UrlValidator;
 
 public class Validaciones {
 
@@ -73,14 +73,12 @@ public class Validaciones {
             return isValid = false;
         }
     }
-    /*
-     public static boolean urlValidator(String url)
-    {
+
+     public static boolean urlValidator(String url) {
         // Obteniendo UrlValidator
-    UrlValidator defaultValidator = new UrlValidator();
+        UrlValidator defaultValidator = new UrlValidator();
         return defaultValidator.isValid(url);
-       }
-     */
+    }
 
 
 

@@ -37,8 +37,8 @@ public class EstadoController {
     }
 
     @GetMapping("/listarPorTipo/{id}")
-    public ResponseEntity<List<EstadoDTO>> listarPorIdTipo(@PathVariable("id")Long id){
-        List<Estado> estadoList = estadoService.listaEstadosTipo(id);
+    public ResponseEntity<List<EstadoDTO>> listarPorIdTipo(@PathVariable("id")Long id) throws Exception {
+        List<Estado> estadoList = estadoService.listaPoridEstadoTipo(id);
         List<EstadoDTO> estadoDTOS = new ArrayList<>();
         for (Estado estado: estadoList) {
             EstadoDTO estadoDTO = new EstadoDTO();

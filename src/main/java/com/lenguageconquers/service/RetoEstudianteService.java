@@ -9,4 +9,5 @@ public interface RetoEstudianteService {
 
     String crearRetoEstudiante(RetoEstudianteDTO retoEstudianteDTO);
     List<RetoEstudiante> listar();
+
 }

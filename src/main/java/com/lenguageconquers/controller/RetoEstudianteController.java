@@ -39,7 +39,7 @@ public class RetoEstudianteController {
         return ResponseEntity.ok().body(retoEstudianteDTOS);
     }
 
-    @PostMapping
+    @PostMapping("/crearRetoEstudiante")
     public ResponseEntity<String> crear(@RequestBody RetoEstudianteDTO retoEstudianteDTO){
         try{
             return new ResponseEntity<>(retoEstudianteService.crearRetoEstudiante(retoEstudianteDTO), HttpStatus.CREATED);
@@ -48,5 +48,5 @@ public class RetoEstudianteController {
             return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
         }
     }
-    //TODO: FALTA REVISAR EN POSTMAN
+
 }

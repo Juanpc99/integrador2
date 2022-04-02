@@ -21,6 +21,12 @@ public class EstadoTipoServiceImpl implements EstadoTipoService {
     public String crearEstadoTipo(EstadoTipoDTO estadoTipoDTO) {
         try {
             EstadoTipo estadoTipo = new EstadoTipo();
+            if(estadoTipoDTO.getNombreEstadoTipo() == null || estadoTipoDTO.getNombreEstadoTipo().equals("")){
+                throw new Exception("Debe ingresar el nombre del estado tipo");
+            }
+            if(estadoTipoDTO.getNombreEstadoTipo().length()>50){
+                throw new Exception("El nombre del estado tipo es muy largo");
+            }
             estadoTipo.setNombreEstadoTipo(estadoTipoDTO.getNombreEstadoTipo());
             estadoTipoDAO.save(estadoTipo);
             return "Se creo exitosamente el estado tipo";
