@@ -1,25 +1,12 @@
 package com.lenguageconquers.model.dto;
 
-import java.io.Serializable;
+public class ComentarioProfesorEstudianteResponse {
 
-public class ComentarioDTO implements Serializable {
-
-    private static final long serialVersionUID = 745554423196286428L;
-
-    private Long idComentario;
     private String comentarios;
     private Long idRetoEstudiante;
     private Long idReto;
     private Long idEstudiante;
     private Long idProfesor;
-
-    public Long getIdComentario() {
-        return idComentario;
-    }
-
-    public void setIdComentario(Long idComentario) {
-        this.idComentario = idComentario;
-    }
 
     public String getComentarios() {
         return comentarios;

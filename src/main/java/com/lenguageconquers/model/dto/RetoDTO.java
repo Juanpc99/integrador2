@@ -13,7 +13,10 @@ public class RetoDTO implements Serializable {
     private Date fechaInicio;
     private String descripcionReto;
     private String tituloReto;
-    private Long maximoIntentos;
+    private int maximoIntentos;
+    private Long idEstado;
+    private Long idMision;
+    private Long idCurso;
 
     public Long getIdReto() {
         return idReto;
@@ -55,11 +58,35 @@ public class RetoDTO implements Serializable {
         this.tituloReto = tituloReto;
     }
 
-    public Long getMaximoIntentos() {
+    public int getMaximoIntentos() {
         return maximoIntentos;
     }
 
-    public void setMaximoIntentos(Long maximoIntentos) {
+    public void setMaximoIntentos(int maximoIntentos) {
         this.maximoIntentos = maximoIntentos;
+    }
+
+    public Long getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public Long getIdMision() {
+        return idMision;
+    }
+
+    public void setIdMision(Long idMision) {
+        this.idMision = idMision;
+    }
+
+    public Long getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(Long idCurso) {
+        this.idCurso = idCurso;
     }
 }

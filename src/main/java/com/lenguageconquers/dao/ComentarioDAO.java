@@ -9,7 +9,10 @@ import java.util.List;
 
 public interface ComentarioDAO  extends JpaRepository<Comentario,Long> {
 
-    @Query(value = "SELECT r.id_reto, re.id_reto_estudiante, re.id_estudiante, p.id_profesor, co.comentarios FROM comentario co inner join  reto_estudiante re on (co.id_reto_estudiante = re.id_reto_estudiante) inner join  reto r on (re.id_reto = r.id_reto) inner join  curso c on (r.id_curso = c.id_curso) inner join  profesor p on (c.id_profesor = p.id_profesor) where co.id_reto_estudiante =?1", nativeQuery = true)
-    List<Comentario> findByIdRetoEstudiante (Long idRetoEstudiante) throws Exception;
+    @Query(value = "Select c.id_comentario, c.comentarios, c.id_reto_estudiante FROM comentario c\n" +
+            "inner join reto_estudiante re on (re.id_reto_estudiante = c.id_reto_estudiante)\n" +
+            "where re.id_estudiante =?1\n" +
+            "and re.id_reto =?2", nativeQuery = true)
+    List<Comentario> findByIdRetoEstudiante (Long idEstudiante, Long idReto) throws Exception;
 
 }

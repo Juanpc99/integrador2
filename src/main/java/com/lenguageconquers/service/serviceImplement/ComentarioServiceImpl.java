@@ -55,14 +55,17 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public List<Comentario> listarPorIdRetoEstudiante(Long idRetoEstudiante) throws Exception {
-        List<Comentario> comentarioList = comentarioDAO.findByIdRetoEstudiante(idRetoEstudiante);
+    public List<Comentario> listarPorIdRetoEstudiante(Long idEstudiante, Long idReto) throws Exception {
+        List<Comentario> comentarioList = comentarioDAO.findByIdRetoEstudiante(idEstudiante, idReto);
         List<ComentarioDTO> comentariosDtos = new ArrayList<>();
         for (Comentario comentario: comentarioList) {
             ComentarioDTO comentarioDTO = new ComentarioDTO();
             comentarioDTO.setIdComentario(comentario.getIdComentario());
-            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
+            comentarioDTO.setIdReto(comentario.getRetoEstudiante().getReto().getIdReto());
             comentarioDTO.setComentarios(comentario.getComentarios());
+            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
+            comentarioDTO.setIdEstudiante(comentario.getRetoEstudiante().getEstudiante().getIdEstudiante());
+            comentarioDTO.setIdProfesor(comentario.getRetoEstudiante().getReto().getCurso().getProfesor().getId());
             comentariosDtos.add(comentarioDTO);
         }
         return comentarioList;

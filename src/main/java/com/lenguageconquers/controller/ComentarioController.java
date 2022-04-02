@@ -37,17 +37,18 @@ public class ComentarioController {
         return ResponseEntity.ok().body(comentarioDTOS);
     }
 
-    @GetMapping("/comentariosPorIdRetoE/{id}")
-    public ResponseEntity<List<ComentarioDTO>> listarPorIdReto(@PathVariable("id") Long id) throws Exception {
-        List<Comentario> comentarios = comentarioService.listarPorIdRetoEstudiante(id);
+    @GetMapping("/comentariosPorIdRetoE/{idEstudiante}/{idReto}")
+    public ResponseEntity<List<ComentarioDTO>> listarPorIdReto(@PathVariable("idEstudiante") Long idEstudiante, @PathVariable("idReto")Long idReto) throws Exception {
+        List<Comentario> comentarios = comentarioService.listarPorIdRetoEstudiante(idEstudiante, idReto);
         List<ComentarioDTO> comentarioDTOS = new ArrayList<>();
         for (Comentario comentario: comentarios) {
             ComentarioDTO comentarioDTO = new ComentarioDTO();
-            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getReto().getIdReto());
+            comentarioDTO.setIdComentario(comentario.getIdComentario());
+            comentarioDTO.setIdReto(comentario.getRetoEstudiante().getReto().getIdReto());
             comentarioDTO.setComentarios(comentario.getComentarios());
             comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
-            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getEstudiante().getIdEstudiante());
-            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getReto().getCurso().getProfesor().getId());
+            comentarioDTO.setIdEstudiante(comentario.getRetoEstudiante().getEstudiante().getIdEstudiante());
+            comentarioDTO.setIdProfesor(comentario.getRetoEstudiante().getReto().getCurso().getProfesor().getId());
             comentarioDTOS.add(comentarioDTO);
         }
         return ResponseEntity.ok().body(comentarioDTOS);

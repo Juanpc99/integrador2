@@ -10,6 +10,6 @@ public interface ComentarioService {
 
     String crearComentarios(ComentarioDTO comentarioDTO);
     List<Comentario> listar();
-    List<Comentario> listarPorIdRetoEstudiante(Long idRetoEstudiante) throws Exception;
+    List<Comentario> listarPorIdRetoEstudiante(Long idEstudiante, Long idReto) throws Exception;
 
 }
