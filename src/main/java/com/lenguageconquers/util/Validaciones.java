@@ -80,6 +80,16 @@ public class Validaciones {
         return defaultValidator.isValid(url);
     }
 
+    public static boolean formatoCorreoValido(String correo) {
+        boolean res = false;
+        Pattern pat = Pattern.compile("^[^@]+@[^@]+\\.[a-zA-Z]{2,}$");
+        Matcher mat = pat.matcher(correo);
+        if(mat.find()) {
+            res = true;
+        }
+        return res;
+    }
+
 
 
 

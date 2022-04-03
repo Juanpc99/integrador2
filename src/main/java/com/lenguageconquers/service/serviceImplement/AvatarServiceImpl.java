@@ -21,26 +21,22 @@ public class AvatarServiceImpl implements AvatarService {
     private AvatarDAO avatarDAO;
 
     @Override
-    public String registrar(AvatarDTO avatarDTO) {
-        try {
-            Avatar avatar = new Avatar();
-            if(avatarDTO.getImgAvatar() == null ||
-                    avatarDTO.getImgAvatar().trim().equals("") ||
-                    Validaciones.isStringLenght(avatarDTO.getImgAvatar(), 80)){
+    public String registrar(AvatarDTO avatarDTO) throws Exception {
+        Avatar avatar = new Avatar();
+        if(avatarDTO.getImgAvatar() == null ||
+                avatarDTO.getImgAvatar().trim().equals("") ||
+                Validaciones.isStringLenght(avatarDTO.getImgAvatar(), 80)){
                 throw new Exception("Se debe ingresar una direccion de la imagen valida");
-            }
-            if(avatarDTO.getNombreAvatar() == null ||
-                    avatarDTO.getNombreAvatar().trim().equals("") ||
-                    Validaciones.isStringLenght(avatarDTO.getNombreAvatar(), 50)){
-                throw new Exception("Se debe ingresar un nombre del avatar valido");
-            }
-            avatar.setImgAvatar(avatarDTO.getImgAvatar());
-            avatar.setNombreAvatar(avatarDTO.getNombreAvatar());
-            avatarDAO.save(avatar);
-            return "Se creo el avatar exitosamente";
-        }catch (Exception e){
-            return e.getMessage();
         }
+        if(avatarDTO.getNombreAvatar() == null ||
+                avatarDTO.getNombreAvatar().trim().equals("") ||
+                Validaciones.isStringLenght(avatarDTO.getNombreAvatar(), 50)){
+            throw new Exception("Se debe ingresar un nombre del avatar valido");
+        }
+        avatar.setImgAvatar(avatarDTO.getImgAvatar());
+        avatar.setNombreAvatar(avatarDTO.getNombreAvatar());
+        avatarDAO.save(avatar);
+        return "Se creo el avatar exitosamente";
     }
 
     //TODO:NO ESTA COMPLETO

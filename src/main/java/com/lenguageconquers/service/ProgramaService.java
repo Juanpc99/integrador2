@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ProgramaService {
 
-    String crearPrograma(ProgramaDTO programaDTO);
+    String crearPrograma(ProgramaDTO programaDTO) throws Exception;
     List<Programa> listaProgramasPorDepartamento(Long idDepartamento);
 }

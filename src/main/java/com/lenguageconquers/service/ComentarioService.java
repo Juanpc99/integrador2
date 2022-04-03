@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ComentarioService {
 
-    String crearComentarios(ComentarioDTO comentarioDTO);
+    String crearComentarios(ComentarioDTO comentarioDTO) throws Exception;
     List<Comentario> listar();
     List<Comentario> listarPorIdRetoEstudiante(Long idEstudiante, Long idReto) throws Exception;
 

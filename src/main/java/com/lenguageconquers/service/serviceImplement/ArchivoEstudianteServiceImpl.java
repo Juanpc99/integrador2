@@ -46,50 +46,47 @@ public class ArchivoEstudianteServiceImpl implements ArchivoEstudianteService {
     }
 
     @Override
-    public String subirArchivoEstudiante(ArchivosEstudianteDTO archivosEstudianteDTO) {
-        try{
-            ArchivoEstudiante archivoEstudiante = new ArchivoEstudiante();
-            if(estudianteDAO.findById(archivosEstudianteDTO.getIdEstudiante()).toString().equals("Optional.empty")){
-                throw new Exception("Se debe ingresar el id del estudiante valido");
-            }
-            if(archivoDAO.findById(archivosEstudianteDTO.getIdArchivo()).toString().equals("Optional.empty")){
-                throw new Exception("Se debe ingresar el id del archivo valido");
-            }
-            if(archivosEstudianteDTO.getIdEstudiante() == null ||archivosEstudianteDTO.getIdEstudiante() <=0){
-                throw new Exception("Se debe ingresar un id del estudiante");
-            }
-            if( archivosEstudianteDTO.getIdEstudiante().toString().length()>3){
-                throw new Exception("El id del estudiante es muy largo, no es valido");
-            }
-            if(archivosEstudianteDTO.getIdArchivo() == null || archivosEstudianteDTO.getIdArchivo() <= 0){
-                throw new Exception("Se debe ingresar un id del archivo");
-            }
-            if( archivosEstudianteDTO.getIdArchivo().toString().length()>3){
-                throw new Exception("El id del archivo es muy largo, no es valido");
-            }
-            if(archivosEstudianteDTO.getDescripcion() == null){
-                throw new Exception("Se debe ingresar una descripcion del archivo");
-            }
-            if(archivosEstudianteDTO.getDescripcion().length() >150){
-                throw new Exception("La descripcion del archivo es muy larga");
-            }
-            if(archivosEstudianteDTO.getFecaCreacion() == null){
-                throw new Exception("Se debe ingresar una fecha de creacion");
-            }
-            //TODO:REVISAR LA COMPARACION PORQUE DEJA INGRESAR FECHAS PASADAS
-            if(archivosEstudianteDTO.getFecaCreacion().compareTo(new Date())>0){
-                throw new Exception("La fecha de creación no debe ser superior a la fecha actual");
-            }
+    public String subirArchivoEstudiante(ArchivosEstudianteDTO archivosEstudianteDTO) throws Exception {
 
-            archivoEstudiante.setArchivo(archivoDAO.findById(archivosEstudianteDTO.getIdArchivo()).get());
-            archivoEstudiante.setEstudiante(estudianteDAO.findById(archivosEstudianteDTO.getIdEstudiante()).get());
-            archivoEstudiante.setDescripcion(archivosEstudianteDTO.getDescripcion());
-            archivoEstudiante.setFecaCreacion(archivosEstudianteDTO.getFecaCreacion());
-            archivoEstudianteDAO.save(archivoEstudiante);
-            return "Se creo exitosamente el archivo estudiante";
-        } catch (Exception e) {
-            return e.getMessage();
+        ArchivoEstudiante archivoEstudiante = new ArchivoEstudiante();
+        if(estudianteDAO.findById(archivosEstudianteDTO.getIdEstudiante()).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id del estudiante valido");
         }
+        if(archivoDAO.findById(archivosEstudianteDTO.getIdArchivo()).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id del archivo valido");
+        }
+        if(archivosEstudianteDTO.getIdEstudiante() == null ||archivosEstudianteDTO.getIdEstudiante() <=0){
+            throw new Exception("Se debe ingresar un id del estudiante");
+        }
+        if( archivosEstudianteDTO.getIdEstudiante().toString().length()>3){
+            throw new Exception("El id del estudiante es muy largo, no es valido");
+        }
+        if(archivosEstudianteDTO.getIdArchivo() == null || archivosEstudianteDTO.getIdArchivo() <= 0){
+            throw new Exception("Se debe ingresar un id del archivo");
+        }
+        if( archivosEstudianteDTO.getIdArchivo().toString().length()>3){
+            throw new Exception("El id del archivo es muy largo, no es valido");
+        }
+        if(archivosEstudianteDTO.getDescripcion() == null || archivosEstudianteDTO.getDescripcion().trim().equals("")){
+            throw new Exception("Se debe ingresar una descripcion del archivo");
+        }
+        if(archivosEstudianteDTO.getDescripcion().length() >150){
+            throw new Exception("La descripcion del archivo es muy larga");
+        }
+        if(archivosEstudianteDTO.getFecaCreacion() == null){
+            throw new Exception("Se debe ingresar una fecha de creacion");
+        }
+            //TODO:REVISAR LA COMPARACION PORQUE DEJA INGRESAR FECHAS PASADAS
+        if(archivosEstudianteDTO.getFecaCreacion().compareTo(new Date())>0){
+            throw new Exception("La fecha de creación no debe ser superior a la fecha actual");
+        }
+
+        archivoEstudiante.setArchivo(archivoDAO.findById(archivosEstudianteDTO.getIdArchivo()).get());
+        archivoEstudiante.setEstudiante(estudianteDAO.findById(archivosEstudianteDTO.getIdEstudiante()).get());
+        archivoEstudiante.setDescripcion(archivosEstudianteDTO.getDescripcion());
+        archivoEstudiante.setFecaCreacion(archivosEstudianteDTO.getFecaCreacion());
+        archivoEstudianteDAO.save(archivoEstudiante);
+        return "Se creo exitosamente el archivo estudiante";
     }
 
 }

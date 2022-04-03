@@ -8,5 +8,5 @@ import java.util.List;
 public interface ArchivoService {
 
     List<Archivo> listar();
-    String subirArchivo(ArchivosDTO archivosDTO);
+    String subirArchivo(ArchivosDTO archivosDTO) throws Exception;
 }

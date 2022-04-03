@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface DepartamentoService{
     List<Departamento> listarDepartamentos();
-    String registrarDepartamento(DepartamentoDTO departamentoDTO);
+    String registrarDepartamento(DepartamentoDTO departamentoDTO) throws Exception;
 }

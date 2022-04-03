@@ -25,31 +25,27 @@ public class EstadoServiceImpl implements EstadoService {
 
 
     @Override
-    public String crearEstado(EstadoDTO estadoDTO) {
-       try{
-           Estado estado = new Estado();
-           if(estadoDTO.getIdEstadoTipo() == null){
-               throw new Exception("Se debe ingresar un id de tipo estado");
-           }
-           if(estadoDTO.getIdEstadoTipo()<0){
-               throw new Exception("El id del tipo estado debe ser mayor a 0");
-           }
-           if(estadoTipoDAO.findById(estadoDTO.getIdEstadoTipo()).toString().equals("Optional.empty")){
-               throw new Exception("No se encontro el id de tipo estado, ingrese uno valido");
-           }
-           if(estadoDTO.getNombreEstado() == null || estadoDTO.getNombreEstado().equals("")){
-               throw new Exception("Debe ingresar un nombre");
-           }
-           if(estadoDTO.getNombreEstado().length()>50){
-               throw new Exception("El nombre del estado es muy largo");
-           }
-           estado.setNombreEstado(estadoDTO.getNombreEstado());
-           estado.setEstadoTipo(estadoTipoDAO.findById(estadoDTO.getIdEstadoTipo()).get());
-           estadoDAO.save(estado);
-           return "Se creo exitosamente el estado";
-       }catch (Exception e){
-           return e.getMessage();
-       }
+    public String crearEstado(EstadoDTO estadoDTO) throws Exception {
+        Estado estado = new Estado();
+        if(estadoDTO.getIdEstadoTipo() == null){
+            throw new Exception("Se debe ingresar un id de tipo estado");
+        }
+        if(estadoDTO.getIdEstadoTipo()<0){
+            throw new Exception("El id del tipo estado debe ser mayor a 0");
+        }
+        if(estadoTipoDAO.findById(estadoDTO.getIdEstadoTipo()).toString().equals("Optional.empty")){
+            throw new Exception("No se encontro el id de tipo estado, ingrese uno valido");
+        }
+        if(estadoDTO.getNombreEstado() == null || estadoDTO.getNombreEstado().trim().equals("")){
+            throw new Exception("Debe ingresar un nombre");
+        }
+        if(estadoDTO.getNombreEstado().length()>50){
+            throw new Exception("El nombre del estado es muy largo");
+        }
+        estado.setNombreEstado(estadoDTO.getNombreEstado());
+        estado.setEstadoTipo(estadoTipoDAO.findById(estadoDTO.getIdEstadoTipo()).get());
+        estadoDAO.save(estado);
+        return "Se creo exitosamente el estado";
     }
 
     @Override

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface NivelMisionService {
 
-    String crearNivelMision(NivelMisionDTO nivelMisionDTO);
+    String crearNivelMision(NivelMisionDTO nivelMisionDTO) throws Exception;
     List<NivelMision> listar();
 }

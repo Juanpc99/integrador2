@@ -13,4 +13,5 @@ public interface EstadoTipoMapper {
     EstadoTipoMapper INSTANCE = Mappers.getMapper(EstadoTipoMapper.class);
 
     List<EstadoTipoDTO> listEstadoTipoToListEstadoTipoDTO(List<EstadoTipo> estadoTipoList);
+    EstadoTipoDTO estadoTipoToEstadoTipoDTO(EstadoTipo estadoTipo);
 }

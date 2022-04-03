@@ -9,5 +9,5 @@ import java.util.List;
 public interface FacultadService{
 
     List<Facultad> listarFacultades();
-    String registrarFacultad(FacultadDTO facultadDTO);
+    String registrarFacultad(FacultadDTO facultadDTO) throws Exception;
 }

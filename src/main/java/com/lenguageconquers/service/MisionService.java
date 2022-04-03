@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface MisionService {
 
-    String cargarMision(MisionDTO misionDTO);
+    String cargarMision(MisionDTO misionDTO) throws Exception;
     List<Mision> listarMisiones();
 }

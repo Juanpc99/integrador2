@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface RecompensaService {
 
-    String crearRecompensa(RecompensaDTO recompensaDTO);
+    String crearRecompensa(RecompensaDTO recompensaDTO) throws Exception;
     List<Recompensa> listar();
 }

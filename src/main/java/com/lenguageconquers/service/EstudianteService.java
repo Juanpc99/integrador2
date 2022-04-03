@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface EstudianteService{
 
-    String crearEstudiante(EstudianteDTO estudianteDTO);
+    String crearEstudiante(EstudianteDTO estudianteDTO) throws Exception;
     List<Estudiante> listaEstudiantes();
 
 }

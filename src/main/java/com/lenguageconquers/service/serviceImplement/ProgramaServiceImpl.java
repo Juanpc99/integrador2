@@ -22,16 +22,28 @@ public class ProgramaServiceImpl implements ProgramaService {
 
 
     @Override
-    public String crearPrograma(ProgramaDTO programaDTO) {
-        try {
-            Programa programa = new Programa();
-            programa.setNombrePrograma(programaDTO.getNombrePrograma());
-            programa.setDepartamento(departamentoDAO.findById(programaDTO.getIdDepartamento()).get());
-            programaDAO.save(programa);
-            return "Se creo exitosamente el programa";
-        }catch (Exception e){
-            return e.getMessage();
+    public String crearPrograma(ProgramaDTO programaDTO) throws Exception {
+        Programa programa = new Programa();
+        if(programaDTO.getIdDepartamento() == null){
+            throw new Exception("Debe ingresar un id de departamento");
         }
+        if(programaDTO.getIdDepartamento()<0){
+            throw new Exception("Debe ingresar un id mayor a 0");
+        }
+        if(departamentoDAO.findById(programaDTO.getIdDepartamento()).toString().equals("Optional.empty")){
+            throw new Exception("No se encontro ningun departamento con ese id");
+        }
+        if(programaDTO.getNombrePrograma() == null || programaDTO.getNombrePrograma().trim().equals("")){
+            throw new Exception("Debe ingresar un nombre para el programa");
+        }
+        if(programaDTO.getNombrePrograma().length()>50){
+            throw new Exception("El nombre del programa es muy largo");
+        }
+        programa.setNombrePrograma(programaDTO.getNombrePrograma());
+        programa.setDepartamento(departamentoDAO.findById(programaDTO.getIdDepartamento()).get());
+        programaDAO.save(programa);
+        return "Se creo exitosamente el programa";
+
     }
 
     @Override

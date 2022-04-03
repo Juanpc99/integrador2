@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface GeneroService {
 
-    String registrarGenero(GeneroDTO generoDTO);
+    String registrarGenero(GeneroDTO generoDTO) throws Exception;
     List<Genero> listaGeneros();
 }

@@ -41,27 +41,50 @@ public class CursoServiceImpl implements CursoService {
     private FacultadDAO facultadDAO;
 
     @Override
-    public String registrarCurso(CursoDTO cursoDTO) {
-        try{
-            Curso curso = new Curso();
-            curso.setNombreCurso(cursoDTO.getNombreCurso());
-            curso.setInicioCurso(cursoDTO.getInicioCurso());
-            curso.setFinCurso(cursoDTO.getFinCurso());
-            curso.setCantidadEstudiantes(cursoDTO.getCantidadEstudiantes());
-            curso.setProfesor(profesorDAO.findById(cursoDTO.getIdProfesor()).get());
-            curso.setEstado(estadoDAO.findById(cursoDTO.getIdEstado()).get());
-            curso.setPrograma(programaDAO.findById(cursoDTO.getIdPrograma()).get());
-            cursoDAO.save(curso);
-            return "Se creo exitosamente el curso";
-        }catch (Exception e){
-            return e.getMessage();
+    public String registrarCurso(CursoDTO cursoDTO) throws Exception {
+        Curso curso = new Curso();
+        if(cursoDTO.getIdPrograma() == null){
+            throw new Exception("Debe ingresar el id de un programa");
         }
+        if(cursoDTO.getIdEstado() == null){
+            throw new Exception("Debe ingresar el id de un estado");
+        }
+        if(programaDAO.findById(cursoDTO.getIdPrograma()).toString().equals("Optional.empty")){
+            throw new Exception("No se encontro el id de programa, ingrese uno valido");
+        }
+        if(estadoDAO.findById(cursoDTO.getIdEstado()).toString().equals("Optional.empty")){
+            throw new Exception("No se encontro el id de estado, ingrese uno valido");
+        }
+        if(cursoDTO.getNombreCurso() == null || cursoDTO.getNombreCurso().trim().equals("")){
+            throw new Exception("Debe ingresar el nombre del curso");
+        }
+        if(cursoDTO.getNombreCurso().length()>60){
+            throw new Exception("El nombre del curso es muy largo");
+        }
+        if(cursoDTO.getInicioCurso() == null){
+            throw new Exception("Debe ingresar una fecha de inicio del curso");
+        }
+        if(cursoDTO.getFinCurso() == null){
+            throw new Exception("Debe ingresar una fecha de finalización del curso");
+        }
+        if(cursoDTO.getCantidadEstudiantes()<0){
+            throw new Exception("Debe ingresar un numero mayor que 0 en la cantidad de estudiantes");
+        }
+
+        curso.setNombreCurso(cursoDTO.getNombreCurso());
+        curso.setInicioCurso(cursoDTO.getInicioCurso());
+        curso.setFinCurso(cursoDTO.getFinCurso());
+        curso.setCantidadEstudiantes(cursoDTO.getCantidadEstudiantes());
+        curso.setProfesor(profesorDAO.findById(cursoDTO.getIdProfesor()).get());
+        curso.setEstado(estadoDAO.findById(cursoDTO.getIdEstado()).get());
+        curso.setPrograma(programaDAO.findById(cursoDTO.getIdPrograma()).get());
+        cursoDAO.save(curso);
+        return "Se creo exitosamente el curso";
     }
 
     @Override
     public List<Curso> listaCursos() {
-        List<Curso> c = cursoDAO.findAll();
-        return c;
+        return cursoDAO.findAll();
     }
 
 
@@ -171,24 +194,7 @@ public class CursoServiceImpl implements CursoService {
     }
 
 
-/*
-    @Override
-    public CursoDTO findByIdCurso(Long idCurso) {
-        CursoDTO cursoDTO = new CursoDTO();
-        Curso curso = cursoDAO.findById(idCurso).get();
-        cursoDTO.setIdCurso(curso.getIdCurso());
-        cursoDTO.setInicioCurso(curso.getInicioCurso());
-        cursoDTO.setFinCurso(curso.getFinCurso());
-        cursoDTO.setNombreCurso(curso.getNombreCurso());
-        cursoDTO.setCantidadEstudiantes(curso.getCantidadEstudiantes());
-        cursoDTO.setIdEstado(curso.getEstado().getIdEstado());
-        cursoDTO.setIdPrograma(curso.getPrograma().getIdPrograma());
-        cursoDTO.setPassword(curso.getPassword());
 
-        return cursoDTO;
-    }
-
- */
 
 
 }

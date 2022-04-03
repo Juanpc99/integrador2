@@ -19,33 +19,29 @@ public class RecompensaServiceImpl implements RecompensaService {
     private RecompensaDAO recompensaDAO;
 
     @Override
-    public String crearRecompensa(RecompensaDTO recompensaDTO) {
-        try{
-            Recompensa recompensa = new Recompensa();
-            if(recompensaDTO.getImgRecompensa() == null){
-                throw new Exception("Se debe ingresar la imagen de la recompensa");
-            }
-            if(!Validaciones.validExtensionImg(recompensaDTO.getImgRecompensa())){
-                throw new Exception("Se debe ingresar un formato valido de imagen");
-            }
-            if(recompensaDTO.getImgRecompensa().length() >100){
-                throw new Exception("El nombre del archivo es muy largo");
-            }
-            if(recompensaDTO.getTituloRecompensa() == null){
-                throw new Exception("Se debe ingresar un titulo de referencia de la recompensa");
-            }
-            if(recompensaDTO.getTituloRecompensa().length() >100){
-                throw new Exception("El titulo de la recompensa es muy largo");
-            }
-
-            recompensa.setImgRecompensa(recompensaDTO.getImgRecompensa());
-            recompensa.setTituloRecompensa(recompensaDTO.getTituloRecompensa());
-            recompensaDAO.save(recompensa);
-            return "Se creo exitosamente la recompensa";
-
-        } catch (Exception e) {
-            return e.getMessage();
+    public String crearRecompensa(RecompensaDTO recompensaDTO) throws Exception {
+        Recompensa recompensa = new Recompensa();
+        if(recompensaDTO.getImgRecompensa() == null){
+            throw new Exception("Se debe ingresar la imagen de la recompensa");
         }
+        if(!Validaciones.validExtensionImg(recompensaDTO.getImgRecompensa())){
+            throw new Exception("Se debe ingresar un formato valido de imagen");
+        }
+        if(recompensaDTO.getImgRecompensa().length() >100){
+            throw new Exception("El nombre del archivo es muy largo");
+        }
+        if(recompensaDTO.getTituloRecompensa() == null){
+            throw new Exception("Se debe ingresar un titulo de referencia de la recompensa");
+        }
+        if(recompensaDTO.getTituloRecompensa().length() >100){
+            throw new Exception("El titulo de la recompensa es muy largo");
+        }
+
+        recompensa.setImgRecompensa(recompensaDTO.getImgRecompensa());
+        recompensa.setTituloRecompensa(recompensaDTO.getTituloRecompensa());
+        recompensaDAO.save(recompensa);
+        return "Se creo exitosamente la recompensa";
+
     }
 
     @Override

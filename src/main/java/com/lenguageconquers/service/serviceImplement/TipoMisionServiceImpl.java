@@ -18,22 +18,17 @@ public class TipoMisionServiceImpl implements TipoMisionService {
     private TipoMisionDAO tipoMisionDAO;
 
     @Override
-    public String crearTipoMision(TipoMisionDTO tipoMisionDTO) {
-        try{
-
-            TipoMision tipoMision = new TipoMision();
-            if(tipoMisionDTO.getDescripcionTipo() == null){
-                throw new Exception("Se debe ingresar una descripcion");
-            }
-            if(tipoMisionDTO.getDescripcionTipo().length() >200){
-                throw new Exception("La descripcion es muy larga");
-            }
-            tipoMision.setDescripcionTipo(tipoMisionDTO.getDescripcionTipo());
-            tipoMisionDAO.save(tipoMision);
-            return "Se creo exitosamente el tipo mision";
-        }catch (Exception e){
-            return e.getMessage();
+    public String crearTipoMision(TipoMisionDTO tipoMisionDTO) throws Exception {
+        TipoMision tipoMision = new TipoMision();
+        if(tipoMisionDTO.getDescripcionTipo() == null){
+            throw new Exception("Se debe ingresar una descripcion");
         }
+        if(tipoMisionDTO.getDescripcionTipo().length() >200){
+            throw new Exception("La descripcion es muy larga");
+        }
+        tipoMision.setDescripcionTipo(tipoMisionDTO.getDescripcionTipo());
+        tipoMisionDAO.save(tipoMision);
+        return "Se creo exitosamente el tipo mision";
     }
 
     @Override

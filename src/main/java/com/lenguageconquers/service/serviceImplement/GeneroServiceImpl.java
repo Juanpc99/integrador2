@@ -19,15 +19,17 @@ public class GeneroServiceImpl implements GeneroService {
 
 
     @Override
-    public String registrarGenero(GeneroDTO generoDTO) {
-        try{
-            Genero genero = new Genero();
-            genero.setNombreGenero(generoDTO.getNombreGenero());
-            generoDAO.save(genero);
-            return "Se creo exitosamente el genero";
-        }catch (Exception e){
-            return e.getMessage();
+    public String registrarGenero(GeneroDTO generoDTO) throws Exception {
+        Genero genero = new Genero();
+        if(generoDTO.getNombreGenero() == null || generoDTO.getNombreGenero().trim().equals("")){
+            throw new Exception("Debe ingresar un nombre de genero");
         }
+        if(generoDTO.getNombreGenero().length()>50){
+            throw new Exception("El nombre del genero es muy largo");
+        }
+        genero.setNombreGenero(generoDTO.getNombreGenero());
+        generoDAO.save(genero);
+        return "Se creo exitosamente el genero";
     }
 
     @Override

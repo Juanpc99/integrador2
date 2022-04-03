@@ -27,15 +27,27 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     }
 
     @Override
-    public String registrarDepartamento(DepartamentoDTO departamentoDTO) {
-        try{
-            Departamento departamento = new Departamento();
-            departamento.setNombreDepartamento(departamentoDTO.getNombreDepartamento());
-            departamento.setFacultad(facultadDAO.findById(departamentoDTO.getIdFacultad()).get());
-            departamentoDAO.save(departamento);
-            return "Se creo el departamento exitosamente";
-        }catch (Exception e){
-            return e.getMessage();
+    public String registrarDepartamento(DepartamentoDTO departamentoDTO) throws Exception {
+        Departamento departamento = new Departamento();
+        if(departamentoDTO.getIdFacultad() == null){
+            throw new Exception("Debe ingresar el id de facultad");
         }
+        if(departamentoDTO.getIdFacultad()<0){
+            throw new Exception("Debe ingresar un id mayor a 0");
+        }
+        if(facultadDAO.findById(departamentoDTO.getIdFacultad()).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id de facultad, valido");
+        }
+        if(departamentoDTO.getNombreDepartamento() == null || departamentoDTO.getNombreDepartamento().trim().equals("")){
+            throw new Exception("Debe ingresar un nombre de departamento");
+        }
+        if(departamentoDTO.getNombreDepartamento().length()>50){
+            throw new Exception("El nombre del departamento esta muy largo");
+        }
+        departamento.setNombreDepartamento(departamentoDTO.getNombreDepartamento());
+        departamento.setFacultad(facultadDAO.findById(departamentoDTO.getIdFacultad()).get());
+        departamentoDAO.save(departamento);
+        return "Se creo el departamento exitosamente";
+
     }
 }

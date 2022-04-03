@@ -28,6 +28,17 @@ public class EstadoTipoController {
         return ResponseEntity.ok().body(estadoTipoDTOS);
     }
 
+    @GetMapping("/listarPorNombre")
+    public ResponseEntity<EstadoTipoDTO> listarPorNombre(@RequestParam("nombreEstadoTipo")String nombreEstadoTipo) throws Exception {
+        try{
+            EstadoTipo estadoTipo = estadoTipoService.findByNombreEstadoTipo(nombreEstadoTipo);
+            return ResponseEntity.ok().body(estadoTipoMapper.estadoTipoToEstadoTipoDTO(estadoTipo));
+        }catch (Exception e){
+            String mensaje = e.getMessage();
+            return new ResponseEntity(mensaje,HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping("/registrarEstadoTipo")
     public ResponseEntity<String> registrar(@RequestBody EstadoTipoDTO estadoTipoDTO){
         try {

@@ -15,7 +15,7 @@ public interface CursoService{
 
 
     //CursoDTO findByIdCurso(Long idCurso);
-    public String registrarCurso(CursoDTO cursoDTO);
+    public String registrarCurso(CursoDTO cursoDTO) throws Exception;
     List<Curso> listaCursos();
 
     CursoDTO findById(Long idCurso, Long idEstudiante) throws Exception;

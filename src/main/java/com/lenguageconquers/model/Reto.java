@@ -28,7 +28,7 @@ public class Reto {
     private String tituloReto;
 
     @Column(name = "maximo_intentos")
-    private Long maximoIntentos;
+    private int maximoIntentos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_mision")
@@ -85,11 +85,11 @@ public class Reto {
         this.tituloReto = tituloReto;
     }
 
-    public Long getMaximoIntentos() {
+    public int getMaximoIntentos() {
         return maximoIntentos;
     }
 
-    public void setMaximoIntentos(Long maximoIntentos) {
+    public void setMaximoIntentos(int maximoIntentos) {
         this.maximoIntentos = maximoIntentos;
     }
 

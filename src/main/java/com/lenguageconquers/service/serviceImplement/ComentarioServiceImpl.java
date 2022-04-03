@@ -24,29 +24,24 @@ public class ComentarioServiceImpl implements ComentarioService {
     private RetoEstudianteDAO retoEstudianteDAO;
 
     @Override
-    public String crearComentarios(ComentarioDTO comentarioDTO) {
-        try {
-
-            Comentario comentario = new Comentario();
-            if(comentarioDTO.getIdRetoEstudiante() == null){
+    public String crearComentarios(ComentarioDTO comentarioDTO) throws Exception {
+         Comentario comentario = new Comentario();
+         if(comentarioDTO.getIdRetoEstudiante() == null){
                 throw new Exception("Se debe ingresar el id de un reto estudiente para asignar el comentario");
-            }
-            if(retoEstudianteDAO.findById(comentarioDTO.getIdRetoEstudiante()).toString().equals("Optional.empty")){
-                throw new Exception("No se encuentra el id de reto estudiante, indroduzca uno valido");
-            }
-            if(comentarioDTO.getComentarios() == null){
-                throw new Exception("Se debe ingresar un comentario");
-            }
-            if(comentarioDTO.getComentarios().length()>500){
-                throw new Exception("El comentario es muy largo");
-            }
-            comentario.setComentarios(comentarioDTO.getComentarios());
-            comentario.setRetoEstudiante(retoEstudianteDAO.findById(comentarioDTO.getIdRetoEstudiante()).get());
-            comentarioDAO.save(comentario);
-            return "Se creo exitosamente el comentario";
-        }catch (Exception e){
-            return e.getMessage();
-        }
+         }
+         if(retoEstudianteDAO.findById(comentarioDTO.getIdRetoEstudiante()).toString().equals("Optional.empty")){
+             throw new Exception("No se encuentra el id de reto estudiante, indroduzca uno valido");
+         }
+         if(comentarioDTO.getComentarios() == null || comentarioDTO.getComentarios().trim().equals("")){
+             throw new Exception("Se debe ingresar un comentario");
+         }
+         if(comentarioDTO.getComentarios().length()>500){
+             throw new Exception("El comentario es muy largo");
+         }
+         comentario.setComentarios(comentarioDTO.getComentarios());
+         comentario.setRetoEstudiante(retoEstudianteDAO.findById(comentarioDTO.getIdRetoEstudiante()).get());
+         comentarioDAO.save(comentario);
+         return "Se creo exitosamente el comentario";
     }
 
     @Override

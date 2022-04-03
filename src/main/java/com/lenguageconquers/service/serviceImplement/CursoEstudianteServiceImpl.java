@@ -28,39 +28,35 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
     private EstudianteDAO estudianteDAO;
 
     @Override
-    public String matricularCurso(CursoEstudianteDTO cursoEstudianteDTO){
+    public String matricularCurso(CursoEstudianteDTO cursoEstudianteDTO) throws Exception {
 
-        try{
-            CursoEstudiante cursoEstudiante = new CursoEstudiante();
-            if(estudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).toString().equals("Optional.empty")){
-                throw new Exception("Se debe ingresar el id del estudiante valido");
-            }
-            if(cursoDAO.findById(cursoEstudianteDTO.getIdCurso()).toString().equals("Optional.empty")){
-                throw new Exception("Se debe ingresar el id del curso valido");
-            }
-            if(cursoEstudianteDTO.getIdEstudiante().toString().length() >3){
-                throw new Exception("El id del estudiante es muy largo, no valido");
-            }
-            if(cursoEstudianteDTO.getIdCurso().toString().length() >3){
-                throw new Exception("El id del curso es muy largo, no es valido");
-            }
-            if(cursoDAO.findByIdEstudianteCursoConProgramaIgual(cursoEstudianteDTO.getIdEstudiante()).size() == 0){
-                throw new Exception("No puede matricular un curso que no pertenezca a su programa");
-            }
-            if(Validaciones.isNumeric(cursoEstudianteDTO.getIdCurso().toString())){
-                throw new Exception("EL id curso solo permite numeros");
-            }
-            if(Validaciones.isNumeric(cursoEstudianteDTO.getIdEstudiante().toString())){
-                throw new Exception("EL id estudiante solo permite numeros");
-            }
-
-            cursoEstudiante.setEstudiante(estudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).get());
-            cursoEstudiante.setCurso(cursoDAO.findById(cursoEstudianteDTO.getIdCurso()).get());
-            cursoEstudianteDAO.save(cursoEstudiante);
-            return "Sematriculo exitosamente el curso";
-        }catch (Exception e){
-            return e.getMessage();
+        CursoEstudiante cursoEstudiante = new CursoEstudiante();
+        if(estudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id del estudiante valido");
         }
+        if(cursoDAO.findById(cursoEstudianteDTO.getIdCurso()).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id del curso valido");
+        }
+        if(cursoEstudianteDTO.getIdEstudiante().toString().length() >3){
+            throw new Exception("El id del estudiante es muy largo, no valido");
+        }
+        if(cursoEstudianteDTO.getIdCurso().toString().length() >3){
+            throw new Exception("El id del curso es muy largo, no es valido");
+        }
+        if(cursoDAO.findByIdEstudianteCursoConProgramaIgual(cursoEstudianteDTO.getIdEstudiante()).size() == 0){
+            throw new Exception("No puede matricular un curso que no pertenezca a su programa");
+        }
+        if(Validaciones.isNumeric(cursoEstudianteDTO.getIdCurso().toString())){
+            throw new Exception("EL id curso solo permite numeros");
+        }
+        if(Validaciones.isNumeric(cursoEstudianteDTO.getIdEstudiante().toString())){
+            throw new Exception("EL id estudiante solo permite numeros");
+        }
+
+        cursoEstudiante.setEstudiante(estudianteDAO.findById(cursoEstudianteDTO.getIdEstudiante()).get());
+        cursoEstudiante.setCurso(cursoDAO.findById(cursoEstudianteDTO.getIdCurso()).get());
+        cursoEstudianteDAO.save(cursoEstudiante);
+        return "Sematriculo exitosamente el curso";
     }
 
     @Override

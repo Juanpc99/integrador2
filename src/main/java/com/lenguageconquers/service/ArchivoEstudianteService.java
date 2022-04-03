@@ -9,5 +9,5 @@ public interface ArchivoEstudianteService {
 
     List<ArchivoEstudiante> listar();
     List<ArchivoEstudiante>  listarPorId(Long idEstudiante) throws Exception;
-    String subirArchivoEstudiante(ArchivosEstudianteDTO archivosEstudianteDTO);
+    String subirArchivoEstudiante(ArchivosEstudianteDTO archivosEstudianteDTO) throws Exception;
 }

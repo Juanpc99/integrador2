@@ -22,16 +22,18 @@ public class FacultadServiceImpl implements FacultadService {
     }
 
     @Override
-    public String registrarFacultad(FacultadDTO facultadDTO) {
-        try{
-            Facultad facultad = new Facultad();
-            facultad.setNombreFacultad(facultadDTO.getNombreFacultad());
-            facultadDAO.save(facultad);
-            return "Se creo exitosamente la facultad";
-
-        }catch (Exception e){
-            return e.getMessage();
+    public String registrarFacultad(FacultadDTO facultadDTO) throws Exception {
+        Facultad facultad = new Facultad();
+        if(facultadDTO.getNombreFacultad() == null || facultadDTO.getNombreFacultad().trim().equals("")){
+            throw new Exception("Debe ingresar un nombre de facultad");
         }
+        if(facultadDTO.getNombreFacultad().length()>50){
+            throw new Exception("El nombre de la facultad es muy largo");
+        }
+        facultad.setNombreFacultad(facultadDTO.getNombreFacultad());
+        facultadDAO.save(facultad);
+        return "Se creo exitosamente la facultad";
+
     }
 
 /**

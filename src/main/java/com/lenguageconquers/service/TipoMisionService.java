@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TipoMisionService {
 
-    String crearTipoMision(TipoMisionDTO tipoMisionDTO);
+    String crearTipoMision(TipoMisionDTO tipoMisionDTO) throws Exception;
     List<TipoMision> listar();
 }

@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface EstadoService {
 
-    String crearEstado(EstadoDTO estadoDTO);
+    String crearEstado(EstadoDTO estadoDTO) throws Exception;
     List<Estado> listaEstados();
     List<Estado> listaPoridEstadoTipo(Long idEstadoTipo) throws Exception;
+
 }
