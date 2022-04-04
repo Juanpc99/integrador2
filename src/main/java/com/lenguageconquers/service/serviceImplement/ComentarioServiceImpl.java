@@ -45,25 +45,37 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public List<Comentario> listar() {
-        return comentarioDAO.findAll();
+    public List<ComentarioDTO> listar() {
+        List<Comentario> comentarioList = comentarioDAO.findAll();
+        List<ComentarioDTO> comentarioDTOS = mapeoForComentario(comentarioList);
+        return comentarioDTOS;
     }
 
     @Override
-    public List<Comentario> listarPorIdRetoEstudiante(Long idEstudiante, Long idReto) throws Exception {
+    public List<ComentarioDTO> listarPorIdRetoEstudiante(Long idEstudiante, Long idReto) throws Exception {
         List<Comentario> comentarioList = comentarioDAO.findByIdRetoEstudiante(idEstudiante, idReto);
-        List<ComentarioDTO> comentariosDtos = new ArrayList<>();
+        List<ComentarioDTO> comentariosDtos = mapeoForComentario(comentarioList);
+
+        return comentariosDtos;
+    }
+
+
+    private ComentarioDTO mapeoComentario(Comentario comentario){
+        ComentarioDTO comentarioDTO = new ComentarioDTO();
+        comentarioDTO.setIdComentario(comentario.getIdComentario());
+        comentarioDTO.setIdReto(comentario.getRetoEstudiante().getReto().getIdReto());
+        comentarioDTO.setComentarios(comentario.getComentarios());
+        comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
+        comentarioDTO.setIdEstudiante(comentario.getRetoEstudiante().getEstudiante().getIdEstudiante());
+        comentarioDTO.setIdProfesor(comentario.getRetoEstudiante().getReto().getCurso().getProfesor().getId());
+        return comentarioDTO;
+    }
+    private List<ComentarioDTO> mapeoForComentario(List<Comentario> comentarioList){
+        List<ComentarioDTO> comentarioDTOS = new ArrayList<>();
         for (Comentario comentario: comentarioList) {
-            ComentarioDTO comentarioDTO = new ComentarioDTO();
-            comentarioDTO.setIdComentario(comentario.getIdComentario());
-            comentarioDTO.setIdReto(comentario.getRetoEstudiante().getReto().getIdReto());
-            comentarioDTO.setComentarios(comentario.getComentarios());
-            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
-            comentarioDTO.setIdEstudiante(comentario.getRetoEstudiante().getEstudiante().getIdEstudiante());
-            comentarioDTO.setIdProfesor(comentario.getRetoEstudiante().getReto().getCurso().getProfesor().getId());
-            comentariosDtos.add(comentarioDTO);
+            comentarioDTOS.add(mapeoComentario(comentario));
         }
-        return comentarioList;
+        return comentarioDTOS;
     }
     /*
     @Override
@@ -100,4 +112,5 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
      */
+
 }

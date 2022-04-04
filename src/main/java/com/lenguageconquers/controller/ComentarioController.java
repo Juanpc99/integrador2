@@ -25,33 +25,22 @@ public class ComentarioController {
 
     @GetMapping
     public ResponseEntity<List<ComentarioDTO>> listar(){
-        List<Comentario> comentarios = comentarioService.listar();
-        List<ComentarioDTO> comentarioDTOS = new ArrayList<>();
-        for (Comentario comentario: comentarios) {
-            ComentarioDTO comentarioDTO = new ComentarioDTO();
-            comentarioDTO.setIdComentario(comentario.getIdComentario());
-            comentarioDTO.setComentarios(comentario.getComentarios());
-            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
-            comentarioDTOS.add(comentarioDTO);
+        try {
+            List<ComentarioDTO> comentarioDTOS = comentarioService.listar();
+            return new ResponseEntity<>(comentarioDTOS, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(comentarioDTOS);
     }
 
     @GetMapping("/comentariosPorIdRetoE/{idEstudiante}/{idReto}")
-    public ResponseEntity<List<ComentarioDTO>> listarPorIdReto(@PathVariable("idEstudiante") Long idEstudiante, @PathVariable("idReto")Long idReto) throws Exception {
-        List<Comentario> comentarios = comentarioService.listarPorIdRetoEstudiante(idEstudiante, idReto);
-        List<ComentarioDTO> comentarioDTOS = new ArrayList<>();
-        for (Comentario comentario: comentarios) {
-            ComentarioDTO comentarioDTO = new ComentarioDTO();
-            comentarioDTO.setIdComentario(comentario.getIdComentario());
-            comentarioDTO.setIdReto(comentario.getRetoEstudiante().getReto().getIdReto());
-            comentarioDTO.setComentarios(comentario.getComentarios());
-            comentarioDTO.setIdRetoEstudiante(comentario.getRetoEstudiante().getIdRetoEstudiante());
-            comentarioDTO.setIdEstudiante(comentario.getRetoEstudiante().getEstudiante().getIdEstudiante());
-            comentarioDTO.setIdProfesor(comentario.getRetoEstudiante().getReto().getCurso().getProfesor().getId());
-            comentarioDTOS.add(comentarioDTO);
+    public ResponseEntity<List<ComentarioDTO>> listarPorIdReto(@PathVariable("idEstudiante") Long idEstudiante, @PathVariable("idReto")Long idReto){
+        try {
+            List<ComentarioDTO> comentarioDTOS = comentarioService.listarPorIdRetoEstudiante(idEstudiante, idReto);
+            return new ResponseEntity(comentarioDTOS, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(comentarioDTOS);
     }
 
     @PostMapping("/crearComentario")

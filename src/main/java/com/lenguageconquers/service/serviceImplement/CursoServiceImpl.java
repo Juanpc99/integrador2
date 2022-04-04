@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Scope("singleton")
 @Service
@@ -177,6 +176,20 @@ public class CursoServiceImpl implements CursoService {
             cursoDTOList.add(cursoDTO);
         }
         return cursoDTOList;
+    }
+
+    @Override
+    public Integer progresoCurso(Long idEstudiante, Long idCurso) throws Exception {
+        if(estadoDAO.existsById(idEstudiante) == false){
+            throw new Exception("El estudiante no existe");
+        }
+        if(cursoDAO.existsById(idCurso) == false){
+            throw new Exception("El curso no existe");
+        }
+        Integer cursos = cursoDAO.findByIdEstudianteAndIdCUrso(idEstudiante, idCurso).size();
+        Integer cursosTerminados = cursoDAO.findByIdEstudianteAndIdCUrsoAndEstadoTerminado(idEstudiante, idCurso).size();
+        Integer progreso = ((100 * cursosTerminados)/cursos);
+        return progreso;
     }
 
     public CursoDTO mapeo(Curso curso){

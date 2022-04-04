@@ -3,12 +3,8 @@ package com.lenguageconquers.service;
 
 import com.lenguageconquers.model.Curso;
 import com.lenguageconquers.model.dto.CursoDTO;
-import com.lenguageconquers.model.dto.CursoEstudianteDTO;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CursoService{
 
@@ -26,6 +22,6 @@ public interface CursoService{
 
     List<CursoDTO> encontrarPorIdFacultadeIdEstado(Long idFacultad, Long idEstado) throws Exception;
 
-
+    Integer progresoCurso(Long idEstudiante, Long idCurso) throws Exception;
 
 }

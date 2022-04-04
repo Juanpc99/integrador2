@@ -24,22 +24,19 @@ public class RetoController {
 
     @GetMapping
     public ResponseEntity<List<RetoDTO>> listar(){
-        List<Reto> retos = retoService.listar();
-        List<RetoDTO> retoDTOList = new ArrayList<>();
-        for (Reto reto: retos) {
-            RetoDTO retoDTO = new RetoDTO();
-            retoDTO.setIdReto(reto.getIdReto());
-            retoDTO.setTituloReto(reto.getTituloReto());
-            retoDTO.setDescripcionReto(reto.getDescripcionReto());
-            retoDTO.setFechaLimite(reto.getFechaLimite());
-            retoDTO.setFechaInicio(reto.getFechaInicio());
-            retoDTO.setMaximoIntentos(reto.getMaximoIntentos());
-            retoDTO.setIdCurso(reto.getCurso().getIdCurso());
-            retoDTO.setIdEstado(reto.getEstado().getIdEstado());
-            retoDTO.setIdMision(reto.getMision().getIdMision());
-            retoDTOList.add(retoDTO);
+        try {
+            return new ResponseEntity<>(retoService.listar(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(retoDTOList);
+    }
+    @GetMapping("/informacionRetos")
+    public ResponseEntity<List<RetoDTO>> listarInformacionRetosPorMisionYCurso(@RequestParam Long idCurso, @RequestParam Long idMision){
+        try {
+            return new ResponseEntity<>(retoService.findByIdCursoAndIdMision(idCurso, idMision), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/actualizarEstado")
@@ -51,4 +48,29 @@ public class RetoController {
             return new ResponseEntity(mensaje,HttpStatus.BAD_REQUEST);
         }
     }
+    @PostMapping
+    public ResponseEntity<String> crearReto(@RequestBody RetoDTO retoDTO){
+        try {
+            return new ResponseEntity<>(retoService.agregarReto(retoDTO), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PutMapping
+    public ResponseEntity<String> editarReto(@RequestBody RetoDTO retoDTO){
+        try {
+            return new ResponseEntity<>(retoService.actualizarReto(retoDTO), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @DeleteMapping
+    public ResponseEntity<String> eliminarReto(@RequestParam Long idReto){
+        try {
+            return new ResponseEntity<>(retoService.eliminarReto(idReto), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

@@ -84,6 +84,14 @@ public class CursoController {
         }
     }
 
+    @GetMapping("/progreso")
+    public ResponseEntity<Integer> preogresoCurso(@RequestParam Long idEstudiante, @RequestParam Long idCurso){
+        try {
+            return new ResponseEntity<>(cursoService.progresoCurso(idEstudiante, idCurso), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 }

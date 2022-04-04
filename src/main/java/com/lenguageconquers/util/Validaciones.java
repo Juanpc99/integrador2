@@ -1,5 +1,7 @@
 package com.lenguageconquers.util;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
@@ -36,6 +38,10 @@ public class Validaciones {
             tam = false;
         }
         return tam;
+    }
+
+    public static int tiempoEntreFechas(Date fecha1, Date fecha2){
+        return fecha2.getMonth() - fecha1.getMonth();
     }
 
     public static boolean isNumeric(String word) {

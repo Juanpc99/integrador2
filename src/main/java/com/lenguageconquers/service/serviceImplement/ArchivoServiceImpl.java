@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +30,10 @@ public class ArchivoServiceImpl implements ArchivoService {
     private ProfesorDAO profesorDAO;
 
     @Override
-    public List<Archivo> listar() {
-        return archivoDAO.findAll();
+    public List<ArchivosDTO> listar() throws Exception {
+        List<Archivo> archivoList = archivoDAO.findAll();
+        List<ArchivosDTO> archivosDTOList = mapeoForArchivo(archivoList);
+        return archivosDTOList;
     }
 
     @Override
@@ -86,5 +89,26 @@ public class ArchivoServiceImpl implements ArchivoService {
         archivo.setProfesor(profesorDAO.findById(archivosDTO.getIdProfesor()).get());
         archivoDAO.save(archivo);
         return "Se ha guardado exitosamente el archivo";
+    }
+
+    private ArchivosDTO mapeoArchivo(Archivo archivo){
+        ArchivosDTO archivosDTO = new ArchivosDTO();
+        archivosDTO.setArchivo(archivo.getArchivo());
+        archivosDTO.setIdArchivo(archivo.getIdArchivo());
+        archivosDTO.setFechaCreacion(archivo.getFechaCreacion());
+        archivosDTO.setTitulo(archivo.getTitulo());
+        archivosDTO.setIdCurso(archivo.getCurso().getIdCurso());
+        archivosDTO.setIdProfesor(archivo.getProfesor().getId());
+
+        return archivosDTO;
+    }
+
+    private List<ArchivosDTO> mapeoForArchivo(List<Archivo> archivoList){
+        List<ArchivosDTO> archivosDTOS = new ArrayList<>();
+        for (Archivo archivo: archivoList){
+            ArchivosDTO archivosDTO = mapeoArchivo(archivo);
+            archivosDTOS.add(archivosDTO);
+        }
+        return archivosDTOS;
     }
 }

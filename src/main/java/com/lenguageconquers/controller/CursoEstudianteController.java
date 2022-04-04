@@ -25,7 +25,7 @@ public class CursoEstudianteController {
     @Autowired
     private CursoEstudianteMapper cursoEstudianteMapper;
 
-    //TODO: No se que hace y creo que se debe eliminar ATT: Juan Pablo :D
+
 
     @GetMapping("/listar/{idEstudiante}/{idCurso}")
     public ResponseEntity<List<CursoEstudianteDTO>> listarCursosMatriculados(@PathVariable("idEstudiante") Long idEstudiante,

@@ -24,19 +24,12 @@ public class ArchivoController {
 
     @GetMapping
     public ResponseEntity<List<ArchivosDTO>> listarArchivos(){
-        List<Archivo> archivoList = archivoService.listar();
-        List<ArchivosDTO> archivosDTOS = new ArrayList<>();
-        for (Archivo archivo: archivoList) {
-            ArchivosDTO archivosDTO = new ArchivosDTO();
-            archivosDTO.setIdArchivo(archivo.getIdArchivo());
-            archivosDTO.setArchivo(archivo.getArchivo());
-            archivosDTO.setFechaCreacion(archivo.getFechaCreacion());
-            archivosDTO.setTitulo(archivo.getTitulo());
-            archivosDTO.setIdCurso(archivo.getCurso().getIdCurso());
-            archivosDTO.setIdProfesor(archivo.getProfesor().getId());
-            archivosDTOS.add(archivosDTO);
+        try {
+            List<ArchivosDTO> archivosDTOS = archivoService.listar();
+            return new ResponseEntity<>(archivosDTOS, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(archivosDTOS);
     }
 
     @PostMapping("/subirArchivo")

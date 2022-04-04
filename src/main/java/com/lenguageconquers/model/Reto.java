@@ -116,4 +116,12 @@ public class Reto {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    public List<RetoEstudiante> getRetoEstudiantes() {
+        return retoEstudiantes;
+    }
+
+    public void setRetoEstudiantes(List<RetoEstudiante> retoEstudiantes) {
+        this.retoEstudiantes = retoEstudiantes;
+    }
 }
