@@ -51,7 +51,7 @@ public class RetoServiceImpl implements RetoService {
             if(estadoDAO.findById(retoDTO.getIdEstado()).toString().equals("Optional.empty")){
                 throw new Exception("No se encontro el id de estado, ingrense uno valido");
             }
-            if(!estadoDAO.findById(retoDTO.getIdEstado()).get().getEstadoTipo().getIdEstadoTipo().equals(3L)){
+            if(!estadoDAO.findById(retoDTO.getIdEstado()).get().getEstadoTipo().getIdEstadoTipo().equals(1L)){
                 throw new Exception("Debe ingresar un id de estado que sea de tipo reto");
             }
 
@@ -137,7 +137,8 @@ public class RetoServiceImpl implements RetoService {
         if(!retosDAO.existsById(retoDTO.getIdReto())){
             throw new Exception("No existe un reto con ese id");
         }
-        return agregarReto(retoDTO);
+        agregarReto(retoDTO);
+        return "Se actualizo exitosamente";
     }
 
     @Override

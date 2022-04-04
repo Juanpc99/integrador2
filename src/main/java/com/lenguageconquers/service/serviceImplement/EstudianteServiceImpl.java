@@ -112,7 +112,8 @@ public class EstudianteServiceImpl implements EstudianteService {
         if(estudianteDTO.getFechaNacimiento() == null){
             throw new Exception("Debe ingresar una fecha de nacimiento");
         }
-        if(estudianteDTO.getFechaNacimiento().compareTo(new Date())>0){
+        Date fecha = new Date();
+        if(estudianteDTO.getFechaNacimiento().compareTo(fecha)<0){
             throw new Exception("Digite una fecha de nacimiento valida");
         }
         if(estudianteDTO.getCodigoConfirmado() == null || estudianteDTO.getCodigoConfirmado().trim().equals("")){

@@ -69,8 +69,8 @@ public class ArchivoServiceImpl implements ArchivoService {
         if(archivosDTO.getFechaCreacion() == null){
             throw new Exception("Se debe ingresar una fecha");
         }
-            //TODO:REVISAR LA COMPARACION PORQUE DEJA INGRESAR FECHAS PASADAS
-        if(archivosDTO.getFechaCreacion().compareTo(new Date())>0){
+        Date fecha = new Date();
+        if(archivosDTO.getFechaCreacion().compareTo(fecha) < 0){
             throw new Exception("La fecha de creación no debe ser superior a la fecha actual");
         }
         if(archivosDTO.getTitulo() == null || archivosDTO.getTitulo().trim().equals("")){

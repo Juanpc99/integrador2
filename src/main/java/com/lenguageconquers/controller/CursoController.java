@@ -24,12 +24,13 @@ public class CursoController {
 
     @GetMapping
     public ResponseEntity<List<CursoDTO>> listar(){
-        List<Curso> cursoList = cursoService.listaCursos();
-        List<CursoDTO> cursoDTOS = cursoMapper.listCursoToListCursoDTO(cursoList);
-        for (CursoDTO curso: cursoDTOS) {
-            System.out.println(curso.getIdProfesor());
+        try {
+            List<CursoDTO> cursoDTOS = cursoService.listaCursos();
+            return ResponseEntity.ok().body(cursoDTOS);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(cursoDTOS);
+
     }
 
     @PostMapping("/registrarCurso")

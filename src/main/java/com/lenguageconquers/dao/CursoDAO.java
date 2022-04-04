@@ -34,20 +34,20 @@ public interface CursoDAO extends JpaRepository<Curso, Long> {
             "and id_estado = ?2" , nativeQuery = true)
     List<Curso> findByIdFacultadAndIdEstado(Long idFacultad, Long idEstado) throws Exception;
 
-    @Query(value = "SELECT r.id_reto \n" +
+    @Query(value = "SELECT * \n" +
             "FROM curso_estudiante ce\n" +
             "INNER JOIN curso c on (c.id_curso = ce.id_curso)\n" +
             "INNER JOIN reto r on (r.id_curso = c.id_curso)\n" +
-            "WHERE ce.id_estudiante = 1\n" +
-            "AND c.id_curso = 1", nativeQuery = true)
+            "WHERE ce.id_estudiante = ?1\n" +
+            "AND c.id_curso = ?2", nativeQuery = true)
     List<Curso> findByIdEstudianteAndIdCUrso(Long idEstudiante, Long idCurso) throws Exception;
 
-    @Query(value = "SELECT r.id_reto \n" +
+    @Query(value = "SELECT * \n" +
             "FROM curso_estudiante ce\n" +
             "INNER JOIN curso c on (c.id_curso = ce.id_curso)\n" +
             "INNER JOIN reto r on (r.id_curso = c.id_curso)\n" +
             "WHERE ce.id_estudiante = ?1\n" +
             "AND c.id_curso = ?2\n" +
-            "AND r.id_estado = 3", nativeQuery = true)
+            "AND r.id_estado = 2", nativeQuery = true)
     List<Curso> findByIdEstudianteAndIdCUrsoAndEstadoTerminado(Long idEstudiante, Long idCurso) throws Exception;
 }

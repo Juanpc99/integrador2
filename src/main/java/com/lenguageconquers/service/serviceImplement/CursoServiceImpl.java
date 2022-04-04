@@ -77,13 +77,15 @@ public class CursoServiceImpl implements CursoService {
         curso.setProfesor(profesorDAO.findById(cursoDTO.getIdProfesor()).get());
         curso.setEstado(estadoDAO.findById(cursoDTO.getIdEstado()).get());
         curso.setPrograma(programaDAO.findById(cursoDTO.getIdPrograma()).get());
+        curso.setPassword(cursoDTO.getPassword());
         cursoDAO.save(curso);
         return "Se creo exitosamente el curso";
     }
 
     @Override
-    public List<Curso> listaCursos() {
-        return cursoDAO.findAll();
+    public List<CursoDTO> listaCursos() throws Exception{
+        List<CursoDTO> cursoDTOList = mapeoForCurso(cursoDAO.findAll());
+        return cursoDTOList;
     }
 
 
@@ -181,9 +183,11 @@ public class CursoServiceImpl implements CursoService {
     @Override
     public Integer progresoCurso(Long idEstudiante, Long idCurso) throws Exception {
         if(estadoDAO.existsById(idEstudiante) == false){
+            System.out.printf("Fallo Estudiante");
             throw new Exception("El estudiante no existe");
         }
         if(cursoDAO.existsById(idCurso) == false){
+            System.out.printf("Fallo curso");
             throw new Exception("El curso no existe");
         }
         Integer cursos = cursoDAO.findByIdEstudianteAndIdCUrso(idEstudiante, idCurso).size();
@@ -202,9 +206,31 @@ public class CursoServiceImpl implements CursoService {
         cursoDTO.setFinCurso(curso.getFinCurso());
         cursoDTO.setCantidadEstudiantes(curso.getCantidadEstudiantes());
         cursoDTO.setIdEstado(curso.getEstado().getIdEstado());
+        cursoDTO.setPassword(curso.getPassword());
+        List<RetoDTO> retoDTOList = new ArrayList<>();
+        for (Reto reto: curso.getRetos()) {
+            RetoDTO retoDTO = new RetoDTO();
+            retoDTO.setIdReto(reto.getIdReto());
+            retoDTO.setDescripcionReto(reto.getDescripcionReto());
+            retoDTO.setTituloReto(reto.getTituloReto());
+            retoDTO.setFechaInicio(reto.getFechaInicio());
+            retoDTO.setFechaLimite(reto.getFechaLimite());
+            retoDTO.setMaximoIntentos(reto.getMaximoIntentos());
+            retoDTOList.add(retoDTO);
+        }
+        cursoDTO.setRetoDTOS(retoDTOList);
 
         return cursoDTO;
     }
+    public List<CursoDTO> mapeoForCurso (List<Curso> cursos) {
+        List<CursoDTO> cursoDTOList = new ArrayList<>();
+        for (Curso curso: cursos) {
+            CursoDTO cursoDTO = mapeo(curso);
+            cursoDTOList.add(cursoDTO);
+        }
+        return cursoDTOList;
+    }
+
 
 
 

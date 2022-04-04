@@ -17,7 +17,7 @@ public class CursoDTO implements Serializable {
     private Date inicioCurso;
     private Date finCurso;
     private int cantidadEstudiantes;
-
+    private String password;
 
 
     private Long idPrograma;
@@ -97,5 +97,13 @@ public class CursoDTO implements Serializable {
 
     public void setRetoDTOS(List<RetoDTO> retoDTOS) {
         this.retoDTOS = retoDTOS;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

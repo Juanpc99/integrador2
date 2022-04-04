@@ -46,10 +46,11 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
         if(cursoDAO.findByIdEstudianteCursoConProgramaIgual(cursoEstudianteDTO.getIdEstudiante()).size() == 0){
             throw new Exception("No puede matricular un curso que no pertenezca a su programa");
         }
-        if(Validaciones.isNumeric(cursoEstudianteDTO.getIdCurso().toString())){
+
+        if(!Validaciones.isNumeric(cursoEstudianteDTO.getIdCurso().toString())){
             throw new Exception("EL id curso solo permite numeros");
         }
-        if(Validaciones.isNumeric(cursoEstudianteDTO.getIdEstudiante().toString())){
+        if(!Validaciones.isNumeric(cursoEstudianteDTO.getIdEstudiante().toString())){
             throw new Exception("EL id estudiante solo permite numeros");
         }
 
