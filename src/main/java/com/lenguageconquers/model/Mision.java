@@ -36,6 +36,9 @@ public class Mision {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mision")
     private List<Reto> retos = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mision")
+    private List<MisionEstudiante> misionEstudiantes = new ArrayList<>();
+
     public Long getIdMision() {
         return idMision;
     }

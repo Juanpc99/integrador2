@@ -49,4 +49,22 @@ public class RetoEstudianteController {
         }
     }
 
+    @GetMapping("/puntajeRetos")
+    public ResponseEntity<Double> puntajeRetos(@RequestParam Long id_estudiante, @RequestParam Long id_curso, @RequestParam Long id_mision){
+        try {
+            return new ResponseEntity<>(retoEstudianteService.puntajeReto(id_estudiante, id_curso, id_mision), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/AgregarPuntajeEstudiante")
+    public ResponseEntity<Double> agregarPuntajeEstudiante(){
+        try {
+            return new ResponseEntity<>(retoEstudianteService.puntajeMision(1L,1L,1L), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

@@ -21,7 +21,7 @@ public class Validaciones {
     /**
      *
      * @Title: isStringLenght
-     * @Description: TODO si la palabra es mayor que la longitud del atributo devuelve false
+     * @Description:  si la palabra es mayor que la longitud del atributo devuelve false
      * @param: @param palabra
      * @param: @param longitud
      * @param: @return

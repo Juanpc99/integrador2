@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface CursoEstudianteService {
 
-    public String matricularCurso(CursoEstudianteDTO cursoEstudianteDTO) throws Exception;
-    public void eliminarMatricula(Long idEstudiante, Long idCursoEstudiante);
-    public List<CursoEstudiante> listaCursosMatriculadosPorEstudiate(Long idEstudiante) throws Exception;
-    public List<CursoEstudiante> listaCursosMatriculados(Long idEstudiante, Long idCurso);
-    public List<CursoEstudianteDTO> listarPorIdEstudiante(Long idEstudiante) throws Exception;
+    String matricularCurso(CursoEstudianteDTO cursoEstudianteDTO) throws Exception;
+    void eliminarMatricula(Long idEstudiante, Long idCursoEstudiante);
+    List<CursoEstudiante> listaCursosMatriculadosPorEstudiate(Long idEstudiante) throws Exception;
+    List<CursoEstudiante> listaCursosMatriculados(Long idEstudiante, Long idCurso);
+    List<CursoEstudianteDTO> listarPorIdEstudiante(Long idEstudiante) throws Exception;
    // @Query(nativeQuery = true)
     //CursoEstudiante buscarIdCursoYIdEstudiante(@Param("idCurso")Long idCurso, @Param("idEstudiante")Long idEstudiante);
 }

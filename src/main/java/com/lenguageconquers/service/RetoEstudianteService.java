@@ -10,4 +10,9 @@ public interface RetoEstudianteService {
     String crearRetoEstudiante(RetoEstudianteDTO retoEstudianteDTO) throws Exception;
     List<RetoEstudiante> listar();
 
+    Double puntajeReto(Long id_estudiante, Long id_curso, Long id_mision) throws Exception;
+
+    Double puntajeMision (Long id_curso, Long id_estudiante, Long id_mision) throws Exception;
+
+
 }

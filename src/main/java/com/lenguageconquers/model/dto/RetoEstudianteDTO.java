@@ -15,6 +15,7 @@ public class RetoEstudianteDTO implements Serializable {
     private Date fechaSubida;
     private Long idReto;
     private Long idEstudiante;
+    private Double calificacion;
 
     public Long getIdRetoEstudiante() {
         return idRetoEstudiante;
@@ -70,5 +71,13 @@ public class RetoEstudianteDTO implements Serializable {
 
     public void setIdEstudiante(Long idEstudiante) {
         this.idEstudiante = idEstudiante;
+    }
+
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
     }
 }

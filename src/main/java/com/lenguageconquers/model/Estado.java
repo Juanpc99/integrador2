@@ -29,6 +29,8 @@ public class Estado {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
     private List<Reto> retos = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
+    private List<MisionEstudiante> misionEstudiantes = new ArrayList<>();
 
     public Long getIdEstado() {
         return idEstado;

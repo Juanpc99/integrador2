@@ -22,4 +22,9 @@ public interface CursoEstudianteDAO extends JpaRepository<CursoEstudiante, Long>
 
     @Query(value = "SELECT * FROM CURSO_ESTUDIANTE WHERE ID_ESTUDIANTE =?1", nativeQuery = true)
     List<CursoEstudiante> findByIdEstudiante(Long idEstudiante) throws Exception;
+
+    @Query(value = "SELECT * FROM curso_estudiante WHERE id_estudiante = ?1 AND id_curso = ?2 LIMIT 1", nativeQuery = true)
+    CursoEstudiante findaByIdEstudianteAndIdCUrso (Long idEstudiante, Long idCurso) throws  Exception;
+
+
 }

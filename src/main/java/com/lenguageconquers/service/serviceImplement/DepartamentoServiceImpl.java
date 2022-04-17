@@ -50,4 +50,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         return "Se creo el departamento exitosamente";
 
     }
+
+
 }

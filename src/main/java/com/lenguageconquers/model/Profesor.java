@@ -43,6 +43,9 @@ public class Profesor {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     List<Archivo> archivos = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
+    List<Chat> chats = new ArrayList<>();
+
     public Long getId() {
         return id;
     }

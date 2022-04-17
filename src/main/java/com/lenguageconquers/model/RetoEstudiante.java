@@ -26,6 +26,9 @@ public class RetoEstudiante {
     @Column(name = "fecha_subida")
     private Date fechaSubida;
 
+    @Column(name = "calificacion")
+    private Double calificacion;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reto")
     private Reto reto;
@@ -93,5 +96,13 @@ public class RetoEstudiante {
 
     public void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
+    }
+
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
     }
 }

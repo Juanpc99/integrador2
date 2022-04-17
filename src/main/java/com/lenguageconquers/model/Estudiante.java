@@ -89,6 +89,11 @@ public class Estudiante {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
     private List<NivelAcademicoEstudiante> nivelAcademicoEstudiantes = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
+    private List<MisionEstudiante> misionEstudiantes = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
+    private List<Chat> chats = new ArrayList<>();
 
     public Long getIdEstudiante() {
         return idEstudiante;

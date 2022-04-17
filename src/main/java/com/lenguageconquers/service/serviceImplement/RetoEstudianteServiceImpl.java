@@ -1,8 +1,9 @@
 package com.lenguageconquers.service.serviceImplement;
 
-import com.lenguageconquers.dao.EstudianteDAO;
-import com.lenguageconquers.dao.RetoEstudianteDAO;
-import com.lenguageconquers.dao.RetosDAO;
+import com.lenguageconquers.dao.*;
+import com.lenguageconquers.model.CursoEstudiante;
+import com.lenguageconquers.model.Mision;
+import com.lenguageconquers.model.MisionEstudiante;
 import com.lenguageconquers.model.RetoEstudiante;
 import com.lenguageconquers.model.dto.RetoEstudianteDTO;
 import com.lenguageconquers.service.RetoEstudianteService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +28,15 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
 
     @Autowired
     private RetosDAO retosDAO;
+
+    @Autowired
+    private MisionDAO misionDAO;
+
+    @Autowired
+    private CursoEstudianteDAO cursoEstudianteDAO;
+
+    @Autowired
+    private MisionEstudianteDAO misionEstudianteDAO;
 
     //TODO: ESTA MANDANDO ERROR EN NOMBRE_ARCHIVO
     @Override
@@ -77,5 +88,48 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
     @Override
     public List<RetoEstudiante> listar() {
         return retoEstudianteDAO.findAll();
+    }
+
+    @Override
+    public Double puntajeReto(Long id_estudiante, Long id_curso, Long id_mision) throws Exception{
+        List<RetoEstudiante> puntajes = retoEstudianteDAO.puntosRetos(id_estudiante, id_curso, id_mision);
+        Double total = 0.0;
+        for (RetoEstudiante puntos: puntajes){
+            if(puntos.getEstadoTarea().equalsIgnoreCase("Calificado") && puntos.getCalificacion() != null){
+                total = total + ((puntos.getCalificacion() * 100)/2);
+            }
+        }
+        return total;
+    }
+
+
+    @Override
+    public Double puntajeMision(Long id_curso, Long id_estudiante, Long id_mision) throws Exception {
+        MisionEstudiante misionEstudiante =  misionEstudianteDAO.findByIdEstudianteAndIdMision(id_estudiante, id_mision);
+        if(misionEstudiante.getEstado().getNombreEstado().equals("Terminada")){
+            throw new Exception("La mision ya esta terminada");
+        }
+
+        Double totalRetosMision = retoEstudianteDAO.totalRetosPorCursoYMision(id_curso, id_mision);
+        Double cursosTerminados = retoEstudianteDAO.retosTerminadosPorMision(id_estudiante, id_curso, id_mision);
+        Double resultado =(totalRetosMision/cursosTerminados);
+        Double total = puntajeReto(id_estudiante, id_curso, id_mision);
+        CursoEstudiante cursoEstudiante = cursoEstudianteDAO.findaByIdEstudianteAndIdCUrso(id_estudiante, id_curso);
+
+        if(cursoEstudiante.getPuntaje_estuduante() != null) {
+            total = total + cursoEstudiante.getPuntaje_estuduante();
+        }
+
+            if (resultado == 1){
+                Mision mision = misionDAO.findById(id_mision).get();
+                Integer puntajeMision = mision.getPuntajeMision();
+                total = total + puntajeMision;
+                misionEstudiante.getEstado().setNombreEstado("Terminada");
+                misionEstudianteDAO.save(misionEstudiante);
+            }
+
+        cursoEstudiante.setPuntaje_estuduante(total);
+        cursoEstudianteDAO.save(cursoEstudiante);
+        return total;
     }
 }
