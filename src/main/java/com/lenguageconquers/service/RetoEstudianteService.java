@@ -14,5 +14,7 @@ public interface RetoEstudianteService {
 
     Double puntajeMision (Long id_curso, Long id_estudiante, Long id_mision) throws Exception;
 
+    String observacionReto (String observacion, Long idEstudiante, Long idReto) throws Exception;
+
 
 }

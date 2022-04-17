@@ -14,7 +14,7 @@ public class CursoEstudianteDTO implements Serializable {
     private Long idCurso;
     private Long idEstudiante;
     private Double puntaje_estudiante;
-
+    private Long nivel;
 
 //    private String nombreCurso;
 //    private Date inicioCurso;
@@ -61,6 +61,14 @@ public class CursoEstudianteDTO implements Serializable {
 
     public void setPuntaje_estudiante(Double puntaje_estudiante) {
         this.puntaje_estudiante = puntaje_estudiante;
+    }
+
+    public Long getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Long nivel) {
+        this.nivel = nivel;
     }
 
     //    public String getNombreCurso() {

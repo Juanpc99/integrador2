@@ -99,5 +99,14 @@ public class CursoEstudianteController {
         }
     }
 
+    @PutMapping("/subirNivel")
+    public ResponseEntity<String> subirNivel(@RequestParam Long nivel, @RequestParam Long idEstudiante, @RequestParam Long idCurso){
+        try {
+            return new ResponseEntity<>(cursoEstudianteService.subirDeNivel(nivel, idEstudiante, idCurso), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
+    }
+
 
 }

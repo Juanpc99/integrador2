@@ -87,6 +87,25 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
         return cursoEstudianteDTOList;
     }
 
+    @Override
+    public String subirDeNivel(Long nivel, Long idEstudiante, Long idCurso) throws Exception {
+        Double totalRetos = cursoEstudianteDAO.totalRetos(nivel, idEstudiante, idCurso);
+        Double retosTerminados = cursoEstudianteDAO.retosTerminados(nivel, idEstudiante, idCurso);
+        Double resultado = totalRetos/retosTerminados;
+        String mensaje = null;
+        CursoEstudiante cursoEstudiante =cursoEstudianteDAO.findaByIdEstudianteAndIdCUrso(idEstudiante,idCurso);
+        if(cursoEstudiante.getNivel() != nivel){
+            throw new Exception("El nivel no es valido");
+        }
+        if(resultado == 1 && cursoEstudiante.getNivel() == nivel){
+            cursoEstudiante.setNivel(cursoEstudiante.getNivel() + 1);
+            cursoEstudianteDAO.save(cursoEstudiante);
+            mensaje = "Usted ha alcanzado el nivel " + (cursoEstudiante.getNivel());
+        }else{
+            mensaje = "Usted no ha completado todos los retos del nivel";
+        }
+        return mensaje;
+    }
 
 
     @Override

@@ -17,6 +17,9 @@ public class CursoEstudiante {
     @Column(name ="puntaje_estudiante")
     private Double puntaje_estuduante;
 
+    @Column(name = "nivel")
+    private Long nivel;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_curso", nullable = false)
     private Curso curso;
@@ -56,5 +59,13 @@ public class CursoEstudiante {
 
     public void setPuntaje_estuduante(Double puntaje_estuduante) {
         this.puntaje_estuduante = puntaje_estuduante;
+    }
+
+    public Long getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Long nivel) {
+        this.nivel = nivel;
     }
 }

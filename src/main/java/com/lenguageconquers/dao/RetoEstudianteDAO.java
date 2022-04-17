@@ -30,4 +30,7 @@ public interface RetoEstudianteDAO extends JpaRepository<RetoEstudiante, Long> {
             "AND id_curso = ?2\n" +
             "AND id_mision = ?3", nativeQuery = true)
     Double retosTerminadosPorMision(Long id_estudiante, Long id_curso, Long id_mision) throws Exception;
+
+    @Query(value = "SELECT * FROM reto_estudiante re WHERE id_reto = ?1 AND id_estudiante = ?2 LIMIT 1", nativeQuery = true)
+    RetoEstudiante findByIdEstudianteAndIdReto (Long idReto, Long idEstudiante) throws Exception;
 }

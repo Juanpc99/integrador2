@@ -16,4 +16,5 @@ public interface CursoEstudianteService {
     List<CursoEstudianteDTO> listarPorIdEstudiante(Long idEstudiante) throws Exception;
    // @Query(nativeQuery = true)
     //CursoEstudiante buscarIdCursoYIdEstudiante(@Param("idCurso")Long idCurso, @Param("idEstudiante")Long idEstudiante);
+    String subirDeNivel (Long nivel, Long idEstudiante, Long idCurso) throws Exception;
 }

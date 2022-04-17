@@ -132,4 +132,15 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
         cursoEstudianteDAO.save(cursoEstudiante);
         return total;
     }
+
+    @Override
+    public String observacionReto(String observacion, Long idEstudiante, Long idReto) throws Exception {
+        RetoEstudiante retoEstudiante = retoEstudianteDAO.findByIdEstudianteAndIdReto(idReto, idEstudiante);
+        if(observacion.length() >= 501){
+            throw new Exception("No debe superar los 500 caracteres");
+        }
+        retoEstudiante.setObservacion(observacion);
+        retoEstudianteDAO.save(retoEstudiante);
+        return "Se agrego el comentario correctamente";
+    }
 }

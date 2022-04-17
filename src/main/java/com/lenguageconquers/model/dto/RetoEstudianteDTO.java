@@ -16,6 +16,7 @@ public class RetoEstudianteDTO implements Serializable {
     private Long idReto;
     private Long idEstudiante;
     private Double calificacion;
+    private String observacion;
 
     public Long getIdRetoEstudiante() {
         return idRetoEstudiante;
@@ -79,5 +80,13 @@ public class RetoEstudianteDTO implements Serializable {
 
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 }

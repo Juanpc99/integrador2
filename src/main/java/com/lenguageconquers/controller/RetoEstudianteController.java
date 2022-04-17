@@ -66,5 +66,13 @@ public class RetoEstudianteController {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    @PutMapping("/agregarObservacion")
+    public ResponseEntity<String> agregarObservacion(@RequestParam String observacion, @RequestParam Long idEstudiante, Long idReto){
+        try {
+            return new ResponseEntity<>(retoEstudianteService.observacionReto(observacion, idEstudiante, idReto), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
