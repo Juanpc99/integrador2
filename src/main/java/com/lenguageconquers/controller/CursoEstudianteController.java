@@ -108,5 +108,15 @@ public class CursoEstudianteController {
         }
     }
 
+    @GetMapping("/Ranking")
+    public ResponseEntity<List<CursoEstudianteDTO>> listarRankings(@RequestParam Long idCurso){
+        try{
+           List<CursoEstudianteDTO> cursoEstudianteDTOS = cursoEstudianteService.listarRanking(idCurso);
+            return new ResponseEntity<>(cursoEstudianteDTOS, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.OK);
+        }
+    }
+
 
 }

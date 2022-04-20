@@ -107,6 +107,32 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
         return mensaje;
     }
 
+    @Override
+    public List<CursoEstudianteDTO> listarRanking(Long idCurso) throws Exception {
+        List<CursoEstudiante> cursoEstudianteList = cursoEstudianteDAO.ranking(idCurso);
+        List<CursoEstudianteDTO> cursoEstudianteDTOList= new ArrayList<>();
+        if(idCurso == null || idCurso <=0){
+            throw new Exception("Debe ingresar un id de curso valido");
+        }
+        for (CursoEstudiante cursoEstudiante: cursoEstudianteList) {
+            CursoEstudianteDTO cursoEstudianteDTO = new CursoEstudianteDTO();
+            cursoEstudianteDTO.setIdCursoEstudiante(cursoEstudiante.getIdCursoEstudiante());
+            cursoEstudianteDTO.setIdEstudiante(cursoEstudiante.getEstudiante().getIdEstudiante());
+            cursoEstudianteDTO.setIdCurso(cursoEstudiante.getCurso().getIdCurso());
+            cursoEstudianteDTO.setPuntaje_estudiante(cursoEstudiante.getPuntaje_estuduante());
+            cursoEstudianteDTO.setNivel(cursoEstudiante.getNivel());
+            cursoEstudianteDTOList.add(cursoEstudianteDTO);
+        }
+        if(cursoEstudianteDTOList.isEmpty()){
+            throw new Exception("No se encontraron estudiantes en ese curso, por lo tanto no hay ranking");
+        }
+        if(cursoEstudianteDTOList.size() <2){
+            throw new Exception("No hay suficientes estudiantes para realizar un ranking ");
+        }
+
+        return cursoEstudianteDTOList;
+    }
+
 
     @Override
     public List<CursoEstudiante> listaCursosMatriculadosPorEstudiate(Long idEstudiante) throws Exception {

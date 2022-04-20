@@ -2,6 +2,7 @@ package com.lenguageconquers.dao;
 
 import com.lenguageconquers.model.Estudiante;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
@@ -16,4 +17,6 @@ public interface EstudianteDAO extends JpaRepository<Estudiante, Long> {
 			+ "s.semestreStudent, s.scoreStudent) FROM Student s WHERE s.course.idCourse =:idCourse order by  s.scoreStudent desc")
 	List<StudentRankingDto> listarRankingByCurso(@Param("idCourse") int idCourse);
      */
+
+
 }

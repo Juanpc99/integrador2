@@ -45,4 +45,8 @@ public interface CursoEstudianteDAO extends JpaRepository<CursoEstudiante, Long>
             "AND id_curso = ?3", nativeQuery = true)
     Double totalRetos(Long nivel, Long idEstudiante, Long idCurso) throws Exception;
 
+    @Query(value = "select *from curso_estudiante \n" +
+            "where id_curso =?1\n" +
+            "order by puntaje_estudiante desc limit 3", nativeQuery = true)
+    List<CursoEstudiante> ranking(Long idCurso) throws Exception;
 }
