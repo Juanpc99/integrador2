@@ -59,7 +59,7 @@ public class RetoEstudianteController {
     }
 
     @GetMapping("/AgregarPuntajeEstudiante")
-    public ResponseEntity<Double> agregarPuntajeEstudiante(){
+    public ResponseEntity<Double> agregarPuntajeEstudiante(@RequestParam Long idCUrso, @RequestParam Long idEstudiante, @RequestParam Long idMision){
         try {
             return new ResponseEntity<>(retoEstudianteService.puntajeMision(1L,1L,1L), HttpStatus.OK);
         }catch (Exception e){

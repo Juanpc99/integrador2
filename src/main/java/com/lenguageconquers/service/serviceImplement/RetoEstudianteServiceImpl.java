@@ -38,6 +38,8 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
     @Autowired
     private MisionEstudianteDAO misionEstudianteDAO;
 
+    @Autowired
+    private EstadoDAO estadoDAO;
     //TODO: ESTA MANDANDO ERROR EN NOMBRE_ARCHIVO
     @Override
     public String crearRetoEstudiante(RetoEstudianteDTO retoEstudianteDTO) throws Exception {
@@ -124,7 +126,7 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
                 Mision mision = misionDAO.findById(id_mision).get();
                 Integer puntajeMision = mision.getPuntajeMision();
                 total = total + puntajeMision;
-                misionEstudiante.getEstado().setNombreEstado("Terminada");
+                misionEstudiante.setEstado(estadoDAO.findById(4L).get());
                 misionEstudianteDAO.save(misionEstudiante);
             }
 

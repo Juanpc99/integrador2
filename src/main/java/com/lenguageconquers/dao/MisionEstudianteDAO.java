@@ -12,4 +12,5 @@ public interface MisionEstudianteDAO extends JpaRepository<MisionEstudiante, Lon
             "\tWHERE id_estudiante = ?1\n" +
             "\tAND id_mision = ?2 LIMIT 1", nativeQuery = true)
     MisionEstudiante findByIdEstudianteAndIdMision(Long idEstudiante, Long idMision) throws Exception;
+
 }

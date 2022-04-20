@@ -1,11 +1,13 @@
 package com.lenguageconquers.util;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.validator.routines.UrlValidator;
+
+import java.security.MessageDigest;
+import javax.xml.bind.DatatypeConverter;
 
 public class Validaciones {
 
@@ -30,6 +32,14 @@ public class Validaciones {
      * @throws
      *
      */
+//TODO: Terminar
+    public static String encriptar(String texto)throws Exception{
+        String valor = texto;
+            MessageDigest msdDigest = MessageDigest.getInstance("SHA1");
+            msdDigest.update(valor.getBytes("UTF-8"), 0, valor.length());
+            valor = DatatypeConverter.printHexBinary(msdDigest.digest());
+            return valor;
+    }
     public static boolean isStringLenght(String palabra, int longitud) {
         boolean tam = false;
         if(palabra.length()>longitud) {

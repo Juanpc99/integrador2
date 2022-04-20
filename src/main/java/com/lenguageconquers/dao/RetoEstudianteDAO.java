@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RetoEstudianteDAO extends JpaRepository<RetoEstudiante, Long> {
 
-    @Query(value = "SELECT id_reto_estudiante, calificacion, id_estudiante, r.id_reto, nombre_archivo, url_archivo, estado_tarea, fecha_subida \n" +
+    @Query(value = "SELECT id_reto_estudiante, calificacion, id_estudiante, r.id_reto, nombre_archivo, url_archivo, estado_tarea, fecha_subida, observacion \n" +
             "FROM RETO r\n" +
             "INNER JOIN reto_estudiante re on (r.id_reto = re.id_reto)\n" +
             "WHERE id_estudiante =?1 \n" +
