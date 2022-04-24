@@ -39,6 +39,17 @@ public class RetoController {
         }
     }
 
+    @GetMapping("/esGrupo")
+    public ResponseEntity<Boolean> esGrupo(@RequestParam Long idReto){
+        try {
+            return new ResponseEntity<>(retoService.elRetoEsGrupal(idReto), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
     @PutMapping("/actualizarEstado")
     public ResponseEntity<String> actualizarE(@RequestBody RetoDTO retoDTO){
         try {

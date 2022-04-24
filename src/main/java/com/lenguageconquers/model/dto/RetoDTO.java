@@ -17,6 +17,8 @@ public class RetoDTO implements Serializable {
     private Long idEstado;
     private Long idMision;
     private Long idCurso;
+    private boolean esGrupal;
+    private int cantidadEstudiantesGrupos;
 
     public Long getIdReto() {
         return idReto;
@@ -88,5 +90,21 @@ public class RetoDTO implements Serializable {
 
     public void setIdCurso(Long idCurso) {
         this.idCurso = idCurso;
+    }
+
+    public boolean isEsGrupal() {
+        return esGrupal;
+    }
+
+    public void setEsGrupal(boolean esGrupal) {
+        this.esGrupal = esGrupal;
+    }
+
+    public int getCantidadEstudiantesGrupos() {
+        return cantidadEstudiantesGrupos;
+    }
+
+    public void setCantidadEstudiantesGrupos(int cantidadEstudiantesGrupos) {
+        this.cantidadEstudiantesGrupos = cantidadEstudiantesGrupos;
     }
 }

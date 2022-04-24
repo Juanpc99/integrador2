@@ -37,8 +37,16 @@ public class RetoEstudiante {
     private Reto reto;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol")
+    private Rol rol;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estudiante")
     private Estudiante estudiante;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_grupo")
+    private Grupos grupos;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "retoEstudiante")
     private List<Comentario> comentarios = new ArrayList<>();
@@ -115,5 +123,22 @@ public class RetoEstudiante {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public Grupos getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(Grupos grupos) {
+        this.grupos = grupos;
+    }
+
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

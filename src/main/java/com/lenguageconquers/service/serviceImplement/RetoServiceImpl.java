@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Scope("singleton")
 @Service
@@ -32,6 +31,9 @@ public class RetoServiceImpl implements RetoService {
 
     @Autowired
     private MisionDAO misionDAO;
+
+    @Autowired
+    private CursoEstudianteDAO cursoEstudianteDAO;
 
     @Override
     public String actualizarEstado(RetoDTO retoDTO) throws Exception {
@@ -84,6 +86,23 @@ public class RetoServiceImpl implements RetoService {
     }
 
     @Override
+    public boolean elRetoEsGrupal(Long idReto) throws Exception {
+        RetoDTO retoDTO = new RetoDTO();
+        if(idReto == null){
+            throw new Exception("Debe ingresar el id de un reto");
+        }
+        Boolean resp = retosDAO.findById(idReto).equals(retoDTO.isEsGrupal());
+        System.out.println(resp);
+        if(resp){
+            return true;
+        }else{
+            return  false;
+        }
+
+
+    }
+
+    @Override
     public List<RetoDTO> findByIdCursoAndIdMision(Long idCurso, Long idMision) throws Exception {
         if(!cursoDAO.findById(idCurso).isPresent()){
             throw new Exception("El id curso no existe");
@@ -127,6 +146,12 @@ public class RetoServiceImpl implements RetoService {
         if(Validaciones.tiempoEntreFechas(retoDTO.getFechaInicio(), retoDTO.getFechaLimite()) >= 4){
             throw new Exception("No debe haber mas de 4 meses de diferencias entre las fechas");
         }
+        if(retoDTO.isEsGrupal() == true && retoDTO.getCantidadEstudiantesGrupos()<2){
+            throw new Exception("Debe ingresar el atributo de cantidadEstudiantesGrupos y como minimo 2 para crear retos grupales");
+        }
+        if(retoDTO.isEsGrupal() == false && retoDTO.getCantidadEstudiantesGrupos()>=0){
+            throw new Exception("Los retos que no son grupales no deben de tener cantidad estudiantes para el grupo");
+        }
         Reto reto = mapeoRetoDTO(retoDTO);
         retosDAO.save(reto);
         return "Se guardo exitosamente";
@@ -167,6 +192,8 @@ public class RetoServiceImpl implements RetoService {
         retoDTO.setTituloReto(reto.getTituloReto());
         retoDTO.setFechaInicio(reto.getFechaInicio());
         retoDTO.setFechaLimite(reto.getFechaLimite());
+        retoDTO.setEsGrupal(reto.isEsGrupal());
+        retoDTO.setCantidadEstudiantesGrupos(reto.getCantidadEstudiantesGrupos());
         retoDTO.setMaximoIntentos(reto.getMaximoIntentos());
         retoDTO.setIdMision(reto.getMision().getIdMision());
         retoDTO.setIdEstado(reto.getEstado().getIdEstado());
@@ -182,6 +209,8 @@ public class RetoServiceImpl implements RetoService {
         reto.setFechaInicio(retoDTO.getFechaInicio());
         reto.setFechaLimite(retoDTO.getFechaLimite());
         reto.setMaximoIntentos(retoDTO.getMaximoIntentos());
+        reto.setEsGrupal(retoDTO.isEsGrupal());
+        reto.setCantidadEstudiantesGrupos(retoDTO.getCantidadEstudiantesGrupos());
         reto.setMision(misionDAO.findById(retoDTO.getIdMision()).get());
         reto.setEstado(estadoDAO.findById(retoDTO.getIdEstado()).get());
         reto.setCurso(cursoDAO.findById(retoDTO.getIdCurso()).get());

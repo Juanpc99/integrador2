@@ -16,5 +16,7 @@ public interface RetoEstudianteService {
 
     String observacionReto (String observacion, Long idEstudiante, Long idReto) throws Exception;
 
+    boolean listarPorRetoGrupoRol(Long idGrupo, Long idReto, Long idRol) throws Exception;
+
 
 }

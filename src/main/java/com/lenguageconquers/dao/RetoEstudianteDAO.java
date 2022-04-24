@@ -33,4 +33,9 @@ public interface RetoEstudianteDAO extends JpaRepository<RetoEstudiante, Long> {
 
     @Query(value = "SELECT * FROM reto_estudiante re WHERE id_reto = ?1 AND id_estudiante = ?2 LIMIT 1", nativeQuery = true)
     RetoEstudiante findByIdEstudianteAndIdReto (Long idReto, Long idEstudiante) throws Exception;
+
+    @Query(value = "SELECT * FROM reto_estudiante WHERE id_grupo = ?1 AND id_reto = ?2 and id_rol = ?3", nativeQuery = true)
+    List<RetoEstudiante> findByIdGrupoAndIdReto(Long idGrupo, Long idReto, Long idRol) throws Exception;
+
+
 }

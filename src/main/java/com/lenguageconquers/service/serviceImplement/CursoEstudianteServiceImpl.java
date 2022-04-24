@@ -133,6 +133,13 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
         return cursoEstudianteDTOList;
     }
 
+    @Override
+    public Integer nivelEstudiante(Long idReto, Long idEstudiante) {
+        Integer nivel = 0;
+        nivel = cursoEstudianteDAO.nivelEstudiante(idReto,idEstudiante);
+        return nivel;
+    }
+
 
     @Override
     public List<CursoEstudiante> listaCursosMatriculadosPorEstudiate(Long idEstudiante) throws Exception {
@@ -147,19 +154,4 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
         return lista;
     }
 
-
-/**
-
-
-    @Override
-    public CursoEstudiante listarId(int id) {
-        return null;
-        //return cursoEstudianteDAO.findOne(id);
-    }
-
-    @Override
-    public List<CursoEstudiante> listar() {
-        return cursoEstudianteDAO.findAll();
-    }
-    */
 }

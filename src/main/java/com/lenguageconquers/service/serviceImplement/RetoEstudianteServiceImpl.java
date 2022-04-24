@@ -1,18 +1,17 @@
 package com.lenguageconquers.service.serviceImplement;
 
 import com.lenguageconquers.dao.*;
-import com.lenguageconquers.model.CursoEstudiante;
-import com.lenguageconquers.model.Mision;
-import com.lenguageconquers.model.MisionEstudiante;
-import com.lenguageconquers.model.RetoEstudiante;
+import com.lenguageconquers.model.*;
+import com.lenguageconquers.model.dto.RetoDTO;
 import com.lenguageconquers.model.dto.RetoEstudianteDTO;
 import com.lenguageconquers.service.RetoEstudianteService;
+import com.lenguageconquers.service.RetoService;
 import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.Currency;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,16 +39,31 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
 
     @Autowired
     private EstadoDAO estadoDAO;
-    //TODO: ESTA MANDANDO ERROR EN NOMBRE_ARCHIVO
+
+    @Autowired
+    private GruposDAO gruposDAO;
+
+    @Autowired
+    private RolDAO rolDAO;
+
+    @Autowired
+    private RetoService retoService;
+
+    @Autowired
+    private RolRetoDAO rolRetoDAO;
+
+
     @Override
     public String crearRetoEstudiante(RetoEstudianteDTO retoEstudianteDTO) throws Exception {
         RetoEstudiante retoEstudiante = new RetoEstudiante();
         if(estudianteDAO.findById(retoEstudianteDTO.getIdEstudiante()).toString().equals("Optional.empty")){
             throw new Exception("No se encontro el id del estudiante, ingrese uno valido");
         }
+
         if(retosDAO.findById(retoEstudianteDTO.getIdReto()).toString().equals("Optional.empty")){
             throw new Exception("No se encontro el id del reto, ingrese uno valido");
         }
+
         if(retoEstudianteDTO.getNombreArchivo() == null){
             throw new Exception("Se debe ingresar un nombre para el archivo");
         }
@@ -77,12 +91,39 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
         if(retoEstudianteDTO.getFechaSubida().compareTo(new Date())>0){
             throw new Exception("La fecha no debe haber pasado");
         }
+        if(retoEstudianteDTO.getCalificacion() <0){
+            throw new Exception("La calificación no debe ser menor a 0");
+        }
+        if(cursoEstudianteDAO.nivelEstudiante(retoEstudianteDTO.getIdReto(), retoEstudianteDTO.getIdEstudiante())<2){
+            throw new Exception("No se puede asignar un reto grupal si no esta en el nivel 2 o superior");
+        }
+        if(retoEstudianteDTO.getIdRol() != null && retoEstudianteDTO.getIdGrupo() != null){
+            if(gruposDAO.findById(retoEstudianteDTO.getIdGrupo()).toString().equals("Optional.empty")){
+                throw new Exception("No se encontro el id del grupo, ingrese uno valido");
+            }
+            if(rolDAO.findById(retoEstudianteDTO.getIdRol()).toString().equals("Optional.empty")){
+                throw new Exception("No se encontro el id del rol, ingrese uno valido");
+            }
+            if(rolRetoDAO.buscarPorRolReto(retoEstudianteDTO.getIdReto(), retoEstudianteDTO.getIdRol()).isEmpty()){
+
+                throw new Exception("El rol no esta asociado al reto al que usted pertenece, ingrese un id valido");
+            }
+            if(listarPorRetoGrupoRol(retoEstudianteDTO.getIdGrupo(), retoEstudianteDTO.getIdReto(),retoEstudianteDTO.getIdRol())) {
+                throw new Exception("No puedes seleccionar ese rol, ya esta asignado en ese grupo");
+            }
+
+            retoEstudiante.setRol(rolDAO.findById(retoEstudianteDTO.getIdRol()).get());
+            retoEstudiante.setGrupos(gruposDAO.findById(retoEstudianteDTO.getIdGrupo()).get());
+        }
         retoEstudiante.setEstudiante(estudianteDAO.findById(retoEstudianteDTO.getIdEstudiante()).get());
         retoEstudiante.setReto(retosDAO.findById(retoEstudianteDTO.getIdReto()).get());
         retoEstudiante.setNombreArchivo(retoEstudianteDTO.getNombreArchivo());
         retoEstudiante.setUrlArchivo(retoEstudianteDTO.getUrlArchivo());
         retoEstudiante.setEstadoTarea(retoEstudianteDTO.getEstadoTarea());
         retoEstudiante.setFechaSubida(retoEstudianteDTO.getFechaSubida());
+        retoEstudiante.setObservacion(retoEstudianteDTO.getObservacion());
+        retoEstudiante.setCalificacion(retoEstudianteDTO.getCalificacion());
+
         retoEstudianteDAO.save(retoEstudiante);
         return "Se creo exitosamente el reto estudiante";
     }
@@ -144,5 +185,40 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
         retoEstudiante.setObservacion(observacion);
         retoEstudianteDAO.save(retoEstudiante);
         return "Se agrego el comentario correctamente";
+    }
+
+    @Override
+    public boolean listarPorRetoGrupoRol(Long idGrupo, Long idReto, Long idRol) throws Exception {
+        List<RetoEstudiante> retoEstudiante = retoEstudianteDAO.findByIdGrupoAndIdReto(idGrupo, idReto, idRol);
+        if(retoEstudiante.size() >=1){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    private RetoEstudianteDTO mapeoRetoEstudiante(RetoEstudiante retoEstudiante){
+        RetoEstudianteDTO retoEstudianteDTO = new RetoEstudianteDTO();
+        retoEstudianteDTO.setIdRetoEstudiante(retoEstudiante.getIdRetoEstudiante());
+        retoEstudianteDTO.setIdEstudiante(retoEstudiante.getIdRetoEstudiante());
+        retoEstudianteDTO.setIdGrupo(retoEstudiante.getGrupos().getIdGrupo());
+        retoEstudianteDTO.setIdReto(retoEstudiante.getReto().getIdReto());
+        retoEstudianteDTO.setEstadoTarea(retoEstudiante.getEstadoTarea());
+        retoEstudianteDTO.setFechaSubida(retoEstudiante.getFechaSubida());
+        retoEstudianteDTO.setUrlArchivo(retoEstudiante.getUrlArchivo());
+        retoEstudianteDTO.setCalificacion(retoEstudiante.getCalificacion());
+        retoEstudianteDTO.setNombreArchivo(retoEstudiante.getNombreArchivo());
+        retoEstudianteDTO.setObservacion(retoEstudiante.getObservacion());
+
+        return retoEstudianteDTO;
+    }
+    private List<RetoEstudianteDTO> mapeoFroReto(List<RetoEstudiante> retoEstudiantes){
+        List<RetoEstudianteDTO> retoDTOList = new ArrayList<>();
+        for (RetoEstudiante retos: retoEstudiantes){
+            RetoEstudianteDTO retoEstudianteDTO = mapeoRetoEstudiante(retos);
+            retoDTOList.add(retoEstudianteDTO);
+        }
+        return retoDTOList;
     }
 }

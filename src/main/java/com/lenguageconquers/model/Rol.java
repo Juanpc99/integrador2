@@ -18,4 +18,34 @@ public class Rol {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "rol")
     private List<RolEstudiante> roles = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "rol")
+    private List<RolReto> rolesReto = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "rol")
+    private List<RetoEstudiante> retoEstudiantes = new ArrayList<>();
+
+    public Long getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Long idRol) {
+        this.idRol = idRol;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
+    }
+
+    public List<RolEstudiante> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolEstudiante> roles) {
+        this.roles = roles;
+    }
 }

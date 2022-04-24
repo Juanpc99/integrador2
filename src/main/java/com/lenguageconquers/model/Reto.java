@@ -27,8 +27,14 @@ public class Reto {
     @Column(name = "titulo_reto")
     private String tituloReto;
 
+    @Column(name = "cantidad_estudiantes_grupos")
+    private Integer cantidadEstudiantesGrupos;
+
     @Column(name = "maximo_intentos")
     private int maximoIntentos;
+
+    @Column(name = "es_grupal")
+    private boolean esGrupal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_mision")
@@ -41,6 +47,9 @@ public class Reto {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estado")
     private Estado estado;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reto")
+    private List<RolReto> retosRoles = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reto")
     private List<RetoEstudiante> retoEstudiantes = new ArrayList<>();
@@ -123,5 +132,21 @@ public class Reto {
 
     public void setRetoEstudiantes(List<RetoEstudiante> retoEstudiantes) {
         this.retoEstudiantes = retoEstudiantes;
+    }
+
+    public boolean isEsGrupal() {
+        return esGrupal;
+    }
+
+    public void setEsGrupal(boolean esGrupal) {
+        this.esGrupal = esGrupal;
+    }
+
+    public int getCantidadEstudiantesGrupos() {
+        return cantidadEstudiantesGrupos;
+    }
+
+    public void setCantidadEstudiantesGrupos(int cantidadEstudiantesGrupos) {
+        this.cantidadEstudiantesGrupos = cantidadEstudiantesGrupos;
     }
 }
