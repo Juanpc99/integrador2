@@ -98,6 +98,7 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
             throw new Exception("No se puede asignar un reto grupal si no esta en el nivel 2 o superior");
         }
         if(retoEstudianteDTO.getIdRol() != null && retoEstudianteDTO.getIdGrupo() != null){
+
             if(gruposDAO.findById(retoEstudianteDTO.getIdGrupo()).toString().equals("Optional.empty")){
                 throw new Exception("No se encontro el id del grupo, ingrese uno valido");
             }

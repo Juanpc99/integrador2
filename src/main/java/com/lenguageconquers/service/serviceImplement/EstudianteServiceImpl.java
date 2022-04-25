@@ -7,6 +7,7 @@ import com.lenguageconquers.service.EstudianteService;
 import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,6 +33,7 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     @Autowired
     private ProgramaDAO programaDAO;
+
 
     @Override
     public String crearEstudiante(EstudianteDTO estudianteDTO) throws Exception {

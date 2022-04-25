@@ -7,9 +7,9 @@ import com.lenguageconquers.model.Reto;
 import com.lenguageconquers.model.dto.CursoDTO;
 import com.lenguageconquers.model.dto.RetoDTO;
 import com.lenguageconquers.service.CursoService;
-import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,6 +39,9 @@ public class CursoServiceImpl implements CursoService {
 
     @Autowired
     private FacultadDAO facultadDAO;
+
+//    @Autowired
+//    private BCryptPasswordEncoder encoder;
 
     @Override
     public String registrarCurso(CursoDTO cursoDTO) throws Exception {

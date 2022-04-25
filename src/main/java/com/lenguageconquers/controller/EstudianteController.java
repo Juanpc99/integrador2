@@ -7,6 +7,7 @@ import com.lenguageconquers.service.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.tree.ExpandVetoException;
@@ -22,6 +23,8 @@ public class EstudianteController {
     @Autowired
     private EstudianteMapper estudianteMapper;
 
+
+
     @GetMapping
     public ResponseEntity<List<EstudianteDTO>> listar(){
         List<Estudiante> estudianteList = estudianteService.listaEstudiantes();
@@ -32,6 +35,7 @@ public class EstudianteController {
     @PostMapping("/crearEstudiante")
     public ResponseEntity<String> crear(@RequestBody EstudianteDTO estudianteDTO){
         try {
+
             return new ResponseEntity<>(estudianteService.crearEstudiante(estudianteDTO), HttpStatus.CREATED);
         }catch (Exception e){
             String mensaje = e.getMessage();

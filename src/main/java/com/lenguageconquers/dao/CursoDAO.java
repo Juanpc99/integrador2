@@ -50,4 +50,7 @@ public interface CursoDAO extends JpaRepository<Curso, Long> {
             "AND c.id_curso = ?2\n" +
             "AND r.id_estado = 2", nativeQuery = true)
     List<Curso> findByIdEstudianteAndIdCUrsoAndEstadoTerminado(Long idEstudiante, Long idCurso) throws Exception;
+
+
+
 }

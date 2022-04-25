@@ -152,6 +152,9 @@ public class RetoServiceImpl implements RetoService {
         if(retoDTO.isEsGrupal() == false && retoDTO.getCantidadEstudiantesGrupos()>=0){
             throw new Exception("Los retos que no son grupales no deben de tener cantidad estudiantes para el grupo");
         }
+        if(retosDAO.estudiantesPorCurso(retoDTO.getIdCurso()).size() < 2){
+            throw new Exception("Para crear un reto grupal debe tener como minimo dos estudiantes matriculados que esten en nivel 2 o superior");
+        }
         Reto reto = mapeoRetoDTO(retoDTO);
         retosDAO.save(reto);
         return "Se guardo exitosamente";
