@@ -43,7 +43,12 @@ public class RolServiceImpl implements RolService {
         rolDAO.save(rol);
         rolReto.setReto(retosDAO.findById(idReto).get());
         rolReto.setRol(rolDAO.findById(rol.getIdRol()).get());
-        rolRetoDAO.save(rolReto);
+        try{
+            rolRetoDAO.save(rolReto);
+
+        }catch (Exception e){
+            throw new Exception("No pudo ejecutar el save de rolreto");
+        }
         return "Se creo exitosamente el rol y el rol_reto";
 
     }

@@ -16,6 +16,8 @@ public interface CursoEstudianteService {
     List<CursoEstudianteDTO> listarPorIdEstudiante(Long idEstudiante) throws Exception;
     String subirDeNivel (Long nivel, Long idEstudiante, Long idCurso) throws Exception;
     List<CursoEstudianteDTO> listarRanking(Long idCurso)throws Exception;
-
+    Double notaFinal(Long idEstudiante, Long idCurso) throws Exception;
     Integer nivelEstudiante(Long idReto, Long idEstudiante);
+    String matricularCurso2(Long idEstudiante, Long idCurso, String password) throws Exception;
+
 }

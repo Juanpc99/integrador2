@@ -52,6 +52,8 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
     @Autowired
     private RolRetoDAO rolRetoDAO;
 
+    @Autowired
+    private RecompensaEstudianteDAO recompensaEstudianteDAO;
 
     @Override
     public String crearRetoEstudiante(RetoEstudianteDTO retoEstudianteDTO) throws Exception {
@@ -151,6 +153,7 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
     public Double puntajeMision(Long id_curso, Long id_estudiante, Long id_mision) throws Exception {
         MisionEstudiante misionEstudiante =  misionEstudianteDAO.findByIdEstudianteAndIdMision(id_estudiante, id_mision);
         if(misionEstudiante.getEstado().getNombreEstado().equals("Terminada")){
+
             throw new Exception("La mision ya esta terminada");
         }
 
@@ -164,13 +167,20 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
             total = total + cursoEstudiante.getPuntaje_estuduante();
         }
 
-            if (resultado == 1){
-                Mision mision = misionDAO.findById(id_mision).get();
-                Integer puntajeMision = mision.getPuntajeMision();
-                total = total + puntajeMision;
-                misionEstudiante.setEstado(estadoDAO.findById(4L).get());
-                misionEstudianteDAO.save(misionEstudiante);
-            }
+        if (resultado == 1){
+            Mision mision = misionDAO.findById(id_mision).get();
+            Integer puntajeMision = mision.getPuntajeMision();
+            total = total + puntajeMision;
+            misionEstudiante.setEstado(estadoDAO.findById(4L).get());
+            misionEstudianteDAO.save(misionEstudiante);
+            RecompensaEstudiante recompensaEstudiante = new RecompensaEstudiante();
+            recompensaEstudiante.setEstudiante(estudianteDAO.findById(id_estudiante).get());
+            recompensaEstudiante.setRecompensa(mision.getRecompensa());
+            recompensaEstudianteDAO.save(recompensaEstudiante);
+        }else {
+
+            throw new Exception("No ha completado todas las misiones");
+        }
 
         cursoEstudiante.setPuntaje_estuduante(total);
         cursoEstudianteDAO.save(cursoEstudiante);
@@ -197,6 +207,19 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
             return false;
         }
 
+    }
+
+    @Override
+    public String notaReto(Long idReto, Long idGrupo, Double nota) throws Exception {
+        List<RetoEstudiante> retoEstudianteList = retoEstudianteDAO.retosGrupo(idGrupo, idReto);
+        if(retoEstudianteList.size() <=0){
+            throw new Exception("El grupo o el reto no existe");
+        }
+        for (RetoEstudiante retoEstudiante: retoEstudianteList){
+            retoEstudiante.setCalificacion(nota);
+            retoEstudianteDAO.save(retoEstudiante);
+        }
+        return "Se cambio la nota del grupo a: " + nota;
     }
 
     private RetoEstudianteDTO mapeoRetoEstudiante(RetoEstudiante retoEstudiante){

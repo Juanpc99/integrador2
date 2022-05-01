@@ -18,5 +18,7 @@ public interface RetoEstudianteService {
 
     boolean listarPorRetoGrupoRol(Long idGrupo, Long idReto, Long idRol) throws Exception;
 
+    String notaReto(Long idReto, Long idGrupo, Double nota) throws Exception;
+
 
 }

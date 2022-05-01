@@ -17,7 +17,7 @@ public interface RetosDAO extends JpaRepository<Reto, Long> {
 
     @Query(value = "select id_curso_estudiante from \n" +
             "curso_estudiante ce\n" +
-            "where ce.id_curso = 1\n" +
+            "where ce.id_curso = ?1\n" +
             "AND nivel = 2", nativeQuery = true)
     List<Long> estudiantesPorCurso(Long idCUrso) throws Exception;
     /*
@@ -25,4 +25,6 @@ public interface RetosDAO extends JpaRepository<Reto, Long> {
     Reto findByIdRetoEsGrupal(Long idReto) throws Exception;
 
      */
+    @Query(value = "select * from reto where id_curso = ?1", nativeQuery = true)
+    List<Reto> retosPorCurso(Long idCurso) throws Exception;
 }

@@ -75,4 +75,13 @@ public class RetoEstudianteController {
         }
     }
 
+    @PutMapping("/notaGrupal")
+    public ResponseEntity<String> notaGrupal(@RequestParam Long idReto, @RequestParam Long idGrupo, @RequestParam Double nota){
+        try {
+            return new ResponseEntity<>(retoEstudianteService.notaReto(idReto,idGrupo,nota), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

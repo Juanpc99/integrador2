@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RetoEstudianteDAO extends JpaRepository<RetoEstudiante, Long> {
 
-    @Query(value = "SELECT id_reto_estudiante, calificacion, id_estudiante, r.id_reto, nombre_archivo, url_archivo, estado_tarea, fecha_subida, observacion \n" +
+    @Query(value = "SELECT id_reto_estudiante, calificacion, id_estudiante, r.id_reto, nombre_archivo, url_archivo, estado_tarea, fecha_subida, observacion, id_grupo, id_rol \n" +
             "FROM RETO r\n" +
             "INNER JOIN reto_estudiante re on (r.id_reto = re.id_reto)\n" +
             "WHERE id_estudiante =?1 \n" +
@@ -37,5 +37,7 @@ public interface RetoEstudianteDAO extends JpaRepository<RetoEstudiante, Long> {
     @Query(value = "SELECT * FROM reto_estudiante WHERE id_grupo = ?1 AND id_reto = ?2 and id_rol = ?3", nativeQuery = true)
     List<RetoEstudiante> findByIdGrupoAndIdReto(Long idGrupo, Long idReto, Long idRol) throws Exception;
 
+    @Query(value = "SELECT * FROM reto_estudiante WHERE id_grupo = ?1 AND id_reto = ?2", nativeQuery = true)
+    List<RetoEstudiante> retosGrupo(Long idGrupo, Long idReto) throws Exception;
 
 }

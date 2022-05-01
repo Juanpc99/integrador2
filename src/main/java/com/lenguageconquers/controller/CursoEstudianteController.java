@@ -51,10 +51,10 @@ public class CursoEstudianteController {
 
 
     @PostMapping("/matricularCurso")
-    public ResponseEntity<String> matricular(@RequestBody CursoEstudianteDTO cursoEstudianteDTO){
+    public ResponseEntity<String> matricular(@RequestParam Long idCurso, @RequestParam Long idEstudiante, @RequestParam String password){
 
         try {
-            return new ResponseEntity<>( cursoEstudianteService.matricularCurso(cursoEstudianteDTO), HttpStatus.CREATED);
+            return new ResponseEntity<>( cursoEstudianteService.matricularCurso2(idEstudiante, idCurso, password), HttpStatus.CREATED);
         }catch (Exception e){
             String mensaje = e.getMessage();
             return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
@@ -115,6 +115,16 @@ public class CursoEstudianteController {
             return new ResponseEntity<>(cursoEstudianteDTOS, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/notaFinal")
+    public ResponseEntity<Double> notaFinal(@RequestParam Long idEstudiante, @RequestParam Long idCurso){
+        try{
+            Double notaFinal = cursoEstudianteService.notaFinal(idEstudiante, idCurso);
+            return new ResponseEntity<>(notaFinal, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

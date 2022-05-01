@@ -12,16 +12,5 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CursoMapper {
 
-    //CursoMapper INSTANCE = Mappers.getMapper(CursoMapper.class);
 
-    @Named(value = "listCursoToListCursoDTO")
-    @Mapping(source = "programa.idPrograma", target = "idPrograma")
-    @Mapping(source = "profesor.idProfesor", target = "idProfesor")
-    @Mapping(source = "curso.idCurso", target = "idCurso")
-    List<CursoDTO> listCursoToListCursoDTO(List<Curso> listaCursos);
-
-    @Mapping(source = "programa.idPrograma", target = "idPrograma")
-    //@Mapping(source = "profesor.correoProfesor", target = "correoProfesor")
-    @Mapping(source = "curso.idCurso", target = "idCurso")
-    CursoDTO cursoToCursoDTO(Curso curso);
 }

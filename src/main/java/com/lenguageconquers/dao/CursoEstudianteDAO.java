@@ -2,6 +2,8 @@ package com.lenguageconquers.dao;
 
 
 import com.lenguageconquers.model.CursoEstudiante;
+import com.lenguageconquers.model.Mision;
+import com.lenguageconquers.model.MisionEstudiante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -55,4 +57,13 @@ public interface CursoEstudianteDAO extends JpaRepository<CursoEstudiante, Long>
             "inner join reto r on (c.id_curso = r.id_curso)\n" +
             "where r.id_reto = ?1 and ce.id_estudiante =?2 limit 1", nativeQuery = true)
     Integer nivelEstudiante (Long idReto, Long idEstudiante);
+
+
+    @Query(value = "select id_mision_estudiante, calificacion, id_nota, id_estudiante, id_mision, id_estado from mision_estudiante\n" +
+            "where  id_estado = 4", nativeQuery = true)
+    List<Object[]> misionesTerminadasPorEstudiante (Long idEstudiante) throws Exception;
+
+//    @Query(value = "select puntaje_estudiante from curso_estudiante\n" +
+//            "where id_estudiante = ?1 AND id_curso = ?2;", nativeQuery = true)
+//    Integer puntajeFinalEstudiante(Long idEstudiante, Long idCurso) throws Exception;
 }

@@ -8,6 +8,7 @@ import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -34,6 +35,8 @@ public class EstudianteServiceImpl implements EstudianteService {
     @Autowired
     private ProgramaDAO programaDAO;
 
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public String crearEstudiante(EstudianteDTO estudianteDTO) throws Exception {
@@ -131,7 +134,7 @@ public class EstudianteServiceImpl implements EstudianteService {
         estudiante.setApellidoEstudiante(estudianteDTO.getApellidoEstudiante());
         estudiante.setNicknameEstudiante(estudianteDTO.getNicknameEstudiante());
         estudiante.setPuntajeEstudiante(estudianteDTO.getPuntajeEstudiante());
-        estudiante.setPasswordEstudiante(estudianteDTO.getPasswordEstudiante());
+        estudiante.setPasswordEstudiante(encoder.encode(estudianteDTO.getPasswordEstudiante()));
         estudiante.setCorreoEstudiante(estudianteDTO.getCorreoEstudiante());
         estudiante.setCodigoConfirmado(estudianteDTO.getCodigoConfirmado());
         estudiante.setSemestre(semestreDAO.findById(estudianteDTO.getIdSemestre()).get());

@@ -12,20 +12,20 @@ import java.util.Optional;
 public interface CursoDAO extends JpaRepository<Curso, Long> {
 
 
-    @Query(value = "select c.id_curso, c.nombre_curso, c.id_profesor, c.id_programa, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password \n" +
-            "FROM estudiante e inner join curso c on (e.id_programa = c.id_programa) \n " +
-            "where e.id_estudiante=?1", nativeQuery = true)
-    List<Curso> findByIdEstudianteCursoConProgramaIgual(Long idEstudiante) throws Exception;
+    @Query(value = "select * from programa_curso\n" +
+            "where id_curso = ?1\n" +
+            "and id_programa = ?2", nativeQuery = true)
+    List<Curso> findByIdEstudianteCursoConProgramaIgual(Long idCurso, Long idPrograma) throws Exception;
 
-    @Query(value = "select  c.id_curso, c.nombre_curso, c.id_profesor, c.id_programa, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password  \n" +
-            "from facultad f\n" +
-            "inner join departamento d on (f.id_facultad = d.id_facultad)\n" +
-            "inner join programa p on (p.id_departamento = d.id_departamento)\n" +
-            "inner join curso c on (c.id_programa = p.id_programa) \n" +
-            "where f.id_facultad = ?1", nativeQuery = true)
-    List<Curso> findByIdFacultad(Long idFacultad) throws Exception;
+//    @Query(value = "select  c.id_curso, c.nombre_curso, c.id_profesor, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password  \n" +
+//            "from facultad f\n" +
+//            "inner join departamento d on (f.id_facultad = d.id_facultad)\n" +
+//            "inner join programa p on (p.id_departamento = d.id_departamento)\n" +
+//            "inner join curso c on (c.id_programa = p.id_programa) \n" +
+//            "where f.id_facultad = ?1", nativeQuery = true)
+//    List<Curso> findByIdFacultad(Long idFacultad) throws Exception;
 
-    @Query(value = "select  c.id_curso, c.nombre_curso, c.id_profesor, c.id_programa, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password  \n" +
+    @Query(value = "select  c.id_curso, c.nombre_curso, c.id_profesor, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password  \n" +
             "from facultad f\n" +
             "inner join departamento d on (f.id_facultad = d.id_facultad)\n" +
             "inner join programa p on (p.id_departamento = d.id_departamento)\n" +
@@ -52,5 +52,9 @@ public interface CursoDAO extends JpaRepository<Curso, Long> {
     List<Curso> findByIdEstudianteAndIdCUrsoAndEstadoTerminado(Long idEstudiante, Long idCurso) throws Exception;
 
 
+    @Query(value = "select c.id_curso, c.nombre_curso, c.id_profesor, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password from curso c\n" +
+            "inner join programa_curso pc on  (c.id_curso = pc.id_curso)\n" +
+            "where pc.id_programa = ?1", nativeQuery = true)
+    List<Curso> cursosCompatibles(Long idPrograma) throws Exception;
 
 }

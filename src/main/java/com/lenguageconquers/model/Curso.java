@@ -29,9 +29,6 @@ public class Curso {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_programa", nullable = false)
-    private Programa programa;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estado", nullable = false)
@@ -52,6 +49,9 @@ public class Curso {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
     private List<NivelAcademico> nivelAcademico = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
+    private List<ProgramaCurso> programaCurso = new ArrayList<>();
 
     public Long getIdCurso() {
         return idCurso;
@@ -101,13 +101,6 @@ public class Curso {
         this.password = password;
     }
 
-    public Programa getPrograma() {
-        return programa;
-    }
-
-    public void setPrograma(Programa programa) {
-        this.programa = programa;
-    }
 
     public Estado getEstado() {
         return estado;

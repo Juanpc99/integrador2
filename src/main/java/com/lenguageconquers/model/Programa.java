@@ -20,11 +20,13 @@ public class Programa {
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programa")
-    private List<Curso> cursos = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "programa")
     private List<Estudiante> estudiantePrograma = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programa")
+    private List<ProgramaCurso> programaCurso = new ArrayList<>();
+
 
     public Long getIdPrograma() {
         return idPrograma;
@@ -48,14 +50,6 @@ public class Programa {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
-    }
-
-    public List<Curso> getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
     }
 
     public List<Estudiante> getEstudiantePrograma() {

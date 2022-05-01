@@ -20,7 +20,7 @@ public class CursoDTO implements Serializable {
     private String password;
 
 
-    private Long idPrograma;
+
     private Long idEstado;
     private Long idProfesor;
 
@@ -65,14 +65,6 @@ public class CursoDTO implements Serializable {
 
     public void setCantidadEstudiantes(int cantidadEstudiantes) {
         this.cantidadEstudiantes = cantidadEstudiantes;
-    }
-
-    public Long getIdPrograma() {
-        return idPrograma;
-    }
-
-    public void setIdPrograma(Long idPrograma) {
-        this.idPrograma = idPrograma;
     }
 
     public Long getIdEstado() {

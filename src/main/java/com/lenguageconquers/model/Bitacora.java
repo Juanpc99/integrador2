@@ -1,6 +1,8 @@
 package com.lenguageconquers.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -22,4 +24,35 @@ public class Bitacora {
     @JoinColumn(name="id_estudiante", nullable = false)
     private Estudiante estudiante;
 
+    public Long getIdBitacora() {
+        return idBitacora;
+    }
+
+    public void setIdBitacora(Long idBitacora) {
+        this.idBitacora = idBitacora;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public Date getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(Date fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
 }
