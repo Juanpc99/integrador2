@@ -17,7 +17,7 @@ public class ProfesorDTO implements Serializable {
     private String foto;
     private boolean confirmado;
     private Long idGenero;
-    private Long idCurso;
+
 
 
     public Long getId() {
@@ -76,13 +76,6 @@ public class ProfesorDTO implements Serializable {
         this.idGenero = idGenero;
     }
 
-    public Long getIdCurso() {
-        return idCurso;
-    }
-
-    public void setIdCurso(Long idCurso) {
-        this.idCurso = idCurso;
-    }
 
     public String getFoto() {
         return foto;

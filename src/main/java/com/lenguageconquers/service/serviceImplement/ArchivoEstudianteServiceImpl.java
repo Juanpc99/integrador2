@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,16 +34,23 @@ public class ArchivoEstudianteServiceImpl implements ArchivoEstudianteService {
     }
 
     @Override
-    public List<ArchivoEstudiante> listarPorId(Long idEstudiante) throws Exception{
-        ArchivosEstudianteDTO archivosEstudianteDTO = new ArchivosEstudianteDTO();
+    public List<ArchivosEstudianteDTO> listarPorId(Long idEstudiante) throws Exception{
+        List<ArchivoEstudiante> archivoEstudiantes = archivoEstudianteDAO.findByIdEstudiante(idEstudiante);
+        List<ArchivosEstudianteDTO> estudianteDTOS = new ArrayList<>();
         if(Validaciones.isIdNull(idEstudiante)){
             throw new Exception("Debe ingresar el id del estudiante");
         }
-        List<ArchivoEstudiante> archivoEstudiantes = (List<ArchivoEstudiante>) archivoEstudianteDAO.findById(archivosEstudianteDTO.getIdEstudiante()).get();
-        if(archivoEstudiantes.isEmpty()){
-            throw new Exception("El estudiante no ha subido archivos");
+        for(ArchivoEstudiante estudiante : archivoEstudiantes){
+            ArchivosEstudianteDTO archivosEstudianteDTO = new ArchivosEstudianteDTO();
+            archivosEstudianteDTO.setIdArchivoestudiante(estudiante.getIdArchivoestudiante());
+            archivosEstudianteDTO.setDescripcion(estudiante.getDescripcion());
+            archivosEstudianteDTO.setIdEstudiante(estudiante.getEstudiante().getIdEstudiante());
+            archivosEstudianteDTO.setIdArchivo(estudiante.getArchivo().getIdArchivo());
+            archivosEstudianteDTO.setFecaCreacion(estudiante.getFecaCreacion());
+            estudianteDTOS.add(archivosEstudianteDTO);
         }
-        return archivoEstudiantes;
+
+        return estudianteDTOS;
     }
 
     @Override
@@ -77,7 +85,7 @@ public class ArchivoEstudianteServiceImpl implements ArchivoEstudianteService {
             throw new Exception("Se debe ingresar una fecha de creacion");
         }
         Date fecha = new Date();
-        if(archivosEstudianteDTO.getFecaCreacion().compareTo(fecha)<0){
+        if(archivosEstudianteDTO.getFecaCreacion().compareTo(fecha)>0){
             throw new Exception("La fecha de creación no debe ser superior a la fecha actual");
         }
 

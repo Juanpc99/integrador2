@@ -1,9 +1,12 @@
 package com.lenguageconquers.dao;
 
+import com.lenguageconquers.model.Bitacora;
 import com.lenguageconquers.model.Estudiante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 public interface EstudianteDAO extends JpaRepository<Estudiante, Long> {
@@ -17,6 +20,9 @@ public interface EstudianteDAO extends JpaRepository<Estudiante, Long> {
 			+ "s.semestreStudent, s.scoreStudent) FROM Student s WHERE s.course.idCourse =:idCourse order by  s.scoreStudent desc")
 	List<StudentRankingDto> listarRankingByCurso(@Param("idCourse") int idCourse);
      */
+
+   @Query(value = "select * from estudiante where id_avatar = ?1", nativeQuery = true)
+   List<Estudiante> findByIdAvatar(Long idAvatar) throws Exception;
 
 
 }

@@ -132,8 +132,9 @@ public class RetoEstudianteServiceImpl implements RetoEstudianteService {
     }
 
     @Override
-    public List<RetoEstudiante> listar() {
-        return retoEstudianteDAO.findAll();
+    public List<RetoEstudianteDTO> listar() {
+        List<RetoEstudianteDTO> retoEstudianteDTOS = mapeoFroReto(retoEstudianteDAO.findAll());
+        return retoEstudianteDTOS;
     }
 
     @Override

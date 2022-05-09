@@ -54,6 +54,7 @@ public class CursoServiceImpl implements CursoService {
         if(estadoDAO.findById(cursoDTO.getIdEstado()).toString().equals("Optional.empty")){
             throw new Exception("No se encontro el id de estado, ingrese uno valido");
         }
+
         if(cursoDTO.getNombreCurso() == null || cursoDTO.getNombreCurso().trim().equals("")){
             throw new Exception("Debe ingresar el nombre del curso");
         }
@@ -215,6 +216,9 @@ public class CursoServiceImpl implements CursoService {
             retoDTO.setFechaInicio(reto.getFechaInicio());
             retoDTO.setFechaLimite(reto.getFechaLimite());
             retoDTO.setMaximoIntentos(reto.getMaximoIntentos());
+            retoDTO.setIdEstado(reto.getEstado().getIdEstado());
+            retoDTO.setIdMision(reto.getMision().getIdMision());
+            retoDTO.setIdCurso(reto.getCurso().getIdCurso());
             retoDTOList.add(retoDTO);
         }
         cursoDTO.setRetoDTOS(retoDTOList);

@@ -10,6 +10,7 @@ public interface AvatarService{
 
     public List<Avatar> listar();
     public String registrar(AvatarDTO avatarDTO) throws Exception;
-    public Avatar actualizar(Avatar avatar);
-    public void eliminar(Long idAvatar);
+    public Avatar actualizar(Avatar avatar) throws Exception;
+    public void eliminar(Long idAvatar) throws Exception;
+
 }

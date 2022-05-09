@@ -28,6 +28,7 @@ public class ArchivoEstudianteController {
         List<ArchivosEstudianteDTO>archivosEstudianteDTOS = new ArrayList<>();
         for (ArchivoEstudiante archivoEstudiante: archivoEstudiantes) {
             ArchivosEstudianteDTO archivosEstudianteDTO = new ArchivosEstudianteDTO();
+            archivosEstudianteDTO.setIdArchivoestudiante(archivoEstudiante.getIdArchivoestudiante());
             archivosEstudianteDTO.setIdEstudiante(archivoEstudiante.getIdArchivoestudiante());
             archivosEstudianteDTO.setIdArchivo(archivoEstudiante.getArchivo().getIdArchivo());
             archivosEstudianteDTO.setIdEstudiante(archivoEstudiante.getEstudiante().getIdEstudiante());
@@ -38,20 +39,13 @@ public class ArchivoEstudianteController {
         return ResponseEntity.ok().body(archivosEstudianteDTOS);
     }
 
-    @GetMapping("/listarPorEstudiante/{idEstudiante}")
-    public ResponseEntity<List<ArchivosEstudianteDTO>> listaDeArchivosPorEstudiantes(@PathVariable("idEstudiante") Long idEstudiante) throws Exception {
-        List<ArchivoEstudiante> archivoEstudiantes = archivoEstudianteService.listarPorId(idEstudiante);
-        List<ArchivosEstudianteDTO>archivosEstudianteDTOS = new ArrayList<>();
-        for (ArchivoEstudiante archivoEstudiante: archivoEstudiantes) {
-            ArchivosEstudianteDTO archivosEstudianteDTO = new ArchivosEstudianteDTO();
-            archivosEstudianteDTO.setIdEstudiante(archivoEstudiante.getIdArchivoestudiante());
-            archivosEstudianteDTO.setIdArchivo(archivoEstudiante.getArchivo().getIdArchivo());
-            archivosEstudianteDTO.setIdEstudiante(archivoEstudiante.getEstudiante().getIdEstudiante());
-            archivosEstudianteDTO.setDescripcion(archivoEstudiante.getDescripcion());
-            archivosEstudianteDTO.setFecaCreacion(archivoEstudiante.getFecaCreacion());
-            archivosEstudianteDTOS.add(archivosEstudianteDTO);
+    @GetMapping("/listarPorEstudiante")
+    public ResponseEntity<List<ArchivosEstudianteDTO>> listaDeArchivosPorEstudiantes(@RequestParam  Long idEstudiante) throws Exception {
+        try{
+            return new ResponseEntity<>(archivoEstudianteService.listarPorId(idEstudiante), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(archivosEstudianteDTOS);
     }
 
     @PostMapping("/crearArchivoEstudiante")

@@ -27,9 +27,12 @@ public class EstudianteController {
 
     @GetMapping
     public ResponseEntity<List<EstudianteDTO>> listar(){
-        List<Estudiante> estudianteList = estudianteService.listaEstudiantes();
-        List<EstudianteDTO> estudianteDTOS = estudianteMapper.listEstudianteToListEstudianteDTO(estudianteList);
-        return ResponseEntity.ok().body(estudianteDTOS);
+        try{
+            List<EstudianteDTO> estudianteList = estudianteService.listaEstudiantes();
+            return ResponseEntity.ok().body(estudianteList);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/crearEstudiante")

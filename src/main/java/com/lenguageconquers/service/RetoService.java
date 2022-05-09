@@ -8,7 +8,7 @@ import java.util.List;
 public interface RetoService {
 
     String actualizarEstado(RetoDTO retoDTO) throws Exception;
-    List<RetoDTO> listar() throws Exception;
+    List<RetoDTO> listar();
     Reto findByIdReto(Long idReto) throws Exception;
     boolean elRetoEsGrupal(Long idReto) throws Exception;
     List<RetoDTO> findByIdCursoAndIdMision (Long idCurso, Long idMision) throws Exception;

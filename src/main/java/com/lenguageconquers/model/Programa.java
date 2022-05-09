@@ -52,11 +52,4 @@ public class Programa {
         this.departamento = departamento;
     }
 
-    public List<Estudiante> getEstudiantePrograma() {
-        return estudiantePrograma;
-    }
-
-    public void setEstudiantePrograma(List<Estudiante> estudiantePrograma) {
-        this.estudiantePrograma = estudiantePrograma;
-    }
 }

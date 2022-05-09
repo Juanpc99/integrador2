@@ -125,4 +125,6 @@ public class Curso {
     public void setRetos(List<Reto> retos) {
         this.retos = retos;
     }
+
+
 }

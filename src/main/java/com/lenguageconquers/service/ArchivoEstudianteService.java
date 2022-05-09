@@ -8,6 +8,6 @@ import java.util.List;
 public interface ArchivoEstudianteService {
 
     List<ArchivoEstudiante> listar();
-    List<ArchivoEstudiante>  listarPorId(Long idEstudiante) throws Exception;
+    List<ArchivosEstudianteDTO>  listarPorId(Long idEstudiante) throws Exception;
     String subirArchivoEstudiante(ArchivosEstudianteDTO archivosEstudianteDTO) throws Exception;
 }

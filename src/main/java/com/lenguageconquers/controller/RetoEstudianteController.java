@@ -24,19 +24,13 @@ public class RetoEstudianteController {
 
     @GetMapping
     public ResponseEntity<List<RetoEstudianteDTO>> listar(){
-        List<RetoEstudiante> retoEstudiantes = retoEstudianteService.listar();
-        List<RetoEstudianteDTO> retoEstudianteDTOS = new ArrayList<>();
-        for (RetoEstudiante retoEstudiante: retoEstudiantes) {
-            RetoEstudianteDTO retoEstudianteDTO = new RetoEstudianteDTO();
-            retoEstudianteDTO.setIdRetoEstudiante(retoEstudiante.getIdRetoEstudiante());
-            retoEstudianteDTO.setIdReto(retoEstudiante.getReto().getIdReto());
-            retoEstudianteDTO.setIdEstudiante(retoEstudiante.getEstudiante().getIdEstudiante());
-            retoEstudianteDTO.setEstadoTarea(retoEstudianteDTO.getEstadoTarea());
-            retoEstudianteDTO.setFechaSubida(retoEstudiante.getFechaSubida());
-            retoEstudianteDTO.setUrlArchivo(retoEstudiante.getUrlArchivo());
-            retoEstudianteDTOS.add(retoEstudianteDTO);
+        try{
+            List<RetoEstudianteDTO> retoEstudiantes = retoEstudianteService.listar();
+            return new ResponseEntity<>(retoEstudiantes, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(retoEstudianteDTOS);
+
     }
 
     @PostMapping("/crearRetoEstudiante")
@@ -61,7 +55,7 @@ public class RetoEstudianteController {
     @GetMapping("/AgregarPuntajeEstudiante")
     public ResponseEntity<Double> agregarPuntajeEstudiante(@RequestParam Long idCUrso, @RequestParam Long idEstudiante, @RequestParam Long idMision){
         try {
-            return new ResponseEntity<>(retoEstudianteService.puntajeMision(1L,1L,1L), HttpStatus.OK);
+            return new ResponseEntity<>(retoEstudianteService.puntajeMision(idCUrso,idEstudiante,idMision), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

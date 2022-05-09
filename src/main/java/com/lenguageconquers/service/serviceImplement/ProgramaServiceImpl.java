@@ -2,13 +2,17 @@ package com.lenguageconquers.service.serviceImplement;
 
 import com.lenguageconquers.dao.DepartamentoDAO;
 import com.lenguageconquers.dao.ProgramaDAO;
+import com.lenguageconquers.model.ArchivoEstudiante;
 import com.lenguageconquers.model.Programa;
+import com.lenguageconquers.model.dto.ArchivosEstudianteDTO;
 import com.lenguageconquers.model.dto.ProgramaDTO;
 import com.lenguageconquers.service.ProgramaService;
+import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Scope("singleton")
 @Service
@@ -47,8 +51,18 @@ public class ProgramaServiceImpl implements ProgramaService {
     }
 
     @Override
-    public List<Programa> listaProgramasPorDepartamento(Long idDepartamento) {
-        return programaDAO.findAll();
+    public List<ProgramaDTO> listaProgramasPorDepartamento(Long idDepartamento) throws Exception {
+        List<Programa> programas = programaDAO.findByIdDepartamento(idDepartamento);
+        List<ProgramaDTO> programaDTOS = new ArrayList<>();
+        for (Programa programa: programas){
+            ProgramaDTO programaDTO = new ProgramaDTO();
+            programaDTO.setIdPrograma(programa.getIdPrograma());
+            programaDTO.setNombrePrograma(programa.getNombrePrograma());
+            programaDTO.setIdDepartamento(programa.getDepartamento().getIdDepartamento());
+            programaDTOS.add(programaDTO);
+        }
+        return programaDTOS;
     }
+
 
 }

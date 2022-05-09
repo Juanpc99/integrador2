@@ -54,8 +54,8 @@ public class AvatarController {
         }
     }
 
-    @DeleteMapping("/eliminarAvatar/{id}")
-    public ResponseEntity<?> eliminarAvatar(@PathVariable("id") Long id){
+    @DeleteMapping("/eliminarAvatar")
+    public ResponseEntity<?> eliminarAvatar(@RequestParam Long id){
         try {
             avatarService.eliminar(id);
             return ResponseEntity.ok("Se eliminó satisfactoriamente");

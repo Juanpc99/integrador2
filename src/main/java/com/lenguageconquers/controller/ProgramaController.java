@@ -21,18 +21,15 @@ public class ProgramaController {
     @Autowired
     private ProgramaMapper programaMapper;
 
-    @GetMapping("/listar/{idDepartamento}")
-    public ResponseEntity<List<ProgramaDTO>> listarProgramasDepartamento(@PathVariable("idDepartamento") Long idDepartamento){
-        List<Programa> programaList = programaService.listaProgramasPorDepartamento(idDepartamento);
-        List<ProgramaDTO> programaDTOS = programaMapper.listProgramaToListProgramaDTO(programaList);
-        for (Programa programa: programaList) {
-            ProgramaDTO programaDTO = new ProgramaDTO();
-            programaDTO.setIdPrograma(programa.getIdPrograma());
-            programaDTO.setNombrePrograma(programa.getNombrePrograma());
-            programaDTO.setIdDepartamento(programa.getDepartamento().getIdDepartamento());
-            programaDTOS.add(programaDTO);
+    @GetMapping("/listar")
+    public ResponseEntity<List<ProgramaDTO>> listarPorDepartamento(@RequestParam Long idDepartamento) {
+        try {
+           // List<ProgramaDTO> programaDTOS = programaService.listaProgramasPorDepartamento(idDepartamento);
+            return new ResponseEntity<>(programaService.listaProgramasPorDepartamento(idDepartamento), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(programaDTOS);
+
     }
 
     @PostMapping("/crearPrograma")

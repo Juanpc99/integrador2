@@ -23,9 +23,12 @@ public class ProfesorController {
 
     @GetMapping
     public ResponseEntity<List<ProfesorDTO>> listar(){
-        List<Profesor> profesorList = profesorService.listarProfesores();
-        List<ProfesorDTO> profesorDTOS = profesorMapper.listProfesorToListProfesorDTO(profesorList);
-        return ResponseEntity.ok().body(profesorDTOS);
+        try{
+            List<ProfesorDTO> profesorList = profesorService.listarProfesores();
+            return ResponseEntity.ok().body(profesorList);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/registrarProfesor")

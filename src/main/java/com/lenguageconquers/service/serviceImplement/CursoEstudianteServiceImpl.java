@@ -90,7 +90,14 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
     }
 
     @Override
-    public void eliminarMatricula(Long idEstudiante,Long idCursoEstudiante) {
+    public void eliminarMatricula(Long idEstudiante,Long idCursoEstudiante) throws Exception {
+       if(idEstudiante == null && idCursoEstudiante == null){
+           throw new Exception("Debe ingresar el id del estudiante y del curso estudiante");
+       }
+       if(!cursoEstudianteDAO.existsById(idCursoEstudiante)){
+           throw new Exception("No se encontro el curso estudiante");
+       }
+
         cursoEstudianteDAO.deleteById(idCursoEstudiante);
     }
 
@@ -110,6 +117,8 @@ public class CursoEstudianteServiceImpl implements CursoEstudianteService {
             cursoEstudianteDTO.setIdCursoEstudiante(cursoEstudiante.getIdCursoEstudiante());
             cursoEstudianteDTO.setIdEstudiante(cursoEstudiante.getEstudiante().getIdEstudiante());
             cursoEstudianteDTO.setIdCurso(cursoEstudiante.getCurso().getIdCurso());
+            cursoEstudianteDTO.setNivel(cursoEstudiante.getNivel());
+            cursoEstudianteDTO.setPuntaje_estudiante(cursoEstudiante.getPuntaje_estuduante());
             cursoEstudianteDTOList.add(cursoEstudianteDTO);
         }
 

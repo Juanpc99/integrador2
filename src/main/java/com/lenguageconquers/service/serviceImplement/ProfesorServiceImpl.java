@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Scope("singleton")
@@ -37,8 +38,6 @@ public class ProfesorServiceImpl implements ProfesorService {
             profesor.setFoto(profesorDTO.getFoto());
             profesor.setConfirmado(profesorDTO.isConfirmado());
             profesor.setGenero(generoDAO.findById(profesorDTO.getIdGenero()).get());
-            System.out.println(profesorDTO.getFoto());
-            System.out.println(profesor.getFoto());
             profesorDAO.save(profesor);
             return "Se creo exitosamente el profesor";
         }catch (Exception e){
@@ -47,7 +46,32 @@ public class ProfesorServiceImpl implements ProfesorService {
     }
 
     @Override
-    public List<Profesor> listarProfesores() {
-        return profesorDAO.findAll();
+    public List<ProfesorDTO> listarProfesores() {
+
+        List<ProfesorDTO> profesorDTOS = mapeoForProfesor(profesorDAO.findAll());
+        return profesorDTOS;
+    }
+
+
+    public ProfesorDTO mapeo(Profesor profesor){
+        ProfesorDTO profesorDTO = new ProfesorDTO();
+        profesorDTO.setId(profesor.getId());
+        profesorDTO.setNombreProfesor(profesor.getNombreProfesor());
+        profesorDTO.setApellidoProfesor(profesor.getApellidoProfesor());
+        profesorDTO.setCorreoProfesor(profesor.getCorreoProfesor());
+        profesorDTO.setFechaNacimiento(profesor.getFechaNacimiento());
+        profesorDTO.setConfirmado(profesor.isConfirmado());
+        profesorDTO.setFoto(profesor.getFoto());
+        profesorDTO.setIdGenero(profesor.getGenero().getIdGenero());
+        return profesorDTO;
+    }
+
+    public List<ProfesorDTO> mapeoForProfesor(List<Profesor> profesorList){
+        List<ProfesorDTO> profesorDTOS = new ArrayList<>();
+        for(Profesor profesor: profesorList){
+            ProfesorDTO profesorDTO = mapeo(profesor);
+            profesorDTOS.add(profesorDTO);
+        }
+        return profesorDTOS;
     }
 }

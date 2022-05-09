@@ -37,6 +37,7 @@ public class Profesor {
     @JoinColumn(name = "id_genero", nullable = false)
     private Genero genero;
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     List<Curso> cursos = new ArrayList<>();
 
@@ -109,4 +110,5 @@ public class Profesor {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
 }

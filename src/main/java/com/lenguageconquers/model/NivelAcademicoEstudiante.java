@@ -11,7 +11,6 @@ public class NivelAcademicoEstudiante {
     @Column(name = "id_nivel_acad_estudiante")
     private Long idNivelAcadEstudiante;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estudiante", nullable = false)
     private Estudiante estudiante;

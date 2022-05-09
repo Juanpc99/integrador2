@@ -10,6 +10,7 @@ import java.util.List;
 public interface EstudianteService{
 
     String crearEstudiante(EstudianteDTO estudianteDTO) throws Exception;
-    List<Estudiante> listaEstudiantes();
+    List<EstudianteDTO> listaEstudiantes();
+    List<EstudianteDTO> listaPorAvatares(Long idAvatar)throws Exception;
 
 }

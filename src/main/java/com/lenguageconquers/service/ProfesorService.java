@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProfesorService {
 
     String registarProfesor(ProfesorDTO profesorDTO);
-    List<Profesor> listarProfesores();
+    List<ProfesorDTO> listarProfesores();
 }

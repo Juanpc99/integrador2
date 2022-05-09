@@ -22,11 +22,12 @@ public class RetoController {
     @Autowired
     private RetoMapper retoMapper;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<RetoDTO>> listar(){
         try {
-            return new ResponseEntity<>(retoService.listar(), HttpStatus.OK);
-        } catch (Exception e) {
+            List<RetoDTO> retoDTOList = retoService.listar();
+            return new ResponseEntity<>(retoDTOList, HttpStatus.OK);
+        }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

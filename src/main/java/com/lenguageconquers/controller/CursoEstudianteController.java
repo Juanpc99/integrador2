@@ -37,16 +37,21 @@ public class CursoEstudianteController {
             cursoEstudianteDTO.setIdCursoEstudiante(cursoEstudiante.getIdCursoEstudiante());
             cursoEstudianteDTO.setIdEstudiante(cursoEstudiante.getEstudiante().getIdEstudiante());
             cursoEstudianteDTO.setIdCurso(cursoEstudiante.getCurso().getIdCurso());
+            cursoEstudianteDTO.setNivel(cursoEstudiante.getNivel());
+            cursoEstudianteDTO.setPuntaje_estudiante(cursoEstudiante.getPuntaje_estuduante());
             cursoEstudianteDTOS.add(cursoEstudianteDTO);
         }
         return ResponseEntity.ok().body(cursoEstudianteDTOS);
     }
 
-    @GetMapping("/cursosEstudiante/{id}")
+    @GetMapping("/listarPorId/{id}")
     public ResponseEntity<List<CursoEstudianteDTO>> listarCursosEstudiante(@PathVariable("id") Long id) throws Exception {
-        List<CursoEstudiante> cursoEstudianteList = cursoEstudianteService.listaCursosMatriculadosPorEstudiate(id);
-        List<CursoEstudianteDTO> cursoEstudianteDTOS = cursoEstudianteMapper.listCursoEstudianteToListCursoEstudianteDTO(cursoEstudianteList);
-        return ResponseEntity.ok().body(cursoEstudianteDTOS);
+        try{
+            List<CursoEstudianteDTO> cursoEstudianteList = cursoEstudianteService.listarPorIdEstudiante(id);
+            return ResponseEntity.ok().body(cursoEstudianteList);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 
@@ -61,23 +66,10 @@ public class CursoEstudianteController {
         }
     }
 
-    /*
-    @GetMapping("/buscarPorEstudianteMatriculado/{idCurso}/{idEstudiante}")
-    public ResponseEntity<CursoEstudiante> listarCursoMatriculadosEstudiante(@RequestParam("idCurso")Long idCurso, @RequestParam("idEstudiante") Long idEstudiante){
-        try{
-            CursoEstudiante curso = cursoEstudianteService.buscarIdCursoYIdEstudiante(idCurso,idEstudiante);
-            return ResponseEntity.ok().body(curso);
-        }catch (Exception e){
-            String mensaje = e.getMessage();
-            return new ResponseEntity(mensaje, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-     */
 
     //TODO: VERIFICAR METODO Y PONER EL MENSAJE EN EL SERVICE JUNTO CON LA VALIDACIONES
-    @DeleteMapping("/EliminarCursoMatriculado/{idEstudiante}/{id}")
-    public ResponseEntity<?> eliminarCurso(@PathVariable("idEstudiante") Long idEstudiante,@PathVariable("id") Long id){
+    @DeleteMapping("/EliminarCursoMatriculado")
+    public ResponseEntity<?> eliminarCurso(@RequestParam Long idEstudiante,@RequestParam Long id){
         try {
             cursoEstudianteService.eliminarMatricula(idEstudiante, id);
             return ResponseEntity.ok("Se ha desmatriculado del curso satisfactoriamente");

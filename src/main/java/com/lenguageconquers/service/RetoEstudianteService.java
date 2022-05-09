@@ -8,7 +8,7 @@ import java.util.List;
 public interface RetoEstudianteService {
 
     String crearRetoEstudiante(RetoEstudianteDTO retoEstudianteDTO) throws Exception;
-    List<RetoEstudiante> listar();
+    List<RetoEstudianteDTO> listar();
 
     Double puntajeReto(Long id_estudiante, Long id_curso, Long id_mision) throws Exception;
 

@@ -35,6 +35,9 @@ public class RetoServiceImpl implements RetoService {
     @Autowired
     private CursoEstudianteDAO cursoEstudianteDAO;
 
+    @Autowired
+    private RolRetoDAO rolRetoDAO;
+
     @Override
     public String actualizarEstado(RetoDTO retoDTO) throws Exception {
             Reto reto = null;
@@ -53,7 +56,7 @@ public class RetoServiceImpl implements RetoService {
             if(estadoDAO.findById(retoDTO.getIdEstado()).toString().equals("Optional.empty")){
                 throw new Exception("No se encontro el id de estado, ingrense uno valido");
             }
-            if(!estadoDAO.findById(retoDTO.getIdEstado()).get().getEstadoTipo().getIdEstadoTipo().equals(1L)){
+            if(!estadoDAO.findById(retoDTO.getIdEstado()).get().getEstadoTipo().getIdEstadoTipo().equals(3L)){
                 throw new Exception("Debe ingresar un id de estado que sea de tipo reto");
             }
 
@@ -65,13 +68,11 @@ public class RetoServiceImpl implements RetoService {
     }
 
     @Override
-    public List<RetoDTO> listar() throws Exception{
+    public List<RetoDTO> listar(){
         List<Reto> retos = retosDAO.findAll();
-        if(retos.isEmpty()){
-            throw new Exception("No hay retos registrados");
-        }
         List<RetoDTO> retoDTOList = mapeoFroReto(retos);
         return retoDTOList;
+
     }
 
     @Override
@@ -137,7 +138,7 @@ public class RetoServiceImpl implements RetoService {
             throw new Exception("El id del curso no existe");
         }
         Date fecha = new Date();
-        if(retoDTO.getFechaInicio().compareTo(fecha) < 0){
+        if(retoDTO.getFechaInicio().compareTo(fecha) > 0){
             throw new Exception("La fecha no debe ser menor a la fecha actual");
         }
         if(retoDTO.getFechaLimite().compareTo(retoDTO.getFechaInicio()) <= 0){
@@ -149,11 +150,15 @@ public class RetoServiceImpl implements RetoService {
         if(retoDTO.isEsGrupal() == true && retoDTO.getCantidadEstudiantesGrupos()<2){
             throw new Exception("Debe ingresar el atributo de cantidadEstudiantesGrupos y como minimo 2 para crear retos grupales");
         }
-        if(retoDTO.isEsGrupal() == false && retoDTO.getCantidadEstudiantesGrupos()>=0){
+        if(retoDTO.isEsGrupal() == false && retoDTO.getCantidadEstudiantesGrupos()!=0){
             throw new Exception("Los retos que no son grupales no deben de tener cantidad estudiantes para el grupo");
         }
-        if(retosDAO.estudiantesPorCurso(retoDTO.getIdCurso()).size() < 2){
-            throw new Exception("Para crear un reto grupal debe tener como minimo dos estudiantes matriculados que esten en nivel 2 o superior");
+        if(retoDTO.isEsGrupal() == true){
+
+            if(retosDAO.estudiantesPorCurso(retoDTO.getIdCurso()).size() < 2){
+                throw new Exception("Para crear un reto grupal debe tener como minimo dos estudiantes matriculados que esten en nivel 2 o superior");
+            }
+
         }
         Reto reto = mapeoRetoDTO(retoDTO);
         retosDAO.save(reto);
@@ -183,6 +188,10 @@ public class RetoServiceImpl implements RetoService {
             }
         });
 
+        if(!rolRetoDAO.findById(idReto).isEmpty()){
+            throw new Exception("No se puede eliminar el reto porque esta asignado en rol reto.");
+        }
+
         retosDAO.deleteById(idReto);
         return "El reto se elimino exitosamente";
     }
@@ -191,33 +200,32 @@ public class RetoServiceImpl implements RetoService {
     private RetoDTO mapeoReto(Reto reto){
         RetoDTO retoDTO = new RetoDTO();
         retoDTO.setIdReto(reto.getIdReto());
-        retoDTO.setDescripcionReto(reto.getDescripcionReto());
-        retoDTO.setTituloReto(reto.getTituloReto());
-        retoDTO.setFechaInicio(reto.getFechaInicio());
         retoDTO.setFechaLimite(reto.getFechaLimite());
-        retoDTO.setEsGrupal(reto.isEsGrupal());
-        retoDTO.setCantidadEstudiantesGrupos(reto.getCantidadEstudiantesGrupos());
-        retoDTO.setMaximoIntentos(reto.getMaximoIntentos());
         retoDTO.setIdMision(reto.getMision().getIdMision());
         retoDTO.setIdEstado(reto.getEstado().getIdEstado());
         retoDTO.setIdCurso(reto.getCurso().getIdCurso());
+        retoDTO.setFechaInicio(reto.getFechaInicio());
+        retoDTO.setDescripcionReto(reto.getDescripcionReto());
+        retoDTO.setTituloReto(reto.getTituloReto());
+        retoDTO.setMaximoIntentos(reto.getMaximoIntentos());
+        retoDTO.setEsGrupal(reto.isEsGrupal());
+        retoDTO.setCantidadEstudiantesGrupos(reto.getCantidadEstudiantesGrupos());
 
         return retoDTO;
     }
     private Reto mapeoRetoDTO(RetoDTO retoDTO){
         Reto reto = new Reto();
         reto.setIdReto(retoDTO.getIdReto());
-        reto.setDescripcionReto(retoDTO.getDescripcionReto());
-        reto.setTituloReto(retoDTO.getTituloReto());
-        reto.setFechaInicio(retoDTO.getFechaInicio());
         reto.setFechaLimite(retoDTO.getFechaLimite());
-        reto.setMaximoIntentos(retoDTO.getMaximoIntentos());
-        reto.setEsGrupal(retoDTO.isEsGrupal());
-        reto.setCantidadEstudiantesGrupos(retoDTO.getCantidadEstudiantesGrupos());
         reto.setMision(misionDAO.findById(retoDTO.getIdMision()).get());
         reto.setEstado(estadoDAO.findById(retoDTO.getIdEstado()).get());
         reto.setCurso(cursoDAO.findById(retoDTO.getIdCurso()).get());
-
+        reto.setFechaInicio(retoDTO.getFechaInicio());
+        reto.setDescripcionReto(retoDTO.getDescripcionReto());
+        reto.setTituloReto(retoDTO.getTituloReto());
+        reto.setMaximoIntentos(retoDTO.getMaximoIntentos());
+        reto.setEsGrupal(retoDTO.isEsGrupal());
+        reto.setCantidadEstudiantesGrupos(retoDTO.getCantidadEstudiantesGrupos());
         return reto;
     }
     private List<RetoDTO> mapeoFroReto(List<Reto> retos){

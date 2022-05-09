@@ -1,8 +1,12 @@
 package com.lenguageconquers.service.serviceImplement;
 
 import com.lenguageconquers.dao.*;
+import com.lenguageconquers.model.Curso;
 import com.lenguageconquers.model.Estudiante;
+import com.lenguageconquers.model.Reto;
+import com.lenguageconquers.model.dto.CursoDTO;
 import com.lenguageconquers.model.dto.EstudianteDTO;
+import com.lenguageconquers.model.dto.RetoDTO;
 import com.lenguageconquers.service.EstudianteService;
 import com.lenguageconquers.util.Validaciones;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Scope("singleton")
@@ -150,8 +155,66 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
-    public List<Estudiante> listaEstudiantes() {
-        return estudianteDAO.findAll();
+    public List<EstudianteDTO> listaEstudiantes() {
+        List<EstudianteDTO> estudianteDTOS = mapeoForEstudiante(estudianteDAO.findAll());
+        return estudianteDTOS;
+    }
+
+    @Override
+    public List<EstudianteDTO> listaPorAvatares(Long idAvatar) throws Exception {
+        List<Estudiante> estudianteList = estudianteDAO.findByIdAvatar(idAvatar);
+        List<EstudianteDTO>  estudianteDTOS = new ArrayList<>();
+        for(Estudiante  estudiante: estudianteList){
+            EstudianteDTO estudianteDTO = new EstudianteDTO();
+            estudianteDTO.setIdEstudiante(estudiante.getIdEstudiante());
+            estudianteDTO.setNombreEstudiante(estudiante.getNombreEstudiante());
+            estudianteDTO.setApellidoEstudiante(estudiante.getApellidoEstudiante());
+            estudianteDTO.setNicknameEstudiante(estudiante.getNicknameEstudiante());
+            estudianteDTO.setPuntajeEstudiante(estudiante.getPuntajeEstudiante());
+            estudianteDTO.setPasswordEstudiante(encoder.encode(estudianteDTO.getPasswordEstudiante()));
+            estudianteDTO.setCorreoEstudiante(estudiante.getCorreoEstudiante());
+            estudianteDTO.setCodigoConfirmado(estudiante.getCodigoConfirmado());
+            estudianteDTO.setIdSemestre(estudiante.getSemestre().getIdSemestre());
+            estudianteDTO.setIdGenero(estudiante.getGenero().getIdGenero());
+            estudianteDTO.setFechaRegistro(estudiante.getFechaRegistro());
+            estudianteDTO.setConfirmado(estudiante.isConfirmado());
+            estudianteDTO.setIdAvatar(estudiante.getAvatar().getIdAvatar());
+            estudianteDTO.setIdEstado(estudiante.getEstado().getIdEstado());
+            estudianteDTO.setFechaNacimiento(estudiante.getFechaNacimiento());
+            estudianteDTO.setIdPrograma(estudiante.getPrograma().getIdPrograma());
+            estudianteDTOS.add(estudianteDTO);
+        }
+        return estudianteDTOS;
+    }
+
+    public EstudianteDTO mapeo(Estudiante estudiante){
+        EstudianteDTO estudianteDTO = new EstudianteDTO();
+        estudianteDTO.setIdEstudiante(estudiante.getIdEstudiante());
+        estudianteDTO.setNombreEstudiante(estudiante.getNombreEstudiante());
+        estudianteDTO.setApellidoEstudiante(estudiante.getApellidoEstudiante());
+        estudianteDTO.setNicknameEstudiante(estudiante.getNicknameEstudiante());
+        estudianteDTO.setPuntajeEstudiante(estudiante.getPuntajeEstudiante());
+        estudianteDTO.setPasswordEstudiante(encoder.encode(estudiante.getPasswordEstudiante()));
+        estudianteDTO.setCorreoEstudiante(estudiante.getCorreoEstudiante());
+        estudianteDTO.setCodigoConfirmado(estudiante.getCodigoConfirmado());
+        estudianteDTO.setIdSemestre(estudiante.getSemestre().getIdSemestre());
+        estudianteDTO.setIdGenero(estudiante.getGenero().getIdGenero());
+        estudianteDTO.setFechaRegistro(estudiante.getFechaRegistro());
+        estudianteDTO.setConfirmado(estudiante.isConfirmado());
+        estudianteDTO.setIdAvatar(estudiante.getAvatar().getIdAvatar());
+        estudianteDTO.setIdEstado(estudiante.getEstado().getIdEstado());
+        estudianteDTO.setFechaNacimiento(estudiante.getFechaNacimiento());
+        estudianteDTO.setIdPrograma(estudiante.getPrograma().getIdPrograma());
+
+        return estudianteDTO;
+    }
+    public List<EstudianteDTO> mapeoForEstudiante (List<Estudiante> estudiantes) {
+        List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+        for (Estudiante estudiante: estudiantes) {
+            EstudianteDTO estudianteDTO = mapeo(estudiante);
+            estudianteDTOS.add(estudianteDTO);
+        }
+        return estudianteDTOS;
     }
 
 
