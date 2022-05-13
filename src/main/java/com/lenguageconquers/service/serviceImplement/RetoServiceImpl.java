@@ -188,7 +188,7 @@ public class RetoServiceImpl implements RetoService {
             }
         });
 
-        if(!rolRetoDAO.findById(idReto).isEmpty()){
+        if(rolRetoDAO.findById(idReto).isPresent()){
             throw new Exception("No se puede eliminar el reto porque esta asignado en rol reto.");
         }
 
