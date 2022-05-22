@@ -111,9 +111,15 @@ public class RetoServiceImpl implements RetoService {
         if(!misionDAO.findById(idMision).isPresent()){
             throw new Exception("El id mision no existe");
         }
-        List<Reto> retos = retosDAO.findByIdCursoAndIdMision(idCurso, idMision);
-        List<RetoDTO> retoDTOList = mapeoFroReto(retos);
-        return retoDTOList;
+        try {
+            List<Reto> retos = retosDAO.findAll();
+
+            List<RetoDTO> retoDTOList = mapeoFroReto(retos);
+            return retoDTOList;
+        }catch (Exception e){
+            System.out.println(e);
+            throw new Exception(e);
+        }
     }
 
     @Override
@@ -202,7 +208,7 @@ public class RetoServiceImpl implements RetoService {
         retoDTO.setIdReto(reto.getIdReto());
         retoDTO.setFechaLimite(reto.getFechaLimite());
         retoDTO.setIdMision(reto.getMision().getIdMision());
-        retoDTO.setIdEstado(reto.getEstado().getIdEstado());
+        retoDTO.setIdEstado(1L);
         retoDTO.setIdCurso(reto.getCurso().getIdCurso());
         retoDTO.setFechaInicio(reto.getFechaInicio());
         retoDTO.setDescripcionReto(reto.getDescripcionReto());
@@ -213,8 +219,17 @@ public class RetoServiceImpl implements RetoService {
 
         return retoDTO;
     }
-    private Reto mapeoRetoDTO(RetoDTO retoDTO){
+    private Reto mapeoRetoDTO(RetoDTO retoDTO) throws Exception{
         Reto reto = new Reto();
+//        if(!misionDAO.existsById(retoDTO.getIdMision())){
+//            throw new Exception("El id mision no existe");
+//        }
+//        if(!estadoDAO.existsById(retoDTO.getIdEstado())){
+//            throw new Exception("El id reto no existe");
+//        }
+//        if(!cursoDAO.existsById(retoDTO.getIdCurso())){
+//            throw new Exception("El id curso no existe");
+//        }
         reto.setIdReto(retoDTO.getIdReto());
         reto.setFechaLimite(retoDTO.getFechaLimite());
         reto.setMision(misionDAO.findById(retoDTO.getIdMision()).get());

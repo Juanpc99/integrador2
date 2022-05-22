@@ -132,9 +132,10 @@ public class CursoServiceImpl implements CursoService {
         if(estadoDAO.findById(idEstudiante).toString().equals("Optional.empty")){
             throw new Exception("Se debe ingresar el id del estudiante valido");
         }
-        if(cursos.size() == 0){
+        if(cursos.size() == 0 || cursos.isEmpty()){
             throw new Exception("El estudiante no tiene cursos disponibles en su programa");
         }
+
         for (Curso curso: cursos) {
             CursoDTO cursoDTO = mapeo(curso);
             cursoDTOList.add(cursoDTO);
@@ -143,43 +144,43 @@ public class CursoServiceImpl implements CursoService {
 
     }
 
-//    @Override
-//    public List<CursoDTO> encontrarPorIdFacultad(Long idFacultad) throws Exception {
-//        List<Curso> cursos = cursoDAO.findByIdFacultad(idFacultad);
-//        List<CursoDTO> cursoDTOList = new ArrayList<>();
-//        if(facultadDAO.findById(idFacultad).toString().equals("Optional.empty")){
-//            throw new Exception("Debe ingresar un id de facultad que si exista");
-//        }
-//        if(cursos.size() == 0){
-//            throw new Exception("No hay cursos asigandos a esa facultad");
-//        }
-//        for (Curso curso: cursos) {
-//            CursoDTO cursoDTO = mapeo(curso);
-//            cursoDTOList.add(cursoDTO);
-//        }
-//        return cursoDTOList;
-//    }
+    @Override
+    public List<CursoDTO> encontrarPorIdFacultad(Long idFacultad) throws Exception {
+        List<Curso> cursos = cursoDAO.findByIdFacultad(idFacultad);
+        List<CursoDTO> cursoDTOList = new ArrayList<>();
+        if(facultadDAO.findById(idFacultad).toString().equals("Optional.empty")){
+            throw new Exception("Debe ingresar un id de facultad que si exista");
+        }
+        if(cursos.size() == 0){
+            throw new Exception("No hay cursos asigandos a esa facultad");
+        }
+        for (Curso curso: cursos) {
+            CursoDTO cursoDTO = mapeo(curso);
+            cursoDTOList.add(cursoDTO);
+        }
+        return cursoDTOList;
+    }
 
-//    @Override
-//    public List<CursoDTO> encontrarPorIdFacultadeIdEstado(Long idFacultad, Long idEstado) throws Exception {
-//        if(facultadDAO.findById(idFacultad).toString().equals("Optional.empty")){
-//            throw new Exception("Se debe ingresar el id de facultad valido");
-//        }
-//        if(estadoDAO.findById(idEstado).toString().equals("Optional.empty")){
-//            throw new Exception("Se debe ingresar el id del estado valido");
-//        }
-//
-//        List<Curso> cursos = cursoDAO.findByIdFacultadAndIdEstado(idFacultad, idEstado);
-//        if(cursos.size() == 0){
-//            throw new Exception("No hay cursos en la facultad con ese estado");
-//        }
-//        List<CursoDTO> cursoDTOList = new ArrayList<>();
-//        for (Curso curso: cursos) {
-//            CursoDTO cursoDTO = mapeo(curso);
-//            cursoDTOList.add(cursoDTO);
-//        }
-//        return cursoDTOList;
-//    }
+    @Override
+    public List<CursoDTO> encontrarPorIdFacultadeIdEstado(Long idFacultad, Long idEstado) throws Exception {
+        if(facultadDAO.findById(idFacultad).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id de facultad valido");
+        }
+        if(estadoDAO.findById(idEstado).toString().equals("Optional.empty")){
+            throw new Exception("Se debe ingresar el id del estado valido");
+        }
+
+        List<Curso> cursos = cursoDAO.findByIdFacultadAndIdEstado(idFacultad, idEstado);
+        if(cursos.size() == 0){
+            throw new Exception("No hay cursos en la facultad con ese estado");
+        }
+        List<CursoDTO> cursoDTOList = new ArrayList<>();
+        for (Curso curso: cursos) {
+            CursoDTO cursoDTO = mapeo(curso);
+            cursoDTOList.add(cursoDTO);
+        }
+        return cursoDTOList;
+    }
 
     @Override
     public Integer progresoCurso(Long idEstudiante, Long idCurso) throws Exception {

@@ -65,25 +65,25 @@ public class CursoController {
         }
     }
 
-//    @GetMapping("/CursosPorFacultad")
-//    public ResponseEntity<List<CursoDTO>> cursosPorIdFacultad(@RequestParam Long idFacultad){
-//        try{
-//            List<CursoDTO> cursoDTOList = cursoService.encontrarPorIdFacultad(idFacultad);
-//            return new ResponseEntity(cursoDTOList, HttpStatus.OK);
-//        }catch (Exception e){
-//            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @GetMapping("/CursosPorFacultad")
+    public ResponseEntity<List<CursoDTO>> cursosPorIdFacultad(@RequestParam Long idFacultad){
+        try{
+            List<CursoDTO> cursoDTOList = cursoService.encontrarPorIdFacultad(idFacultad);
+            return new ResponseEntity(cursoDTOList, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-//    @GetMapping("/CursosPorFacultadYEstado")
-//    public ResponseEntity<List<CursoDTO>> cursosPorIdFacultadYEstado(@RequestParam Long idFacultad, @RequestParam Long idEstado){
-//        try {
-//            List<CursoDTO> cursoDTOList = cursoService.encontrarPorIdFacultadeIdEstado(idFacultad, idEstado);
-//            return new ResponseEntity(cursoDTOList, HttpStatus.OK);
-//        }catch (Exception e){
-//            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @GetMapping("/CursosPorFacultadYEstado")
+    public ResponseEntity<List<CursoDTO>> cursosPorIdFacultadYEstado(@RequestParam Long idFacultad, @RequestParam Long idEstado){
+        try {
+            List<CursoDTO> cursoDTOList = cursoService.encontrarPorIdFacultadeIdEstado(idFacultad, idEstado);
+            return new ResponseEntity(cursoDTOList, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @GetMapping("/progreso")
     public ResponseEntity<Integer> preogresoCurso(@RequestParam Long idEstudiante, @RequestParam Long idCurso){

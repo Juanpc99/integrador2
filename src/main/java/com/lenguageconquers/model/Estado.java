@@ -55,20 +55,4 @@ public class Estado {
     public void setEstadoTipo(EstadoTipo estadoTipo) {
         this.estadoTipo = estadoTipo;
     }
-
-    public List<NivelAcademicoEstudiante> getNivelAcademicoEstudiantes() {
-        return nivelAcademicoEstudiantes;
-    }
-
-    public void setNivelAcademicoEstudiantes(List<NivelAcademicoEstudiante> nivelAcademicoEstudiantes) {
-        this.nivelAcademicoEstudiantes = nivelAcademicoEstudiantes;
-    }
-
-    public List<Reto> getRetos() {
-        return retos;
-    }
-
-    public void setRetos(List<Reto> retos) {
-        this.retos = retos;
-    }
 }

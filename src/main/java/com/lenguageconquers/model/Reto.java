@@ -33,7 +33,7 @@ public class Reto {
     @Column(name = "maximo_intentos")
     private int maximoIntentos;
 
-    @Column(name = "es_grupal")
+    @Column(name = "es_grupal" ,nullable = false)
     private boolean esGrupal;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,8 +44,8 @@ public class Reto {
     @JoinColumn(name = "id_curso")
     private Curso curso;
 
+    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_estado")
     private Estado estado;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reto")

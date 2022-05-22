@@ -17,21 +17,21 @@ public interface CursoDAO extends JpaRepository<Curso, Long> {
             "and id_programa = ?2", nativeQuery = true)
     List<Curso> findByIdEstudianteCursoConProgramaIgual(Long idCurso, Long idPrograma) throws Exception;
 
-//    @Query(value = "select  c.id_curso, c.nombre_curso, c.id_profesor, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password  \n" +
-//            "from facultad f\n" +
-//            "inner join departamento d on (f.id_facultad = d.id_facultad)\n" +
-//            "inner join programa p on (p.id_departamento = d.id_departamento)\n" +
-//            "inner join curso c on (c.id_programa = p.id_programa) \n" +
-//            "where f.id_facultad = ?1", nativeQuery = true)
-//    List<Curso> findByIdFacultad(Long idFacultad) throws Exception;
-
-    @Query(value = "select  c.id_curso, c.nombre_curso, c.id_profesor, c.inicio_curso, c.fin_curso, c.cantidad_estudiantes, c.id_estado, c.password  \n" +
-            "from facultad f\n" +
+    @Query(value = "select c.id_curso, c.nombre_curso, c.inicio_curso, c.fin_curso,c.id_profesor, c.cantidad_estudiantes, c.id_estado, c.password from facultad f\n" +
             "inner join departamento d on (f.id_facultad = d.id_facultad)\n" +
             "inner join programa p on (p.id_departamento = d.id_departamento)\n" +
-            "inner join curso c on (c.id_programa = p.id_programa)\n" +
+            "inner join programa_curso pc on (pc.id_programa = p.id_programa)\n" +
+            "inner join curso c on ( c.id_curso = pc.id_curso)\n" +
+            "where f.id_facultad = ?1", nativeQuery = true)
+    List<Curso> findByIdFacultad(Long idFacultad) throws Exception;
+
+    @Query(value = "select c.id_curso, c.nombre_curso, c.inicio_curso, c.fin_curso,c.id_profesor, c.cantidad_estudiantes, c.id_estado, c.password from facultad f\n" +
+            "inner join departamento d on (f.id_facultad = d.id_facultad)\n" +
+            "inner join programa p on (p.id_departamento = d.id_departamento)\n" +
+            "inner join programa_curso pc on (pc.id_programa = p.id_programa)\n" +
+            "inner join curso c on ( c.id_curso = pc.id_curso)\n" +
             "where f.id_facultad = ?1\n" +
-            "and id_estado = ?2" , nativeQuery = true)
+            "AND c.id_estado = ?2" , nativeQuery = true)
     List<Curso> findByIdFacultadAndIdEstado(Long idFacultad, Long idEstado) throws Exception;
 
     @Query(value = "SELECT * \n" +
