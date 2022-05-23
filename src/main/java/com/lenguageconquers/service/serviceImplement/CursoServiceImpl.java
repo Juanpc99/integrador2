@@ -50,6 +50,9 @@ public class CursoServiceImpl implements CursoService {
         if(cursoDTO.getIdEstado() == null){
             throw new Exception("Debe ingresar el id de un estado");
         }
+        if(profesorDAO.findById(cursoDTO.getIdProfesor()).toString().equals("Optional.empty")){
+            throw new Exception("No se encontro el id de profesor, ingrese uno valido");
+        }
 
         if(estadoDAO.findById(cursoDTO.getIdEstado()).toString().equals("Optional.empty")){
             throw new Exception("No se encontro el id de estado, ingrese uno valido");

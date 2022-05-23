@@ -17,7 +17,7 @@ public class JWTUtil {
         //asignamos usuario, fecha de la creacion del jwt, fecha de expiracion de 10 horas,firmamos el metodo con una clave
         return Jwts.builder().setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60*10))
+                .setExpiration(new Date(System.currentTimeMillis() + (60*60*24)))
                 .signWith(SignatureAlgorithm.HS256,KEY).compact();
     }
 
